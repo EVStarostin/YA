@@ -1,6 +1,6 @@
 const dataUrl = 'https://raw.githubusercontent.com/EVStarostin/yandex__shri/master/home_work_1/data/events.json';
 
-window.onload = function() {
+window.onload = function () {
   if ('content' in document.createElement('template')) {
     generateContent();
   } else {
