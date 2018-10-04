@@ -168,8 +168,10 @@ if ('content' in document.createElement('template')) {
   data.events.forEach(event => {
     const clone = document.importNode(eventNode, true);
     clone.classList.add(`event_size_${event.size}`);
+    event.type === 'critical' && clone.classList.add('event_critical');
 
-    const eventHeading = clone.querySelector('.event__heading');
+    const eventInfo = clone.querySelector('.event__info');
+    const eventHeading = eventInfo.querySelector('.event__heading');
 
     const eventIcon = eventHeading.querySelector('.event__icon');
     eventIcon.setAttribute('src', `img/${event.icon}${event.type === 'critical' ? '-white' : ''}.svg`);
@@ -180,9 +182,9 @@ if ('content' in document.createElement('template')) {
     eventTitle.textContent = event.title;
     eventHeading.appendChild(eventTitle);
 
-    clone.appendChild(eventHeading);
+    eventInfo.appendChild(eventHeading);
 
-    const eventSourceAndTime = clone.querySelector('.event__source-and-time');
+    const eventSourceAndTime = eventInfo.querySelector('.event__source-and-time');
 
     const eventSource = eventSourceAndTime.querySelector('.event__source');
     eventSource.textContent = event.source;
@@ -192,31 +194,32 @@ if ('content' in document.createElement('template')) {
     eventTime.textContent = event.time;
     eventSourceAndTime.appendChild(eventTime);
 
-    clone.appendChild(eventSourceAndTime);
+    eventInfo.appendChild(eventSourceAndTime);
 
+    let detailsHTML = '';
     if (event.description) {
-      clone.insertAdjacentHTML('beforeEnd', `
+      detailsHTML += `
         <p class="event__description">${event.description}</p>
-      `)
+      `;
     }
 
     if (event.data && event.data.type === 'graph') {
-      clone.insertAdjacentHTML('beforeEnd', `
+      detailsHTML += `
         <img class="event__graph" src="img/Richdata.svg" alt="график">
-      `)
+      `;
     }
 
     if (event.data && event.data.temperature) {
-      clone.insertAdjacentHTML('beforeEnd', `
+      detailsHTML += `
         <div class="event__temp-and-hum">
           <p class="event__temp">Температура: <b>${event.data.temperature} C</b></p>
           <p class="event__hum">Влажность: <b>${event.data.temperature}%</b></p>
         </div>
-      `)
+      `;
     }
 
     if (event.data && event.data.track) {
-      clone.insertAdjacentHTML('beforeEnd', `
+      detailsHTML += `
         <div class="event__track">
           <img class="event__track__cover" src="${event.data.albumcover}" alt="обложка">
           <p class="event__track__name">${event.data.artist} - ${event.data.track.name}</p>
@@ -231,11 +234,11 @@ if ('content' in document.createElement('template')) {
           <input class="event__track__vol-line" type="range" id="start" name="volume" min="0" max="100" />
           <output class="event__track__vol" for="time" name="time">${event.data.volume}</output>
         </div>
-      `)
+      `;
     }
 
     if (event.data && event.data.buttons) {
-      clone.insertAdjacentHTML('beforeEnd', `
+      detailsHTML += `
         <div class="event__btn-group">
           <button class="event__btn-confirm">
             ${event.data.buttons[0]}
@@ -244,13 +247,20 @@ if ('content' in document.createElement('template')) {
             ${event.data.buttons[1]}
           </button>
         </div>
-      `)
+      `;
     }
 
     if (event.data && event.data.image) {
-      clone.insertAdjacentHTML('beforeEnd', `
+      detailsHTML += `
         <img class="event__pic" src="img/Bitmap.png" srcset="img/Bitmap.png 1x, img/Bitmap@2x.png 2x, img/Bitmap@3x.png 3x" alt="застрявший вылесос">
-      `)
+      `;
+    }
+
+    if (event.description || event.data) {
+      const eventDetails = document.createElement('div');
+      eventDetails.classList.add('event__details');
+      eventDetails.insertAdjacentHTML('beforeEnd', detailsHTML);
+      clone.appendChild(eventDetails);
     }
 
     eventsNode.appendChild(clone);
