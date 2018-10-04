@@ -11,6 +11,10 @@ window.onload = function () {
     document.body.classList.add('touch');
   }
 
+  window.onresize = function() {
+    setMaxHeightForTruncate();
+  }
+
   document.querySelector('#toggle-menu').addEventListener('click', toggleMenu);
 }
 
@@ -91,6 +95,7 @@ async function generateContent() {
     }
 
     eventsNode.appendChild(eventClone);
+    setMaxHeightForTruncate();
   });
 }
 
@@ -102,3 +107,13 @@ function isTouchDevice() {
   return 'ontouchstart' in window;
 }
 
+function setMaxHeightForTruncate() {
+  setTimeout(() => {
+    const truncatedStrings = document.querySelectorAll('.event__title');
+    truncatedStrings.forEach(item => {
+      const maxHeight = parseFloat(getComputedStyle(item).lineHeight) * 2;
+      if (item.scrollHeight - maxHeight > 1) item.classList.add('event__title_truncated');
+      item.style.maxHeight = `${maxHeight}px`;
+    });
+  }, 100);
+}
