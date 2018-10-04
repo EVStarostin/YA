@@ -272,7 +272,7 @@ html, body, .layout {
 
 .event__track__line {
   grid-area: line;
-  width: 100%;
+  margin: 0;
 }
 
 .event__track__time {
@@ -310,7 +310,19 @@ html, body, .layout {
 .event__track__vol-line {
   grid-area: volline;
   background-color: inherit;
+  margin: 0;
+}
+
+.event__track__line,
+.event__track__vol-line {
   width: 100%;
+  background: #fafafa;
+  height: 100%;
+}
+
+.event:hover .event__track__line,
+.event:hover .event__track__vol-line {
+  background: #f3f3f3;
 }
 
 .event__track__vol {
