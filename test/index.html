@@ -1,9 +1,85 @@
 <!DOCTYPE html>
+
 <head>
   <meta charset="UTF-8">
-  <title>Document</title>
+  <title>Адаптивная верстка</title>
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/range.css">
+  <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
-  <h1>test</h1>
+  <div class="layout">
+    <header class="page-header">
+      <img src="img/Logo.svg" alt="Логотип Яндекса" class="logo">
+      <nav class="nav">
+        <ul class="menu" id="nav-menu">
+          <li class="menu__item">
+            <a href="#" class="menu__link menu__link_active">События</a>
+          </li>
+          <li class="menu__item">
+            <a href="#" class="menu__link">Сводка</a>
+          </li>
+          <li class="menu__item">
+            <a href="#" class="menu__link">Устройства</a>
+          </li>
+          <li class="menu__item">
+            <a href="#" class="menu__link">Сценарии</a>
+          </li>
+        </ul>
+      </nav>
+      <button class="show-menu-btn" id="toggle-menu">
+        <img src="img/icon_list_m@1x.svg" alt="бургерное меню">
+      </button>
+    </header>
+    <main class="content">
+      <div class="content__wrapper">
+        <h1 class="content__main-heading">
+          Лента событий
+        </h1>
+        <ul class="events-list" id="events"></ul>
+      </div>
+    </main>
+    <footer class="page-footer">
+      <ul class="footer-links">
+        <li class="footer-links__item">
+          <a href="#" class="footer-links__link">Помощь</a>
+        </li>
+        <li class="footer-links__item">
+          <a href="#" class="footer-links__link">Обратная связь</a>
+        </li>
+        <li class="footer-links__item">
+          <a href="#" class="footer-links__link">Разработчикам</a>
+        </li>
+        <li class="footer-links__item">
+          <a href="#" class="footer-links__link">Условия использования</a>
+        </li>
+        <li class="footer-links__item">
+          <a href="license/license.pdf" target="_blank" class="footer-links__link licence">Лицензия на использование иконок</a>
+        </li>
+      </ul>
+      <p class="page-footer__rights">© 2001–2017 ООО «Яндекс»</p>
+    </footer>
+  </div>
+
+  <template id="events-template">
+    <li class="event">
+      <button class="event__btn-close"></button>
+      <button class="event__btn-open"></button>
+      <div class="event__info">
+        <div class="event__heading">
+          <img class="event__icon">
+          <h3 class="event__title"></h3>
+        </div>
+        <div class="event__source-and-time">
+          <p class="event__source"></p>
+          <p class="event__time"></p>
+        </div>
+      </div>
+    </li>
+  </template>
+
+  <script src="js/main.js"></script>
 </body>
+
 </html>
