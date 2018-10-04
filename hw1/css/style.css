@@ -136,6 +136,10 @@ html, body, .layout {
   background-color: transparent;
 }
 
+.event_critical:hover .event__btn-close {
+  background-color: transparent;
+}
+
 .event_size_s {
   grid-column: span 2;
 }
