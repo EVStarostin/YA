@@ -164,6 +164,10 @@ html, body, .layout {
   align-items: center;
 }
 
+.touch .event__heading {
+  padding-right: 20px;
+}
+
 .event__icon {
   margin-right: 16px;
   width: 48px;
