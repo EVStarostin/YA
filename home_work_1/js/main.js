@@ -11,7 +11,7 @@ window.onload = function () {
     document.body.classList.add('touch');
   }
 
-  document.getElementById('toggle-menu').addEventListener('click', toggleMenu);
+  document.querySelector('#toggle-menu').addEventListener('click', toggleMenu);
 }
 
 async function generateContent() {
@@ -22,96 +22,80 @@ async function generateContent() {
 
   if (!data) return null;
 
-  const eventsNode = document.getElementById('events');
-  const eventsTemplate = document.getElementById('events-template');
+  const eventsNode = document.querySelector('#events');
+  const eventsTemplate = document.querySelector('#events-template');
   const eventNode = eventsTemplate.content.querySelector('.event');
 
   data.events.forEach(event => {
-    const clone = document.importNode(eventNode, true);
-    clone.classList.add(`event_size_${event.size}`);
-    if (event.type === 'critical') clone.classList.add('event_critical');
+    const eventClone = document.importNode(eventNode, true);
+    eventClone.classList.add(`event_size_${event.size}`);
+    if (event.type === 'critical') eventClone.classList.add('event_critical');
 
-    const eventIcon = clone.querySelector('.event__icon');
+    const eventIcon = eventClone.querySelector('.event__icon');
     eventIcon.setAttribute('src', `img/${event.icon}${event.type === 'critical' ? '-white' : ''}.svg`);
     eventIcon.setAttribute('alt', event.source);
 
-    clone.querySelector('.event__title').textContent = event.title;
-    clone.querySelector('.event__source').textContent = event.source;
-    clone.querySelector('.event__time').textContent = event.time;
+    eventClone.querySelector('.event__title').textContent = event.title;
+    eventClone.querySelector('.event__source').textContent = event.source;
+    eventClone.querySelector('.event__time').textContent = event.time;
 
-    let detailsHTML = '';
+    if (event.description || event.data) {
+      var eventDetails = document.createElement('div');
+      eventDetails.classList.add('event__details');
+      eventClone.appendChild(eventDetails);
+    }
+
     if (event.description) {
-      detailsHTML += `
-        <p class="event__description">${event.description}</p>
-      `;
+      const descriptionNode = eventsTemplate.content.querySelector('.event__description');
+      const descriptionClone = document.importNode(descriptionNode, true);
+      descriptionClone.textContent = event.description;
+      eventDetails.appendChild(descriptionClone);
     }
 
     if (event.data && event.data.type === 'graph') {
-      detailsHTML += `
-        <img class="event__graph" src="img/Richdata.svg" alt="график">
-      `;
+      const graphNode = eventsTemplate.content.querySelector('.event__graph');
+      const graphClone = document.importNode(graphNode, true);
+      eventDetails.appendChild(graphClone);
     }
 
     if (event.data && event.data.temperature) {
-      detailsHTML += `
-        <div class="event__temp-and-hum">
-          <p class="event__temp">Температура: <b>${event.data.temperature} C</b></p>
-          <p class="event__hum">Влажность: <b>${event.data.temperature}%</b></p>
-        </div>
-      `;
+      const tempNode = eventsTemplate.content.querySelector('.event__temp-and-hum');
+      const tempClone = document.importNode(tempNode, true);
+      tempClone.querySelector('#temp').textContent = event.data.temperature;
+      tempClone.querySelector('#hum').textContent = event.data.humidity;
+      eventDetails.appendChild(tempClone);
     }
 
     if (event.data && event.data.track) {
-      detailsHTML += `
-        <div class="event__track">
-          <img class="event__track__cover" src="${event.data.albumcover}" alt="обложка">
-          <p class="event__track__name">${event.data.artist} - ${event.data.track.name}</p>
-          <input class="event__track__line" type="range" id="time" name="time" min="0" max="100" />
-          <output class="event__track__time" for="time" name="time">${event.data.track.length}</output>
-          <button class="event__track__btn-back">
-            <img src="img/Prev.svg" alt="кнопка вперед">
-          </button>
-          <button class="event__track__btn-forward">
-            <img src="img/Prev.svg" alt="кнопка назад">
-          </button>
-          <input class="event__track__vol-line" type="range" id="start" name="volume" min="0" max="100" />
-          <output class="event__track__vol" for="time" name="time">${event.data.volume}</output>
-        </div>
-      `;
+      const trackNode = eventsTemplate.content.querySelector('.event__track');
+      const trackClone = document.importNode(trackNode, true);
+      trackClone.querySelector('.event__track__cover').setAttribute('src', event.data.albumcover);
+      trackClone.querySelector('.event__track__name').textContent = `${event.data.artist} - ${event.data.track.name}`;
+      trackClone.querySelector('.event__track__time').textContent = event.data.track.length;
+      trackClone.querySelector('.event__track__vol').textContent = event.data.volume;
+      eventDetails.appendChild(trackClone);
     }
 
     if (event.data && event.data.buttons) {
-      detailsHTML += `
-        <div class="event__btn-group">
-          <button class="event__btn-confirm">
-            ${event.data.buttons[0]}
-          </button>
-          <button class="event__btn-cancel">
-            ${event.data.buttons[1]}
-          </button>
-        </div>
-      `;
+      const btnGroupNode = eventsTemplate.content.querySelector('.event__btn-group');
+      const btnGroupClone = document.importNode(btnGroupNode, true);
+      btnGroupClone.querySelector('.event__btn-confirm').textContent = event.data.buttons[0];
+      btnGroupClone.querySelector('.event__btn-cancel').textContent = event.data.buttons[1];
+      eventClone.appendChild(btnGroupClone);
     }
 
     if (event.data && event.data.image) {
-      detailsHTML += `
-        <img class="event__pic" src="img/Bitmap.png" srcset="img/Bitmap.png 1x, img/Bitmap@2x.png 2x, img/Bitmap@3x.png 3x" alt="застрявший вылесос">
-      `;
+      const imageNode = eventsTemplate.content.querySelector('.event__pic');
+      const imageClone = document.importNode(imageNode, true);
+      eventClone.appendChild(imageClone);
     }
 
-    if (event.description || event.data) {
-      const eventDetails = document.createElement('div');
-      eventDetails.classList.add('event__details');
-      eventDetails.insertAdjacentHTML('beforeEnd', detailsHTML);
-      clone.appendChild(eventDetails);
-    }
-
-    eventsNode.appendChild(clone);
+    eventsNode.appendChild(eventClone);
   });
 }
 
 function toggleMenu() {
-  document.getElementById('nav-menu').classList.toggle('menu_visible');
+  document.querySelector('#nav-menu').classList.toggle('menu_visible');
 }
 
 function isTouchDevice() {

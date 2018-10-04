@@ -81,6 +81,37 @@
         </div>
       </div>
     </li>
+
+    <p class="event__description"></p>
+
+    <img class="event__graph" src="img/Richdata.svg" alt="график">
+    
+    <div class="event__temp-and-hum">
+      <p class="event__temp">Температура: <b id="temp"></b><b> C</b></p>
+      <p class="event__hum">Влажность: <b id="hum"></b><b>%</b></p>
+    </div>
+
+    <div class="event__track">
+      <img class="event__track__cover" alt="обложка">
+      <p class="event__track__name"></p>
+      <input class="event__track__line" type="range" id="time" name="time" min="0" max="100" />
+      <output class="event__track__time" for="time" name="time"></output>
+      <button class="event__track__btn-back">
+        <img src="img/Prev.svg" alt="кнопка вперед">
+      </button>
+      <button class="event__track__btn-forward">
+        <img src="img/Prev.svg" alt="кнопка назад">
+      </button>
+      <input class="event__track__vol-line" type="range" id="start" name="volume" min="0" max="100" />
+      <output class="event__track__vol" for="time" name="time"></output>
+    </div>
+
+    <div class="event__btn-group">
+      <button class="event__btn-confirm"></button>
+      <button class="event__btn-cancel"></button>
+    </div>
+
+    <img class="event__pic" src="img/Bitmap.png" srcset="img/Bitmap.png 1x, img/Bitmap@2x.png 2x, img/Bitmap@3x.png 3x" alt="застрявший вылесос">
   </template>
 
   <script src="js/main.js"></script>
