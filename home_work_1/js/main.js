@@ -113,6 +113,7 @@ function setMaxHeightForTruncate() {
     truncatedStrings.forEach(item => {
       const maxHeight = parseFloat(getComputedStyle(item).lineHeight) * 2;
       if (item.scrollHeight - maxHeight > 1) item.classList.add('event__title_truncated');
+      item.innerText = item.scrollHeight - maxHeight;
       item.style.maxHeight = `${maxHeight}px`;
     });
   }, 100);
