@@ -247,7 +247,7 @@ html, body, .layout {
 
 .event__track {
   display: grid;
-  grid-template: 26px 26px 15px 52px / 60px 60px minmax(60px, 1fr) 52px;
+  grid-template: 26px 26px 15px 52px / 70px 70px minmax(70px, 1fr) 52px;
   grid-template-areas:  "cover name name name"
                         "cover line line time"
                         ". . . ."
