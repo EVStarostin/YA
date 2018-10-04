@@ -100,7 +100,6 @@ html, body, .layout {
   width: 28px;
   height: 28px;
   position: absolute;
-  background: red;
   border: none;
   padding: 0;
   visibility: hidden;
@@ -109,6 +108,12 @@ html, body, .layout {
   background-color: rgba(243, 243, 243, 0.7);
   background-repeat: no-repeat;
   background-position: center;
+}
+
+.touch .event__btn-close,
+.touch .event__btn-open {
+  visibility: visible;
+  background-color: transparent;
 }
 
 .event:hover .event__btn-close,

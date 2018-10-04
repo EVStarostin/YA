@@ -269,8 +269,16 @@ if ('content' in document.createElement('template')) {
   console.error('тег <template> не поддерживается браузером. Обновитесь на Yandex Browser');
 }
 
-document.getElementById('toggle-menu').addEventListener('click', toggleMenu);
-
 function toggleMenu() {
   document.getElementById('nav-menu').classList.toggle('menu_visible');
+}
+
+document.getElementById('toggle-menu').addEventListener('click', toggleMenu);
+
+function isTouchDevice() {
+  return 'ontouchstart' in window;
+}
+
+if (isTouchDevice()) {
+  document.body.classList.add('touch');
 }
