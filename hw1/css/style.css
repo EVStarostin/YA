@@ -110,8 +110,7 @@ html, body, .layout {
   background-position: center;
 }
 
-.touch .event__btn-close,
-.touch .event__btn-open {
+.touch .event__btn-close {
   visibility: visible;
   background-color: rgba(250, 250, 250, 0.7);
 }
