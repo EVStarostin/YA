@@ -15,7 +15,6 @@ window.onload = function() {
 }
 
 async function generateContent() {
-  const errors = [];
   const data = await fetch(dataUrl)
     .then(response => response.json())
     .then(json => json)
