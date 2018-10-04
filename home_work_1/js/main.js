@@ -1,5 +1,19 @@
 const dataUrl = 'https://raw.githubusercontent.com/EVStarostin/yandex__shri/master/home_work_1/data/events.json';
 
+window.onload = function() {
+  if ('content' in document.createElement('template')) {
+    generateContent();
+  } else {
+    console.error('тег <template> не поддерживается браузером. Обновитесь на Yandex Browser');
+  }
+
+  if (isTouchDevice()) {
+    document.body.classList.add('touch');
+  }
+
+  document.getElementById('toggle-menu').addEventListener('click', toggleMenu);
+}
+
 async function generateContent() {
   const errors = [];
   const data = await fetch(dataUrl)
@@ -16,25 +30,15 @@ async function generateContent() {
   data.events.forEach(event => {
     const clone = document.importNode(eventNode, true);
     clone.classList.add(`event_size_${event.size}`);
-    event.type === 'critical' && clone.classList.add('event_critical');
+    if (event.type === 'critical') clone.classList.add('event_critical');
 
-    const eventInfo = clone.querySelector('.event__info');
-    const eventHeading = eventInfo.querySelector('.event__heading');
-
-    const eventIcon = eventHeading.querySelector('.event__icon');
+    const eventIcon = clone.querySelector('.event__icon');
     eventIcon.setAttribute('src', `img/${event.icon}${event.type === 'critical' ? '-white' : ''}.svg`);
     eventIcon.setAttribute('alt', event.source);
 
-    const eventTitle = eventHeading.querySelector('.event__title');
-    eventTitle.textContent = event.title;
-
-    const eventSourceAndTime = eventInfo.querySelector('.event__source-and-time');
-
-    const eventSource = eventSourceAndTime.querySelector('.event__source');
-    eventSource.textContent = event.source;
-
-    const eventTime = eventSourceAndTime.querySelector('.event__time');
-    eventTime.textContent = event.time;
+    clone.querySelector('.event__title').textContent = event.title;
+    clone.querySelector('.event__source').textContent = event.source;
+    clone.querySelector('.event__time').textContent = event.time;
 
     let detailsHTML = '';
     if (event.description) {
@@ -107,12 +111,6 @@ async function generateContent() {
   });
 }
 
-if ('content' in document.createElement('template')) {
-  generateContent();
-} else {
-  console.error('тег <template> не поддерживается браузером. Обновитесь на Yandex Browser');
-}
-
 function toggleMenu() {
   document.getElementById('nav-menu').classList.toggle('menu_visible');
 }
@@ -121,7 +119,3 @@ function isTouchDevice() {
   return 'ontouchstart' in window;
 }
 
-document.getElementById('toggle-menu').addEventListener('click', toggleMenu);
-if (isTouchDevice()) {
-  document.body.classList.add('touch');
-}
