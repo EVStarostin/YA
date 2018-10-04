@@ -81,13 +81,13 @@ async function generateContent() {
       const btnGroupClone = document.importNode(btnGroupNode, true);
       btnGroupClone.querySelector('.event__btn-confirm').textContent = event.data.buttons[0];
       btnGroupClone.querySelector('.event__btn-cancel').textContent = event.data.buttons[1];
-      eventClone.appendChild(btnGroupClone);
+      eventDetails.appendChild(btnGroupClone);
     }
 
     if (event.data && event.data.image) {
       const imageNode = eventsTemplate.content.querySelector('.event__pic');
       const imageClone = document.importNode(imageNode, true);
-      eventClone.appendChild(imageClone);
+      eventDetails.appendChild(imageClone);
     }
 
     eventsNode.appendChild(eventClone);
