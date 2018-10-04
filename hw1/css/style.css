@@ -118,6 +118,7 @@ html, body, .layout {
 .event:hover .event__btn-close,
 .event:hover .event__btn-open {
   visibility: visible;
+  background-color: rgba(243, 243, 243, 0.7);
 }
 
 .event__btn-close {
