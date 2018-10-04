@@ -232,6 +232,7 @@ html, body, .layout {
   margin-top: 20px;
   font-size: 1.125rem;
   color: #000;
+  display: flex;
 }
 
 .event__temp,
@@ -545,5 +546,13 @@ html, body, .layout {
   
   .event__btn-open {
     bottom: 15px;
+  }
+
+  .event__temp-and-hum {
+    justify-content: space-between;
+  }
+
+  .event__temp {
+    margin-right: 0;
   }
 }
