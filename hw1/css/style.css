@@ -123,7 +123,7 @@ html, body, .layout {
 
 .event__btn-open {
   bottom: 20px;
-  background-image: url(../img/next.svg);
+  background-image: url(../img/Next.svg);
 }
 
 .event_critical .event__btn-close {
