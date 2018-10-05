@@ -403,7 +403,12 @@ html, body, .layout {
 
 .event__pic-img {
   width: 100%;
-  display: block;
+  height: 500px;
+  background: url(../img/Bitmap.png) repeat-x;
+  background-position-x: 0px;
+  background-size: cover;
+  user-select: none;
+  touch-action: none;
 }
 
 .event__pic-info {
