@@ -1,2 +1,3 @@
 import './layout.js';
-import './touch.js';
+// import './gestures/scroll';
+import './gestures/pinch';

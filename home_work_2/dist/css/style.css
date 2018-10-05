@@ -403,9 +403,9 @@ html, body, .layout {
 .event__pic-img {
   width: 100%;
   padding-bottom: 50%;
-  background: url(../img/Bitmap.png) repeat-x;
+  background: url(../img/Bitmap@2x.png) no-repeat;
   background-position-x: 0px;
-  background-size: cover;
+  background-size: auto;
   user-select: none;
   touch-action: none;
 }
@@ -421,6 +421,11 @@ html, body, .layout {
 .event__pic-zoom,
 .event__pic-brightness {
   margin-bottom: 0;
+}
+
+input[type=range].event__pic-scrollbar {
+  -webkit-appearance: none;
+  width: 48%;
 }
 
 .page-footer {
