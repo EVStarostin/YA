@@ -399,8 +399,24 @@ html, body, .layout {
 
 .event__pic {
   margin-top: 20px;
+}
+
+.event__pic-img {
   width: 100%;
   display: block;
+}
+
+.event__pic-info {
+  display: flex;
+  justify-content: space-between;
+  display: none;
+  font-size: 1.125rem;
+  margin-top: 5px;
+}
+
+.event__pic-zoom,
+.event__pic-brightness {
+  margin-bottom: 0;
 }
 
 .page-footer {
@@ -544,6 +560,10 @@ html, body, .layout {
   .event_size_s .event__source-and-time {
     flex-direction: row;
   }
+
+  .event__pic-info {
+    display: flex;
+  }
 }
 
 @media screen and (max-width: 575.98px) {
@@ -580,21 +600,17 @@ html, body, .layout {
   }
 
   .event {
-    padding: 15px;
+    padding: 15px 15px 20px;
   }
 
   .event__details {
-    margin: 0 -15px -15px;
-    padding: 15px;
+    margin: 0 -15px -20px;
+    padding: 15px 15px 20px;
   }
 
   .event__btn-close,
   .event__btn-open {
     right: 15px;
-  }
-  
-  .event__btn-open {
-    bottom: 15px;
   }
 
   .event__temp-and-hum {
