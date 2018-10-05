@@ -21,7 +21,6 @@ function run() {
   });
 
   cam.addEventListener('pointermove', e => {
-    document.querySelector('.event__pic-zoom').innerText = e.x;
     if (!currentGesture) {
       return;
     };
@@ -29,12 +28,15 @@ function run() {
     const { startX, prevX, prevTs, startPosition } = currentGesture;
     const { x } = e;
     const dx = x - startX;
-    document.querySelector('.event__pic-zoom').innerText = startPosition + dx;
+    document.querySelector('.event__pic-zoom').innerText = dx;
+    document.querySelector('.event__pic-brightness').innerText = startPosition + dx;
     cam.style.backgroundPosition = `${startPosition + dx}px`;
 
     const ts = Date.now();
 
     currentGesture.prevX = x;
     currentGesture.prevTs = ts
+
+    nodeState.startPosition = startPosition + dx;
   });
 }
