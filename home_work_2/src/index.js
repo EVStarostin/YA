@@ -1,4 +1,4 @@
-const dataUrl = 'data/events.json';
+const DATA_URL = 'data/events.json';
 
 window.onload = function () {
   if ('content' in document.createElement('template')) {
@@ -19,7 +19,7 @@ window.onload = function () {
 }
 
 async function generateContent() {
-  const data = await fetch(dataUrl)
+  const data = await fetch(DATA_URL)
     .then(response => response.json())
     .then(json => json)
     .catch(err => console.error(err));
