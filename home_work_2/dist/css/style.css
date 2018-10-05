@@ -405,7 +405,7 @@ html, body, .layout {
   padding-bottom: 50%;
   background: url(../img/Bitmap@2x.png) no-repeat;
   background-position-x: 0px;
-  background-size: auto;
+  background-size: 100%;
   user-select: none;
   touch-action: none;
 }

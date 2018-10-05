@@ -1,69 +1,50 @@
+const IMG_WIDTH = 1664;
+
 setTimeout(handlePinch, 1000);
 
-function handlePinch() {
-  const PICTURE_WIDTH = 1664;
-  console.log('touch initialized');
+function handlePinch(e) {
+  let gestures = {
+    gests: [],
+    startDistance: 0
+  }
 
-  let currentGestures = [
-    {
-      pointerId: 666,
-      startX: 132,
-      prevX: 132,
-      prevTs: Date.now(),
-      startPosition: 0
-    }
-  ];
   const nodeState = {
-    startPosition: 0
+    startDistance: 0
   };
 
-  const img = document.querySelector('.event__pic-img');
-  img.addEventListener('pointerdown', (e) => {
-    img.setPointerCapture(e.pointerId);
+  const frame = document.querySelector('.event__pic-img');
+  frame.addEventListener('pointerdown', pointerDownHandler);
 
-    currentGestures.push({
+  function pointerDownHandler(e) {
+    frame.setPointerCapture(e.pointerId);
+
+    gestures.startZoom = nodeState.startDistance;
+    gestures.gests.push({
       pointerId: e.pointerId,
       startX: e.x,
       prevX: e.x,
       prevTs: Date.now(),
-      startPosition: nodeState.startPosition
     });
-
-    console.log(currentGestures);
-
-    img.addEventListener('pointermove', moveHandler);
-  })
-
-  function moveHandler(e) {
-    const IMG_WIDTH = 1664;
-    const FRAME_WIDTH = e.target.clientWidth;
-    const curGest = currentGestures.find(gest => gest.pointerId === e.pointerId);
-
-    if (currentGestures.length !== 2) {
-      return;
-    } else {
-      console.log('2 пальца');
-    }
-
-    const { startX1, prevX1, prevTs1, startPosition1 } = currentGestures[0];
-    const { startX2, prevX2, prevTs2, startPosition2 } = currentGestures[1];
-    // const { x } = e;
-    // const dx = x - startX;
     
-
-    const ts = Date.now();
-
-    
-
-
-    currentGestures.prevX = x;
-    currentGestures.prevTs = ts
-
-    nodeState.startPosition = startPosition + dx;
+    frame.addEventListener('pointermove', pointerMoveHandler);
   }
 
-  img.addEventListener('pointerup', (e) => {
-    currentGestures = currentGestures.filter(gest => gest.pointerId !== e.pointerId);
-    console.log(currentGestures);
+  function pointerMoveHandler(e) {
+    if (gestures.gests.length !== 2) {
+      return;
+    };
+
+    const curGest = gestures.gests.find(gest => gest.pointerId === e.pointerId);
+    const secondGest = gestures.gests.find(gest => gest !== curGest);
+    console.log(Math.abs(secondGest.prevX - e.x));
+    const distance = Math.abs(secondGest.prevX - e.x);
+    document.querySelector('.event__pic-img').style.backgroundSize = `${100 + distance / 100}%`;
+
+    curGest.prevX = e.x;
+  }
+
+  /* При поднятии пальца удалять событие из массива. */
+  frame.addEventListener('pointerup', (e) => {
+    gestures.gests = gestures.gests.filter(gest => gest.pointerId !== e.pointerId);
   });
 }
