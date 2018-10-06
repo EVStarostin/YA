@@ -50,9 +50,7 @@ export default function handleGestures() {
     }
 
     target.style.backgroundPositionX = `${currentPosition}px`;
-
-    const halfOfScrollWidth = (-currentPosition <= maxScrollDistance / 2) ? 50 : -50;
-    document.querySelector('.event__pic-scrollbar').style.left = `calc(${(-currentPosition * 100) / maxScrollDistance}% + ${halfOfScrollWidth}px)`;
+    document.querySelector('.event__pic-scrollbar').style.left = `${(-currentPosition * 100) / maxScrollDistance}%`;
 
     const ts = Date.now();
 
