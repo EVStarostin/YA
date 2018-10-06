@@ -11,12 +11,9 @@
   <link rel="stylesheet" href="css/range.css">
   <link rel="stylesheet" href="css/truncate.css">
   <link rel="stylesheet" href="css/style.css">
-  <script src="https://code.jquery.com/pep/0.4.3/pep.js"></script>
 </head>
 
 <body>
-  <div id="results" style="position: fixed; top: 20px; left: 20px; width: 500px; z-index: 999; height: 100px; background: yellow"></div>
-
   <div class="layout">
     <header class="page-header">
       <img src="img/Logo.svg" alt="Логотип Яндекса" class="logo">
@@ -116,8 +113,7 @@
     </div>
 
     <div class="event__pic">
-      <div class="event__pic-img" touch-action="none"></div>
-      <input class="event__pic-scrollbar" width="100px" type="range" name="scroolbar" id="scroolbar" value="0">
+      <img class="event__pic-img" src="img/Bitmap.png" srcset="img/Bitmap.png 1x, img/Bitmap@2x.png 2x, img/Bitmap@3x.png 3x" alt="застрявший вылесос">
       <div class="event__pic-info">
         <p class="event__pic-zoom">Приближение: 78%</p>
         <p class="event__pic-brightness">Яркость: 50%</p>

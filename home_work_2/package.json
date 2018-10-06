@@ -1,7 +1,6 @@
 {
   "name": "home_work_2",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "dependencies": {
     "webpack": "^4.20.2",
@@ -16,5 +15,6 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "description": ""
 }
