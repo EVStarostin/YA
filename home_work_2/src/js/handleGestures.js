@@ -8,7 +8,13 @@ import {
   INITIAL_BRIGHTNESS,
   INITIAL_SCROLL
 } from './constants';
-import { getDistance, getAngle } from './utils';
+import {
+  getDistance,
+  getAngle,
+  setZoom,
+  setBrightness,
+  setScroll
+} from './utils';
 
 export default function handleGestures() {
   const touchableArea = document.querySelector('.event__pic-img');
@@ -28,8 +34,8 @@ export default function handleGestures() {
   };
 
   document.querySelector('.event__pic-reset-zoom-btn').onclick = (e) => {
-    nodeState.zoom = INITIAL_ZOOM;
-    touchableArea.style.backgroundPositionX = INITIAL_ZOOM;
+    nodeState.zoom = 100;
+    setZoom(touchableArea, nodeState.zoom);
   };
 
   touchableArea.addEventListener('pointerdown', e => {
@@ -80,8 +86,7 @@ export default function handleGestures() {
         nodeState.scroll = -maxScrollDistance;
       }
 
-      e.target.style.backgroundPositionX = `${nodeState.scroll}px`;
-      document.querySelector('.event__pic-scrollbar').style.left = `${(-nodeState.scroll * 100) / maxScrollDistance}%`;
+      setScroll(e.target, nodeState.scroll, maxScrollDistance);
     }
 
     currentGestures.prevPos = e.x;
@@ -100,20 +105,10 @@ export default function handleGestures() {
         nodeState.zoom = MAX_ZOOM;
       } else if (nodeState.zoom < MIN_ZOOM) {
         nodeState.zoom = MIN_ZOOM;
-        document.querySelector('.event__pic-scrollbar').style.display = 'none';
-      } else {
-        document.querySelector('.event__pic-scrollbar').style.display = 'block';
       }
 
-      e.target.style.backgroundSize = `${nodeState.zoom}%`;
-      document.querySelector('.event__pic-zoom').innerText = `Приближение: ${Math.round(nodeState.zoom)}%`;
-
-      /* При уменьшении размера, если картинка смещена вправо — свдигаем,
-      чтобы картинка не выходила за пределы поля видимости. */ 
       const maxScrollDistance = touchableArea.clientWidth * nodeState.zoom / 100 - e.target.clientWidth;
-      if (-parseFloat(e.target.style.backgroundPositionX) > maxScrollDistance) {
-        e.target.style.backgroundPositionX = `${-maxScrollDistance}px`;
-      }
+      setZoom(e.target, nodeState.zoom, maxScrollDistance);
     }
 
     if (currentGestures.prevAngle) {
@@ -125,8 +120,7 @@ export default function handleGestures() {
         nodeState.brightness = MIN_BRIGHTNESS;
       }
 
-      e.target.style.filter = `brightness(${nodeState.brightness}%)`;
-      document.querySelector('.event__pic-brightness').innerText = `Яркость: ${Math.round(nodeState.brightness)}%`;
+      setBrightness(e.target, nodeState.brightness);
     }
 
     currentGestures.prevDiff = curDiff;

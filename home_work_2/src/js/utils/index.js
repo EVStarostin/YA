@@ -28,3 +28,30 @@ export function getAngle(p1, p2) {
   const grad = rad * 180 / Math.PI;
   return grad;
 }
+
+export function setZoom(el, zoom, maxScrollDistance) {
+  el.style.backgroundSize = `${zoom}%`;
+  document.querySelector('.event__pic-zoom').innerText = `Приближение: ${Math.round(zoom)}%`;
+
+  const scrollBar = document.querySelector('.event__pic-scrollbar');
+  if (zoom === 100) {
+    scrollBar.style.display = 'none';
+  } else if (scrollBar.style.display === 'none') {
+    scrollBar.style.display = 'block';
+  }
+  /* При уменьшении размера, если картинка смещена вправо — свдигаем,
+  чтобы картинка не выходила за пределы поля видимости. */
+  if (-parseFloat(el.style.backgroundPositionX) > maxScrollDistance) {
+    el.style.backgroundPositionX = `${-maxScrollDistance}px`;
+  }
+}
+
+export function setBrightness(el, brightness) {
+  el.style.filter = `brightness(${brightness}%)`;
+  document.querySelector('.event__pic-brightness').innerText = `Яркость: ${Math.round(brightness)}%`;
+}
+
+export function setScroll(el, scroll, maxScrollDistance) {
+  el.style.backgroundPositionX = `${scroll}px`;
+  document.querySelector('.event__pic-scrollbar').style.left = `${(-scroll * 100) / maxScrollDistance}%`;
+}
