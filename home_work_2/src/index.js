@@ -25,8 +25,6 @@ window.onload = async function () {
   document.querySelector('#toggle-menu').addEventListener('click', () => {
     document.querySelector('#nav-menu').classList.toggle('menu_visible');
   });
-
-  
 }
 
 

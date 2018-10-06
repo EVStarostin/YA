@@ -392,7 +392,12 @@ html, body, .layout {
 
 .event__pic-img {
   width: 100%;
-  display: block;
+  padding-bottom: 50%;
+  background: url(../img/Bitmap.png) no-repeat;
+  background-position-x: 0px;
+  background-size: 100%;
+  user-select: none;
+  touch-action: none;
 }
 
 .event__pic-info {
