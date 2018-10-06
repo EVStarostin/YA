@@ -1,3 +1,5 @@
+import './polyfill/pep'
+
 import generateContent from './generateContentFromTemplate';
 import { setMaxHeightForTruncate, isTouchDevice, isTemplateSupported } from './utils';
 import handleGestures from './handleGestures';
