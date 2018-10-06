@@ -6,7 +6,17 @@ export default function handleGestures() {
   // вычисляем середину возможного расстояния, на которое скролится картинка для задания начальной позиции
   const centerX = touchableArea.clientWidth / 2;
 
-  let currentGestures = [];
+  let currentGestures = [
+    // {
+    //   pointerId: 666,
+    //   startX: 0,
+    //   startY: 0,
+    //   prevX: 0,
+    //   prevY: 0,
+    //   prevTs: Date.now(),
+    //   startPosition: 0
+    // }
+  ];
   const nodeState = {
     startPosition: 0,
     startZoom: 200
@@ -91,13 +101,17 @@ export default function handleGestures() {
     } else if (zoom < MIN_ZOOM) {
       zoom = MIN_ZOOM;
       document.querySelector('.event__pic-scrollbar').style.display = 'none';
-      e.target.style.backgroundPositionX = '0px';
     } else {
       document.querySelector('.event__pic-scrollbar').style.display = 'block';
     }
 
     e.target.style.backgroundSize = `${zoom}%`;
     document.querySelector('.event__pic-zoom').innerText = `Приближение: ${Math.round(zoom)}%`;
+    
+    const maxScrollDistance = touchableArea.clientWidth * nodeState.startZoom / 100 - e.target.clientWidth;
+    if (-parseFloat(e.target.style.backgroundPositionX) > maxScrollDistance) {
+      e.target.style.backgroundPositionX = `${-maxScrollDistance}px`;
+    }
 
     nodeState.startZoom = zoom;
     curGest.prevX = e.x;
