@@ -2,7 +2,6 @@ import { TOUCH_IMG_WIDTH } from './constants';
 
 export default function handleGestures() {
   const touchableArea = document.querySelector('.event__pic-img');
-  console.log((TOUCH_IMG_WIDTH - touchableArea.clientWidth) / 2);
 
   let currentGestures = [];
   const nodeState = {
@@ -43,7 +42,6 @@ export default function handleGestures() {
     const dx = x - startX;
     let currentPosition = startPosition + dx;
     const maxScrollDistance = TOUCH_IMG_WIDTH - target.clientWidth;
-    console.log('currentPosition', currentPosition);
 
     if (currentPosition > 0) {
       currentPosition = 0;
@@ -51,9 +49,8 @@ export default function handleGestures() {
       currentPosition = -maxScrollDistance;
     }
 
-    // console.log(target);
     target.style.backgroundPositionX = `${currentPosition}px`;
-    
+
     const halfOfScrollWidth = (-currentPosition <= maxScrollDistance / 2) ? 50 : -50;
     document.querySelector('.event__pic-scrollbar').style.left = `calc(${(-currentPosition * 100) / maxScrollDistance}% + ${halfOfScrollWidth}px)`;
 
