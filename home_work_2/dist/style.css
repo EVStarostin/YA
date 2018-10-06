@@ -861,10 +861,23 @@ html, body, .layout {
 .event__pic-img {
   width: 100%;
   padding-bottom: 50%;
-  background: url(img/Bitmap.png) no-repeat;
+  background-image: url(img/Bitmap.png);
+  background-repeat: no-repeat;
   background-size: 200%;
   user-select: none;
   touch-action: none;
+}
+
+@media screen and (min-device-pixel-ratio: 2) {
+  .event__pic-img {
+    background-image: url(img/Bitmap@2x.png);
+  }
+}
+
+@media screen and (min-device-pixel-ratio: 3) {
+  .event__pic-img {
+    background-image: url(img/Bitmap@3x.png);
+  }
 }
 
 .event__pic-info {
@@ -874,11 +887,28 @@ html, body, .layout {
   justify-content: space-between;
   font-size: 1.125rem;
   position: relative;
+  flex-wrap: wrap;
 }
 
 .event__pic-zoom,
 .event__pic-brightness {
   margin-bottom: 0;
+}
+
+.event__pic-reset-zoom-block {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.event__pic-reset-zoom-btn {
+  padding: 5px 30px;
+  background: none;
+  border: 1px solid rgba(0,0,0,0.50);
+  cursor: pointer;
+}
+
+.event__pic-reset-zoom-btn:hover {
+  box-shadow: 0 2px 6px 0 rgba(197,186,186,0.50);
 }
 
 .scrollbar-area {
