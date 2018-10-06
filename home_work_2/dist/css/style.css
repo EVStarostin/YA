@@ -184,6 +184,7 @@ html, body, .layout {
   hyphens: auto;
   max-height: 0;
   display: block;
+  display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   text-overflow: ellipsis;
@@ -455,10 +456,6 @@ html, body, .layout {
   visibility: hidden;
 }
 
-.touch .event__heading {
-  padding-right: 25px;
-}
-
 @media screen and (min-width: 1800px) {
   html {
     font-size: 20px;
@@ -501,6 +498,10 @@ html, body, .layout {
 
   .footer-links__link {
     white-space: normal;
+  }
+
+  .event__title {
+    font-size: 1.3rem;
   }
 }
 
