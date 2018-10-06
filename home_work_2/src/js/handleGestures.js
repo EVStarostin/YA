@@ -5,7 +5,9 @@ import {
   MIN_BRIGHTNESS,
   MAX_BRIGHTNESS,
   INITIAL_ZOOM,
-  INITIAL_BRIGHTNESS } from './constants';
+  INITIAL_BRIGHTNESS,
+  INITIAL_SCROLL
+} from './constants';
 import { getDistance, getAngle } from './utils';
 
 export default function handleGestures() {
