@@ -28,6 +28,6 @@ window.onload = async function () {
   });
 
   /* Обрабатывать жесты */
-  // handleGestures();
+  handleGestures();
 }
 
