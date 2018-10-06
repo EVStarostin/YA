@@ -1,4 +1,11 @@
-import { MAX_ZOOM, MIN_ZOOM, ZOOM_SPEED, MIN_BRIGHTNESS } from './constants';
+import {
+  MAX_ZOOM,
+  MIN_ZOOM,
+  ZOOM_SPEED,
+  MIN_BRIGHTNESS,
+  MAX_BRIGHTNESS,
+  INITIAL_ZOOM,
+  INITIAL_BRIGHTNESS } from './constants';
 import { getDistance, getAngle } from './utils';
 
 export default function handleGestures() {
@@ -13,9 +20,14 @@ export default function handleGestures() {
   
   /* Начальные значения сдвига, зума и яркости */
   const nodeState = {
-    zoom: 200,
-    scroll: 0,
-    brightness: 100
+    zoom: INITIAL_ZOOM,
+    scroll: INITIAL_SCROLL,
+    brightness: INITIAL_BRIGHTNESS
+  };
+
+  document.querySelector('.event__pic-reset-zoom-btn').onclick = (e) => {
+    nodeState.zoom = INITIAL_ZOOM;
+    touchableArea.style.backgroundPositionX = INITIAL_ZOOM;
   };
 
   touchableArea.addEventListener('pointerdown', e => {
@@ -48,13 +60,13 @@ export default function handleGestures() {
     if (!currentGestures.events.length) {
       return;
     } else if (currentGestures.events.length === 2) {
-      handleZoom(e);
+      handleTwoTouches(e);
     } else if (currentGestures.events.length === 1) {
-      handleScroll(e);
+      handleOneTouch(e);
     }
   }
 
-  function handleScroll(e) {
+  function handleOneTouch(e) {
     if (currentGestures.prevPos) {
       const maxScrollDistance = touchableArea.clientWidth * nodeState.zoom / 100 - e.target.clientWidth;
 
@@ -73,7 +85,7 @@ export default function handleGestures() {
     currentGestures.prevPos = e.x;
   }
 
-  function handleZoom(e) {
+  function handleTwoTouches(e) {
     const p1 = {x: currentGestures.events[0].clientX, y: currentGestures.events[0].clientY};
     const p2 = {x: currentGestures.events[1].clientX, y: currentGestures.events[1].clientY};;
     const curDiff = getDistance(p1, p2);
