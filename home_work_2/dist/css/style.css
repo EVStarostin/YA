@@ -393,8 +393,8 @@ html, body, .layout {
 .event__pic-img {
   width: 100%;
   padding-bottom: 50%;
-  background: url(../img/Bitmap@2x.png) no-repeat center;
-  background-size: auto;
+  background: url(../img/Bitmap.png) no-repeat;
+  background-size: 200%;
   user-select: none;
   touch-action: none;
 }
@@ -416,7 +416,7 @@ html, body, .layout {
 .scrollbar-area {
   position: absolute;
   width: calc(100% - 100px);
-  margin: -12px 50px 0;
+  margin: -15px 50px 0;
   height: 2px;
   box-sizing: border-box;
 }
@@ -427,7 +427,7 @@ html, body, .layout {
   background: rgba(0,0,0,0.50);
   border-radius: 2px;
   position: absolute;
-  left: 50%;
+  left: 0;
   transform: translateX(-50%);
 }
 
