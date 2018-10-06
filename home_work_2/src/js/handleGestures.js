@@ -1,4 +1,4 @@
-import { MAX_ZOOM, MIN_ZOOM, ZOOM_SPEED } from './constants';
+import { MAX_ZOOM, MIN_ZOOM, ZOOM_SPEED, MIN_BRIGHTNESS } from './constants';
 import { getDistance, getAngle } from './utils';
 
 export default function handleGestures() {
@@ -105,10 +105,10 @@ export default function handleGestures() {
     if (currentGestures.prevAngle) {
       nodeState.brightness -= curAngle - currentGestures.prevAngle;
 
-      if (nodeState.brightness > 500) {
-        nodeState.brightness = 500;
-      } else if (nodeState.brightness < 0) {
-        nodeState.brightness = 0;
+      if (nodeState.brightness > MAX_BRIGHTNESS) {
+        nodeState.brightness = MAX_BRIGHTNESS;
+      } else if (nodeState.brightness < MIN_BRIGHTNESS) {
+        nodeState.brightness = MIN_BRIGHTNESS;
       }
 
       e.target.style.filter = `brightness(${nodeState.brightness}%)`;

@@ -19,7 +19,6 @@ module.exports = {
     }),
     new CopyWebpackPlugin([
       { from: 'src/img', to: 'img' },
-      { from: 'src/license', to: 'license' },
       { from: 'src/data', to: 'data' },
     ]),
   ],
