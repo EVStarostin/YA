@@ -1,0 +1,1 @@
+export const TOUCH_IMG_WIDTH = 1664;

@@ -1,5 +1,6 @@
 import generateContent from './generateContentFromTemplate';
 import { setMaxHeightForTruncate, isTouchDevice, isTemplateSupported } from './utils';
+import handleGestures from './handleGestures';
 
 window.onload = async function () {
   /* Генерируются карточки из json данных на основании шаблона */
@@ -25,7 +26,6 @@ window.onload = async function () {
   document.querySelector('#toggle-menu').addEventListener('click', () => {
     document.querySelector('#nav-menu').classList.toggle('menu_visible');
   });
+
+  handleGestures();
 }
-
-
-
