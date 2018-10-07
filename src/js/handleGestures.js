@@ -36,6 +36,8 @@ export default function handleGestures() {
   document.querySelector('.event__pic-reset-zoom-btn').onclick = (e) => {
     nodeState.zoom = 100;
     setZoom(touchableArea, nodeState.zoom);
+    node.scroll = 0;
+    setScroll(touchableArea, node.scroll);
   };
 
   touchableArea.addEventListener('pointerdown', e => {
