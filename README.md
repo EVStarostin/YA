@@ -7,7 +7,8 @@ https://evstarostin.github.io/yandex__shri/
 `npm run start` - запустить локальный сервер  
 
 #### Структура
-`*css*  
+```javascript
+*css*  
 ./src/css/index.html - html разметка  
 ./src/css/style.css - основной файл с css стилями  
 ./src/css/normalize.css - переопределяет дефолтные стили браузеров, чтобы страница отображалась одинаково  
@@ -20,10 +21,10 @@ https://evstarostin.github.io/yandex__shri/
 ./src/js/handleGestures.js - обработчики жестов (drag to scroll, pinch to zoom, rotate)  
 ./src/js/utils/index.js - вспомогательные функции  
 ./src/js/constants/index.js - константы (максимальные размера зума, яркости и т.д.)   
-./src/js/polyfill/pep.js - полифил pointerEvents для iOS  `
+./src/js/polyfill/pep.js - полифил pointerEvents для iOS  
 
-./src/img - картинки
-./src/data/ - файл json с данными для шаблонизатора и pdf файл с лицензией на иконки
+./src/img - картинки  
+./src/data/ - файл json с данными для шаблонизатора и pdf файл с лицензией на иконки ``` 
 
 ### 1. ДЗ - «Адаптивная вёрстка»
 •	Отступы заданы в % или vw (если отступы не должны зависеть от ширины блока)  
