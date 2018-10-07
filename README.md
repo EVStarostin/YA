@@ -1,6 +1,6 @@
 # YANDEX SHRI 2018
-### Home work 1 (adaptive layout)
-https://evstarostin.github.io/yandex__shri/home_work_1/
+### 1. ДЗ - «Адаптивная вёрстка»
+### 2. ДЗ - «Работа с сенсорным пользовательским вводом»
+Ссылка на gh-pages:
+https://evstarostin.github.io/yandex__shri/home_work/
 
-### Home work 2 (touch events)
-https://evstarostin.github.io/yandex__shri/home_work_2/
