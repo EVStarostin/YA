@@ -868,19 +868,19 @@ html, body, .layout {
   touch-action: none;
 }
 
-@media only screen and (-Webkit-min-device-pixel-ratio: 2),
-only screen and (-moz-min-device-pixel-ratio: 2),
-only screen and (-o-min-device-pixel-ratio: 2),
-only screen and (min-device-pixel-ratio: 2) {
+@media 
+(-webkit-min-device-pixel-ratio: 2),
+(min-resolution: 2dppx),
+(min-resolution: 192dpi) {
   .event__pic-img {
     background-image: url(img/Bitmap@2x.png);
   }
 }
 
-@media only screen and (-Webkit-min-device-pixel-ratio: 3),
-only screen and (-moz-min-device-pixel-ratio: 3),
-only screen and (-o-min-device-pixel-ratio: 3),
-only screen and (min-device-pixel-ratio: 3) {
+@media 
+(-webkit-min-device-pixel-ratio: 3),
+(min-resolution: 3dppx),
+(min-resolution: 288dpi) {
   .event__pic-img {
     background-image: url(img/Bitmap@3x.png);
   }
