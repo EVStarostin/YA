@@ -6,6 +6,25 @@ https://evstarostin.github.io/yandex__shri/
 `npm run build` - собрать проект  
 `npm run start` - запустить локальный сервер  
 
+#### Структура
+`*css*  
+./src/css/index.html - html разметка  
+./src/css/style.css - основной файл с css стилями  
+./src/css/normalize.css - переопределяет дефолтные стили браузеров, чтобы страница отображалась одинаково  
+./src/css/css/range.css - кастомизация input[type=range]  
+./src/css/truncate.css - стили для обрезки названий до 2 строк с добавлением ...  
+
+*js*
+./src/js/main.js - основной файл  
+./src/js/generateContentFromTemplate.js - шаблонизатор для генерации разметки из json на основе тега <template>  
+./src/js/handleGestures.js - обработчики жестов (drag to scroll, pinch to zoom, rotate)  
+./src/js/utils/index.js - вспомогательные функции  
+./src/js/constants/index.js - константы (максимальные размера зума, яркости и т.д.)   
+./src/js/polyfill/pep.js - полифил pointerEvents для iOS  `
+
+./src/img - картинки
+./src/data/ - файл json с данными для шаблонизатора и pdf файл с лицензией на иконки
+
 ### 1. ДЗ - «Адаптивная вёрстка»
 •	Отступы заданы в % или vw (если отступы не должны зависеть от ширины блока)  
 •	Размеры шрифтов заданы в rem для адаптивности  
