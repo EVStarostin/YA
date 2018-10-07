@@ -8,14 +8,16 @@ https://evstarostin.github.io/yandex__shri/
 
 #### Структура
 ```javascript
-*css*  
+html
 ./src/css/index.html - html разметка  
+
+css  
 ./src/css/style.css - основной файл с css стилями  
 ./src/css/normalize.css - переопределяет дефолтные стили браузеров, чтобы страница отображалась одинаково  
 ./src/css/css/range.css - кастомизация input[type=range]  
 ./src/css/truncate.css - стили для обрезки названий до 2 строк с добавлением ...  
 
-*js*
+js
 ./src/js/main.js - основной файл  
 ./src/js/generateContentFromTemplate.js - шаблонизатор для генерации разметки из json на основе тега <template>  
 ./src/js/handleGestures.js - обработчики жестов (drag to scroll, pinch to zoom, rotate)  
