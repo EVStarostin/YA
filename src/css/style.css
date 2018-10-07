@@ -400,13 +400,19 @@ html, body, .layout {
   touch-action: none;
 }
 
-@media screen and (min-device-pixel-ratio: 2) {
+@media only screen and (-Webkit-min-device-pixel-ratio: 2),
+only screen and (-moz-min-device-pixel-ratio: 2),
+only screen and (-o-min-device-pixel-ratio: 2),
+only screen and (min-device-pixel-ratio: 2) {
   .event__pic-img {
     background-image: url(../img/Bitmap@2x.png);
   }
 }
 
-@media screen and (min-device-pixel-ratio: 3) {
+@media only screen and (-Webkit-min-device-pixel-ratio: 3),
+only screen and (-moz-min-device-pixel-ratio: 3),
+only screen and (-o-min-device-pixel-ratio: 3),
+only screen and (min-device-pixel-ratio: 3) {
   .event__pic-img {
     background-image: url(../img/Bitmap@3x.png);
   }
