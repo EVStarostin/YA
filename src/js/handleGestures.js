@@ -113,7 +113,7 @@ export default function handleGestures() {
       setZoom(e.target, nodeState.zoom, maxScrollDistance);
     }
 
-    if (currentGestures.prevAngle && Math.abs(curAngle - currentGestures.prevAngle < 300)) {
+    if (currentGestures.prevAngle && Math.abs(curAngle - currentGestures.prevAngle) < 300) {
       nodeState.brightness -= curAngle - currentGestures.prevAngle;
 
       if (nodeState.brightness > MAX_BRIGHTNESS) {
