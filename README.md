@@ -2,7 +2,7 @@
 Ссылка на gh-pages:
 https://evstarostin.github.io/yandex__shri/home_work/
 
-Сборка с использванием Webpack
+Сборка с использванием Webpack  
 `npm run build` - собрать проект  
 `npm run start` - запустить локальный сервер  
 
