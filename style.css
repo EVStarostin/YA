@@ -803,11 +803,6 @@ body:not(.touch) .event__track__btn-forward:hover {
   opacity: 1;
 }
 
-.event__track__btn-back:active {
-  outline: 2px solid black;
-  background: red;
-}
-
 .event__track__vol-line {
   grid-area: volline;
   background-color: inherit;
