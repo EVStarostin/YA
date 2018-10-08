@@ -57,7 +57,7 @@ html, body, .layout {
   color: #333333;
 }
 
-.menu__link:hover {
+body:not(.touch) .menu__link:hover {
   opacity: .8;
 }
 
@@ -93,7 +93,7 @@ html, body, .layout {
   position: relative;
 }
 
-.event:hover {
+body:not(.touch) .event:hover {
   background: #F3F3F3;
   box-shadow: 0 2px 6px 0 rgba(197,186,186,0.50);
 }
@@ -109,15 +109,14 @@ html, body, .layout {
   visibility: hidden;
   cursor: pointer;
   right: 1vw;
-  background-color: rgba(243, 243, 243, 0.7);
+  background-color: transparent;
   background-repeat: no-repeat;
   background-position: center;
 }
 
-.event:hover .event__btn-close,
-.event:hover .event__btn-open {
+body:not(.touch) .event:hover .event__btn-close,
+body:not(.touch) .event:hover .event__btn-open {
   visibility: visible;
-  background-color: rgba(243, 243, 243, 0.7);
 }
 
 .event__btn-close {
@@ -135,8 +134,8 @@ html, body, .layout {
   background-color: transparent;
 }
 
-.event_critical:hover .event__btn-close {
-  background-color: transparent;
+.touch .event .event__btn-close {
+  visibility: visible;
 }
 
 .event_size_s {
@@ -156,7 +155,7 @@ html, body, .layout {
   background: #DB5341;
 }
 
-.event_critical:hover {
+body:not(.touch) .event_critical:hover {
   background: #DB5341;
 }
 
@@ -224,7 +223,7 @@ html, body, .layout {
   margin-top: 20px;
 }
 
-.event:hover .event__details {
+body:not(.touch) .event:hover .event__details {
   background: #F3F3F3;
 }
 
@@ -318,8 +317,8 @@ html, body, .layout {
   opacity: .7;
 }
 
-.event__track__btn-back:hover,
-.event__track__btn-forward:hover {
+body:not(.touch) .event__track__btn-back:hover,
+body:not(.touch) .event__track__btn-forward:hover {
   opacity: 1;
   cursor: pointer;
 }
@@ -333,13 +332,8 @@ html, body, .layout {
 .event__track__line,
 .event__track__vol-line {
   width: 100%;
-  background: #fafafa;
+  background: transparent;
   height: 100%;
-}
-
-.event:hover .event__track__line,
-.event:hover .event__track__vol-line {
-  background: #f3f3f3;
 }
 
 .event__track__vol {
@@ -372,17 +366,17 @@ html, body, .layout {
   margin-right: 15px;
 }
 
-.event__btn-confirm:hover,
-.event__btn-cancel:hover {
+body:not(.touch) .event__btn-confirm:hover,
+body:not(.touch) .event__btn-cancel:hover {
   box-shadow: 0 2px 6px 0 rgba(197,186,186,0.50);
   cursor: pointer;
 }
 
-.event__btn-confirm:hover {
+body:not(.touch) .event__btn-confirm:hover {
   background: #efc92f;
 }
 
-.event__btn-cancel:hover {
+body:not(.touch) .event__btn-cancel:hover {
   background: #dad5d5;
 }
 
@@ -445,7 +439,7 @@ html, body, .layout {
   cursor: pointer;
 }
 
-.event__pic-reset-zoom-btn:hover {
+body:not(.touch) .event__pic-reset-zoom-btn:hover {
   box-shadow: 0 2px 6px 0 rgba(197,186,186,0.50);
 }
 
@@ -492,7 +486,7 @@ html, body, .layout {
   white-space: nowrap;
 }
 
-.footer-links__link:hover {
+body:not(.touch) .footer-links__link:hover {
   color: #3c3c3c;
 }
 
@@ -508,11 +502,7 @@ html, body, .layout {
 }
 
 .touch .event_critical .event__btn-close {
-  background-color: transparent;
-}
-
-.touch .event:hover .event__btn-open {
-  visibility: hidden;
+  background-color: rgba(219, 83, 65, 0.7);
 }
 
 @media screen and (min-width: 1800px) {

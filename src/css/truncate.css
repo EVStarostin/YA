@@ -13,7 +13,7 @@
     width: 50px;
   }
 
-  .event:hover .event__title_truncated:after {
+  body:not(.touch) .event:hover .event__title_truncated:after {
     background: linear-gradient(
       to right, 
       rgba(243, 243, 243, 0.5),
@@ -29,7 +29,7 @@
     );
   }
 
-  .event_critical:hover .event__title_truncated:after {
+  body:not(.touch) .event_critical:hover .event__title_truncated:after {
     background: linear-gradient(
       to right, 
       rgba(218, 74, 55, 0.5),
