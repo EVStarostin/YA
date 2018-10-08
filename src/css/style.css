@@ -304,21 +304,23 @@ body:not(.touch) .event:hover .event__details {
   font-size: 0.875rem;
 }
 
-.event__track__btn-back {
-  grid-area: back;
+.event__track__btn-back,
+.event__track__btn-forward {
   border: none;
   background: none;
   padding: 0;
   opacity: .7;
 }
 
+.event__track__btn-back {
+  grid-area: back;
+  background: url(../img/Prev.svg) no-repeat center;
+}
+
 .event__track__btn-forward {
   grid-area: forward;
   transform: rotate(180deg);
-  border: none;
-  background: none;
-  padding: 0;
-  opacity: .7;
+  background: url(../img/Prev.svg) no-repeat center;
 }
 
 body:not(.touch) .event__track__btn-back:hover,
@@ -330,6 +332,11 @@ body:not(.touch) .event__track__btn-forward:hover {
 .event__track__btn-back:active,
 .event__track__btn-forward:active {
   opacity: 1;
+}
+
+.event__track__btn-back:active {
+  outline: 2px solid black;
+  background: red;
 }
 
 .event__track__vol-line {
