@@ -61,6 +61,10 @@ body:not(.touch) .menu__link:hover {
   opacity: .8;
 }
 
+.menu__link:active {
+  opacity: .8;
+}
+
 .menu__link_active {
   opacity: 1;
 }
@@ -323,6 +327,11 @@ body:not(.touch) .event__track__btn-forward:hover {
   cursor: pointer;
 }
 
+.event__track__btn-back:active,
+.event__track__btn-forward:active {
+  opacity: 1;
+}
+
 .event__track__vol-line {
   grid-area: volline;
   background-color: inherit;
@@ -367,7 +376,9 @@ body:not(.touch) .event__track__btn-forward:hover {
 }
 
 body:not(.touch) .event__btn-confirm:hover,
-body:not(.touch) .event__btn-cancel:hover {
+body:not(.touch) .event__btn-cancel:hover,
+.event__btn-confirm:active,
+.event__btn-cancel:active {
   box-shadow: 0 2px 6px 0 rgba(197,186,186,0.50);
   cursor: pointer;
 }
@@ -377,6 +388,14 @@ body:not(.touch) .event__btn-confirm:hover {
 }
 
 body:not(.touch) .event__btn-cancel:hover {
+  background: #dad5d5;
+}
+
+.event__btn-confirm:active {
+  background: #efc92f;
+}
+
+.event__btn-cancel:active {
   background: #dad5d5;
 }
 
@@ -487,6 +506,10 @@ body:not(.touch) .event__pic-reset-zoom-btn:hover {
 }
 
 body:not(.touch) .footer-links__link:hover {
+  color: #3c3c3c;
+}
+
+.footer-links__link:active {
   color: #3c3c3c;
 }
 
