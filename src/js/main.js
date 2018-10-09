@@ -53,7 +53,7 @@ window.onload = async function () {
       });
     });
 
-    document.querySelector('.modal__hide').addEventListener('click', (e) => {
+    document.querySelector('.controls__hide-btn').addEventListener('click', (e) => {
       /* Скрывать модальное окно по клику на кнопку все камеры */
       closeFullScreenVideo(modal);
     })
