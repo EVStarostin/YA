@@ -10,6 +10,8 @@ export default async function generateContent() {
 
   const eventsNode = document.querySelector('#events');
   const eventsTemplate = document.querySelector('#events-template');
+
+  if (!eventsNode || !eventsTemplate) return;
   const eventNode = eventsTemplate.content.querySelector('.event');
 
   data.events.forEach(event => {
