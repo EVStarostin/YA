@@ -83,6 +83,9 @@ export function openFullScreenVideo(e, modal) {
     e.target.dataset.source
   );
 
+  document.getElementById('brightness').value = 100;
+  document.getElementById('contrast').value = 100;
+
   const viewportCenter = {
     x: document.documentElement.clientWidth / 2,
     y: document.documentElement.clientHeight / 2
