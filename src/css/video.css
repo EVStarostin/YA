@@ -65,10 +65,19 @@
 .controls__hide-btn {
   font-size: 1.5rem;
   align-self: top;
+  background-color: #fadc00;
+  color: #fa3200;
+  border: 1px solid #fa3200;
+  padding: 2px 6px;
 }
 
 .controls__brightness,
 .controls__contrast {
   font-size: 1.3rem;
   width: 30%;
+}
+
+.analyzer__wrapper {
+  width: 200px;
+  height: 100%;
 }

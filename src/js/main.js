@@ -1,5 +1,7 @@
 import './polyfill/pep';
 import generateContent from './generateContentFromTemplate';
+import handleGestures from './handleGestures';
+import createSoundAnalyzer from './createSoundAnalyzer';
 import {
   setMaxHeightForTruncate,
   isTouchDevice,
@@ -8,7 +10,6 @@ import {
   openFullScreenVideo,
   closeFullScreenVideo,
 } from './utils';
-import handleGestures from './handleGestures';
 
 window.onload = async function () {
   /* Генерируются карточки из json данных на основании шаблона */
@@ -66,5 +67,8 @@ window.onload = async function () {
     document.getElementById('contrast').addEventListener('input', (e) => {
       modalVideo.style.filter = `contrast(${e.target.value}%)`;
     });
+
+    /* Нарисовать анализатор звука web audio api на Canvas */
+    createSoundAnalyzer();
   }
 }
