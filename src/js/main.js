@@ -1,6 +1,13 @@
 import './polyfill/pep';
 import generateContent from './generateContentFromTemplate';
-import { setMaxHeightForTruncate, isTouchDevice, isTemplateSupported } from './utils';
+import {
+  setMaxHeightForTruncate,
+  isTouchDevice,
+  isTemplateSupported,
+  initAllVideos,
+  openFullScreenVideo,
+  closeFullScreenVideo,
+} from './utils';
 import handleGestures from './handleGestures';
 
 window.onload = async function () {
@@ -19,7 +26,7 @@ window.onload = async function () {
   }
 
   /* При изменении размера окна пересчитываем максимально-возможную высоту заголовков карточек */
-  window.onresize = function() {
+  window.onresize = function () {
     setMaxHeightForTruncate();
   }
 
@@ -30,4 +37,25 @@ window.onload = async function () {
 
   /* Обработчики жестов */
   handleGestures();
+
+  const camerasWrapper = document.querySelector('.cameras');
+  if (camerasWrapper) {
+    /* Инициализировать все видео */
+    initAllVideos();
+
+    const videos = camerasWrapper.querySelectorAll('.cameras__video');
+    const modal = document.querySelector('.modal');
+
+    videos.forEach((video) => {
+      video.addEventListener('click', (e) => {
+        /* Показывать модальное окно по клику на видео */
+        openFullScreenVideo(e, modal);
+      });
+    });
+
+    document.querySelector('.modal__hide').addEventListener('click', (e) => {
+      /* Скрывать модальное окно по клику на кнопку все камеры */
+      closeFullScreenVideo(modal);
+    })
+  }
 }

@@ -18,6 +18,7 @@ import {
 
 export default function handleGestures() {
   const touchableArea = document.querySelector('.event__pic-img');
+  if (!touchableArea) return;
 
   const currentGestures = {
     events: [],

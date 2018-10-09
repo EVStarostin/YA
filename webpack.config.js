@@ -13,10 +13,12 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: "style.css"
     }),
-    new HtmlWebpackPlugin({
-      filename: 'index.html',
-      template: 'src/index.html'
-    }),
+    new HtmlWebpackPlugin(
+      { filename: 'index.html', template: 'src/index.html' }
+    ),
+    new HtmlWebpackPlugin(
+      { filename: 'video.html', template: 'src/video.html' }
+    ),
     new CopyWebpackPlugin([
       { from: 'src/img', to: 'img' },
       { from: 'src/data', to: 'data' },
