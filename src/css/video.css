@@ -34,7 +34,7 @@
   left: 0;
   right: 0;
   transform-origin: center;
-  grid-template: 1fr 100px / 1fr;
+  grid-template: 1fr min-content / 1fr;
   transform: scale(0);
   display: none;
   transition: all .5s ease-in-out;
@@ -53,12 +53,22 @@
   max-height: 100%;
 }
 
-.modal__controls {
+.controls {
   grid-row-end: -1;
   background-color: #F3F3F3;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px 0 20px 0;
 }
 
 .controls__hide-btn {
-  font-size: 2rem;
+  font-size: 1.5rem;
+  align-self: top;
 }
 
+.controls__brightness,
+.controls__contrast {
+  font-size: 1.3rem;
+  width: 30%;
+}

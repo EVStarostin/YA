@@ -45,6 +45,7 @@ window.onload = async function () {
 
     const videos = camerasWrapper.querySelectorAll('.cameras__video');
     const modal = document.querySelector('.modal');
+    const modalVideo = document.getElementById('video-modal');
 
     videos.forEach((video) => {
       video.addEventListener('click', (e) => {
@@ -57,5 +58,13 @@ window.onload = async function () {
       /* Скрывать модальное окно по клику на кнопку все камеры */
       closeFullScreenVideo(modal);
     })
+
+    document.getElementById('brightness').addEventListener('input', (e) => {
+      modalVideo.style.filter = `brightness(${e.target.value}%)`;
+    });
+
+    document.getElementById('contrast').addEventListener('input', (e) => {
+      modalVideo.style.filter = `contrast(${e.target.value}%)`;
+    });
   }
 }

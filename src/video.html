@@ -54,7 +54,15 @@
   <div class="modal ">
     <div class="modal__video-wrapper"><video id="video-modal" class="modal__video" muted autoplay></video></div>
     <div class="controls">
-      <button class="controls__hide-btn">Все камеры</button>
+      <div class="controls__btns">
+        <button class="controls__hide-btn">Все камеры</button>
+      </div>
+      <label for="brightness" class="controls__brightness">Яркость
+        <input type="range" name="brightness" id="brightness" min="0" max="200">
+      </label>
+      <label for="contrast" class="controls__contrast">Контраст
+        <input type="range" name="contrast" id="contrast" min="0" max="200">
+      </label>
     </div>
   </div>
 </body>
