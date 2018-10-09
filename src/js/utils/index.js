@@ -83,9 +83,6 @@ export function openFullScreenVideo(e, modal) {
     e.target.dataset.source
   );
 
-  document.getElementById('brightness').value = 100;
-  document.getElementById('contrast').value = 100;
-
   const viewportCenter = {
     x: document.documentElement.clientWidth / 2,
     y: document.documentElement.clientHeight / 2
@@ -104,15 +101,18 @@ export function openFullScreenVideo(e, modal) {
 
   modal.style.transform = `translate(${translation.x}px, ${translation.y}px) scale(0)`;
   modal.classList.add('modal_visible');
-  setTimeout(()=>{
+  setTimeout(() => {
     modal.style.transform = 'translate(0) scale(1)';
   }, 10);
 }
 
-export function closeFullScreenVideo(modal) {
+export function closeFullScreenVideo(modal, modalVideo) {
   const { translateX, translateY } = modal.dataset;
   modal.style.transform = `translate(${translateX}px, ${translateY}px) scale(0)`;
   setTimeout(() => {
     modal.classList.remove('modal_visible');
+    modalVideo.style.filter = 'none';
+    document.getElementById('brightness').value = 100;
+    document.getElementById('contrast').value = 100;
   }, 500);
 }
