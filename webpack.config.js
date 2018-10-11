@@ -39,10 +39,9 @@ module.exports = {
   devServer: {
     contentBase: path.join(__dirname, 'public'),
     compress: true,
-    host: '172.20.10.3',
+    // host: '172.20.10.3',
     port: 3000,
-    open: true,
-    // headers: { "Access-Control-Allow-Origin": "*" }
+    open: true
   },
   resolve: {
     alias: {
