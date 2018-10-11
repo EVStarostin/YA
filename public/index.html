@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="robots" content="noindex">
+  <title>Умный дом</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+</head>
+
+<body>
+  <div class="layout">
+    <header class="header">
+      <img src="images/Logo.svg" alt="Логотип Яндекса" class="header__logo">
+      <nav class="header__nav">
+        <ul class="menu" id="menu">
+          <li class="menu__item"><a href="#" class="menu__link menu__link_active">События</a></li>
+          <li class="menu__item"><a href="#" class="menu__link">Сводка</a></li>
+          <li class="menu__item"><a href="#" class="menu__link">Устройства</a></li>
+          <li class="menu__item"><a href="#" class="menu__link">Сценарии</a></li>
+          <li class="menu__item"><a href="video.html" class="menu__link">Видеонаблюдение</a></li>
+        </ul>
+      </nav>
+      <button class="header__toggle-menu" id="toggle-menu">
+        <img src="images/icon_list_m@1x.svg" alt="бургерное меню">
+      </button>
+    </header>
+    <main class="content">
+      <div class="content__wrapper">
+        <h1 class="content__main-heading">Лента событий</h1>
+        <ul class="events-list" id="events"></ul>
+      </div>
+    </main>
+    <footer class="footer">
+      <ul class="footer-links">
+        <li class="footer-links__item"><a href="#" class="footer-links__link">Помощь</a></li>
+        <li class="footer-links__item"><a href="#" class="footer-links__link">Обратная связь</a></li>
+        <li class="footer-links__item"><a href="#" class="footer-links__link">Разработчикам</a></li>
+        <li class="footer-links__item"><a href="#" class="footer-links__link">Условия использования</a></li>
+        <li class="footer-links__item">
+          <a href="https://wiki.yandex.ru/shri-2018-II/homework/Adaptivnaja-vjorstka/.files/license.pdf" target="_blank"
+            class="footer-links__link licence">
+            Лицензия на использование иконок
+          </a>
+        </li>
+      </ul>
+      <p class="footer__rights">© 2001–2017 ООО «Яндекс»</p>
+    </footer>
+  </div>
+
+  <template id="events-template">
+    <li class="event">
+      <button class="event__btn-close"></button>
+      <button class="event__btn-open"></button>
+      <div class="event__info">
+        <div class="event__heading">
+          <img class="event__icon">
+          <h3 class="event__title"></h3>
+        </div>
+        <div class="event__source-and-time">
+          <p class="event__source"></p>
+          <p class="event__time"></p>
+        </div>
+      </div>
+    </li>
+
+    <p class="event__description"></p>
+
+    <img class="graph" src="images/Richdata.svg" alt="график">
+
+    <div class="weather">
+      <p class="weather__temp">Температура: <b id="temp"></b><b> C</b></p>
+      <p class="weather__hum">Влажность: <b id="hum"></b><b>%</b></p>
+    </div>
+
+    <div class="track">
+      <img class="track__cover" alt="обложка">
+      <p class="track__name"></p>
+      <input class="track__time-line" type="range" id="time" name="time" min="0" max="100" />
+      <output class="track__time" for="time" name="time"></output>
+      <button class="track__btn-back"></button>
+      <button class="track__btn-forward"></button>
+      <input class="track__vol-line" type="range" id="start" name="volume" min="0" max="100" />
+      <output class="track__vol" for="time" name="time"></output>
+    </div>
+
+    <div class="btn-group">
+      <button class="btn-group__btn-confirm"></button>
+      <button class="btn-group__btn-cancel"></button>
+    </div>
+
+    <div class="camera">
+      <div class="camera__img" id="camera" touch-action="none"></div>
+      <div class="camera__info">
+        <div class="camera__scrollbar-area">
+          <div class="camera__scrollbar" id="scrollbar"></div>
+        </div>
+        <p class="camera__zoom">Приближение: 200%</p>
+        <p class="camera__brightness">Яркость: 50%</p>
+        <div class="camera__reset-zoom-wrapper">
+          <button class="camera__reset-zoom-btn" id="reset-zoom">1:1</button>
+        </div>
+      </div>
+    </div>
+  </template>
+  <script src="script.js"></script>
+</body>
+
+</html>

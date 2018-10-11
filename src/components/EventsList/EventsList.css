@@ -1,0 +1,7 @@
+.events-list {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-gap: 1.3vw;
+  list-style: none;
+  padding: 0;
+}
