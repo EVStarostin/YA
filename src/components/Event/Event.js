@@ -190,8 +190,8 @@ export function handleGestures() {
   }
   
   function getDistance(p1, p2) {
-    let pow1 = Math.abs(p2.x - p1.x) ^ 2;
-    let pow2 = Math.abs(p2.y - p1.y) ^ 2;
+    let pow1 = Math.abs(p2.x - p1.x) ** 2;
+    let pow2 = Math.abs(p2.y - p1.y) ** 2;
     return Math.sqrt(pow1 + pow2);
   }
 }
