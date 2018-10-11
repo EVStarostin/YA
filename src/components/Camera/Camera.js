@@ -62,19 +62,20 @@ export function handleFullScreenVideo() {
   }
 
   function closeFullScreen() {
-    const fullScreenVideoBlock = document.querySelector('.cameras__item_fullscreen');
-    const fullScreenVideo = document.querySelector('.cameras__item_fullscreen .cameras__video');
-    fullScreenVideoBlock.style.transform = 'translate(0) scale(1)';
+    const videoContainer = document.querySelector('.cameras__item_fullscreen');
+    const video = videoContainer.querySelector('.cameras__video');
+
+    videoContainer.style.transform = 'translate(0) scale(1)';
     document.body.classList.remove('body_fullscreen');
     const modal = document.getElementById('modal');
     modal.style.opacity = '0';
-    fullScreenVideo.style.filter = 'none';
-    fullScreenVideo.muted = true;
+    video.style.filter = 'none';
+    video.muted = true;
     document.getElementById('brightness').value = '100';
     document.getElementById('contrast').value = '100';
     setTimeout(() => {
       modal.style.display = 'none';
-      fullScreenVideoBlock.classList.remove('cameras__item_fullscreen');
+      videoContainer.classList.remove('cameras__item_fullscreen');
     }, 500);
   }
 

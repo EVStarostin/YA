@@ -46,7 +46,7 @@
   bottom: 0;
   padding: 5px 3.1% 10px;
   display: none;
-  height: 4vw;
+  height: 5vw;
   justify-content: space-around;
   font-size: 1.3rem;
 }
@@ -72,6 +72,7 @@
 
 .body_fullscreen .controls {
   display: flex;
+  align-items: center;
 }
 
 @media screen and (max-width: 575.98px) {
