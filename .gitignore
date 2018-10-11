@@ -1,2 +1,5 @@
 node_modules/
-dist/
+public/style.css
+public/style.css.map
+public/script.js
+public/script.js.map
