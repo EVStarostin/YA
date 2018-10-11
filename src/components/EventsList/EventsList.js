@@ -1,5 +1,5 @@
 export async function generateContent() {
-  const DATA_URL = 'data/events.json';
+  const DATA_URL = 'http://194.87.239.193:8000/api/events';
 
   let data;
   try {

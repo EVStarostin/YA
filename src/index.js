@@ -10,14 +10,16 @@ import 'Components/PointerLock';
 import { initAllVideos } from 'Components/CamerasList';
 import { handleFullScreenVideo } from 'Components/Camera';
 
-defineTouchDevice();
-handleToggleMenu();
-initAllVideos();
-handleFullScreenVideo();
-
-generateContent()
-  .then(() => {
+(async () => {
+  try {
+    defineTouchDevice();
+    handleToggleMenu();
+    initAllVideos();
+    handleFullScreenVideo();
+    await generateContent();
     truncateHeaders();
     handleGestures();
-  })
-  .catch((err) => console.error(err));
+  } catch (error) {
+    console.error(error);
+  }
+})();
