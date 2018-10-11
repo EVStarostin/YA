@@ -6,60 +6,48 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta name="robots" content="noindex">
-  <title>Адаптивная верстка + сенсорный ввод</title>
-<link href="style.css" rel="stylesheet"></head>
+  <title>Умный дом — Главная</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+</head>
 
 <body>
   <div class="layout">
-    <header class="page-header">
-      <img src="img/Logo.svg" alt="Логотип Яндекса" class="logo">
-      <nav class="nav">
-        <ul class="menu" id="nav-menu">
-          <li class="menu__item">
-            <a href="#" class="menu__link menu__link_active">События</a>
-          </li>
-          <li class="menu__item">
-            <a href="#" class="menu__link">Сводка</a>
-          </li>
-          <li class="menu__item">
-            <a href="#" class="menu__link">Устройства</a>
-          </li>
-          <li class="menu__item">
-            <a href="#" class="menu__link">Сценарии</a>
-          </li>
+    <header class="header">
+      <img src="images/Logo.svg" alt="Логотип Яндекса" class="header__logo">
+      <nav class="header__nav">
+        <ul class="menu" id="menu">
+          <li class="menu__item"><a href="#" class="menu__link menu__link_active">События</a></li>
+          <li class="menu__item"><a href="#" class="menu__link">Сводка</a></li>
+          <li class="menu__item"><a href="#" class="menu__link">Устройства</a></li>
+          <li class="menu__item"><a href="#" class="menu__link">Сценарии</a></li>
+          <li class="menu__item"><a href="video.html" class="menu__link">Видеонаблюдение</a></li>
         </ul>
       </nav>
-      <button class="show-menu-btn" id="toggle-menu">
-        <img src="img/icon_list_m@1x.svg" alt="бургерное меню">
+      <button class="header__toggle-menu" id="toggle-menu">
+        <img src="images/icon_list_m@1x.svg" alt="бургерное меню">
       </button>
     </header>
     <main class="content">
       <div class="content__wrapper">
-        <h1 class="content__main-heading">
-          Лента событий
-        </h1>
+        <h1 class="content__main-heading">Лента событий</h1>
         <ul class="events-list" id="events"></ul>
       </div>
     </main>
-    <footer class="page-footer">
+    <footer class="footer">
       <ul class="footer-links">
+        <li class="footer-links__item"><a href="#" class="footer-links__link">Помощь</a></li>
+        <li class="footer-links__item"><a href="#" class="footer-links__link">Обратная связь</a></li>
+        <li class="footer-links__item"><a href="#" class="footer-links__link">Разработчикам</a></li>
+        <li class="footer-links__item"><a href="#" class="footer-links__link">Условия использования</a></li>
         <li class="footer-links__item">
-          <a href="#" class="footer-links__link">Помощь</a>
-        </li>
-        <li class="footer-links__item">
-          <a href="#" class="footer-links__link">Обратная связь</a>
-        </li>
-        <li class="footer-links__item">
-          <a href="#" class="footer-links__link">Разработчикам</a>
-        </li>
-        <li class="footer-links__item">
-          <a href="#" class="footer-links__link">Условия использования</a>
-        </li>
-        <li class="footer-links__item">
-          <a href="data/license.pdf" target="_blank" class="footer-links__link licence">Лицензия на использование иконок</a>
+          <a href="https://wiki.yandex.ru/shri-2018-II/homework/Adaptivnaja-vjorstka/.files/license.pdf" target="_blank"
+            class="footer-links__link licence">
+            Лицензия на использование иконок
+          </a>
         </li>
       </ul>
-      <p class="page-footer__rights">© 2001–2017 ООО «Яндекс»</p>
+      <p class="footer__rights">© 2001–2017 ООО «Яндекс»</p>
     </footer>
   </div>
 
@@ -81,44 +69,45 @@
 
     <p class="event__description"></p>
 
-    <img class="event__graph" src="img/Richdata.svg" alt="график">
-    
-    <div class="event__temp-and-hum">
-      <p class="event__temp">Температура: <b id="temp"></b><b> C</b></p>
-      <p class="event__hum">Влажность: <b id="hum"></b><b>%</b></p>
+    <img class="graph" src="images/Richdata.svg" alt="график">
+
+    <div class="weather">
+      <p class="weather__temp">Температура: <b id="temp"></b><b> C</b></p>
+      <p class="weather__hum">Влажность: <b id="hum"></b><b>%</b></p>
     </div>
 
-    <div class="event__track">
-      <img class="event__track__cover" alt="обложка">
-      <p class="event__track__name"></p>
-      <input class="event__track__line" type="range" id="time" name="time" min="0" max="100" />
-      <output class="event__track__time" for="time" name="time"></output>
-      <button class="event__track__btn-back"></button>
-      <button class="event__track__btn-forward"></button>
-      <input class="event__track__vol-line" type="range" id="start" name="volume" min="0" max="100" />
-      <output class="event__track__vol" for="time" name="time"></output>
+    <div class="track">
+      <img class="track__cover" alt="обложка">
+      <p class="track__name"></p>
+      <input class="track__time-line" type="range" id="time" name="time" min="0" max="100" />
+      <output class="track__time" for="time" name="time"></output>
+      <button class="track__btn-back"></button>
+      <button class="track__btn-forward"></button>
+      <input class="track__vol-line" type="range" id="start" name="volume" min="0" max="100" />
+      <output class="track__vol" for="time" name="time"></output>
     </div>
 
-    <div class="event__btn-group">
-      <button class="event__btn-confirm"></button>
-      <button class="event__btn-cancel"></button>
+    <div class="btn-group">
+      <button class="btn-group__btn-confirm"></button>
+      <button class="btn-group__btn-cancel"></button>
     </div>
 
-    <div class="event__pic">
-      <div class="event__pic-img" touch-action="none"></div>
-      <div class="event__pic-info">
-        <div class="scrollbar-area">
-          <div class="event__pic-scrollbar"></div>
+    <div class="camera">
+      <div class="camera__img" id="camera" touch-action="none" title="Двойной клик для перехода к обзору 360 градусов"></div>
+      <div class="camera__info">
+        <div class="camera__scrollbar-area">
+          <div class="camera__scrollbar" id="scrollbar"></div>
         </div>
-        <p class="event__pic-zoom">Приближение: 200%</p>
-        <p class="event__pic-brightness">Яркость: 50%</p>
-        <div class="event__pic-reset-zoom-block">
-          <button class="event__pic-reset-zoom-btn">1:1</button>
+        <p class="camera__zoom">Приближение: 200%</p>
+        <p class="camera__brightness">Яркость: 50%</p>
+        <div class="camera__reset-zoom-wrapper">
+          <button class="camera__reset-zoom-btn" id="reset-zoom">1:1</button>
+          <a href="pointer-lock.html">360 deg</a>
         </div>
       </div>
     </div>
   </template>
-
-<script type="text/javascript" src="main.js"></script></body>
+  <script src="script.js"></script>
+</body>
 
 </html>
