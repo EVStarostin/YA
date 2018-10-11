@@ -1,0 +1,98 @@
+.cameras__item {
+  background-color: #fafafa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  transform-origin: center;
+  position: relative;
+  transition: transform .3s ease-in-out;
+  padding: 10px;
+  max-height: 100%;
+}
+
+.cameras__video {
+  max-width: 100%;
+  max-height: 100%;
+  display: block;
+}
+
+#modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+}
+
+.cameras__item_fullscreen {
+  z-index: 1;
+  border-radius: 5px;
+}
+
+
+.body_fullscreen {
+  overflow: hidden;
+}
+
+.controls {
+  position: fixed;
+  z-index: 2;
+  background: #fafafa;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 5px 3.1% 10px;
+  display: none;
+  height: 5vw;
+  justify-content: space-around;
+  font-size: 1.3rem;
+}
+
+.controls__all-cameras {
+  padding: 10px 15px;
+  background-color: #f3f3f3;
+  border: 1px solid grey;
+}
+
+.controls__brightness,
+.controls__contrast {
+  width: 25%;
+  margin: 0 5px;
+}
+
+#brightness,
+#contrast {
+  background: transparent;
+  padding: 0 10px;
+  box-sizing: border-box;
+}
+
+.body_fullscreen .controls {
+  display: flex;
+  align-items: center;
+}
+
+@media screen and (max-width: 575.98px) {
+  .body_fullscreen .controls {
+    display: flex;
+    flex-direction: column;
+    height: 120px;
+  }
+
+  .controls__brightness,
+  .controls__contrast {
+    width: 100%;
+  }
+
+  #brightness,
+  #contrast {
+    width: 95%;
+  }
+
+  .analyzer__wrapper {
+    display: none;
+  }
+}

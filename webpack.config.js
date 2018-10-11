@@ -1,26 +1,16 @@
 const path = require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: './src/index.js',
   output: {
-    filename: 'main.js',
-    path: path.resolve(__dirname, 'dist')
+    filename: 'script.js',
+    path: path.resolve(__dirname, 'public')
   },
   plugins: [
     new MiniCssExtractPlugin({
       filename: "style.css"
-    }),
-    new HtmlWebpackPlugin({
-      filename: 'index.html',
-      template: 'src/index.html'
-    }),
-    new CopyWebpackPlugin([
-      { from: 'src/img', to: 'img' },
-      { from: 'src/data', to: 'data' },
-    ]),
+    })
   ],
   module: {
     rules: [
@@ -38,7 +28,7 @@ module.exports = {
           {
             loader: 'file-loader',
             options: {
-              name: 'img/[name].[ext]'
+              name: 'images/[name].[ext]'
             }
           }
         ]
@@ -47,10 +37,15 @@ module.exports = {
   },
   devtool: 'source-map',
   devServer: {
-    contentBase: path.join(__dirname, 'dist'),
+    contentBase: path.join(__dirname, 'public'),
     compress: true,
-    // host: '172.20.10.3',
+    host: '172.20.10.3',
     port: 3000,
     open: true
+  },
+  resolve: {
+    alias: {
+      Components: path.resolve(__dirname, 'src/components/'),
+    }
   }
 };
