@@ -34,6 +34,10 @@ export function handleGestures() {
   
   if (!camera) return;
 
+  camera.addEventListener('dblclick', () => {
+    window.open("pointer-lock.html", "_blank");
+  })
+
   const currentGestures = {
     events: [],
     prevPos: null,
