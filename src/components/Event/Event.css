@@ -405,6 +405,7 @@ body:not(.touch) .camera__reset-zoom-btn {
 @media screen and (min-width: 1800px) {
   .track {
     grid-template: 32px 32px 15px 52px / 70px 70px minmax(70px, 1fr) 52px;
+    grid-template-areas: "c n n n" "c tl tl t" ". . . ." "b f vl v";
   }
 }
 
