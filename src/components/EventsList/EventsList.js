@@ -1,10 +1,13 @@
 export async function generateContent() {
   const DATA_URL = 'data/events.json';
 
-  const data = await fetch(DATA_URL)
-    .then(response => response.json())
-    .then(json => json)
-    .catch(err => console.error(err));
+  let data;
+  try {
+    const response = await fetch(DATA_URL);
+    data = await response.json();
+  } catch (error) {
+    console.error(error);
+  }
 
   if (!data) return null;
 
