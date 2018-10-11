@@ -1,6 +1,6 @@
 # YANDEX SHRI 2018 (Старостин Евгений Валерьевич)
-Ссылка на gh-pages:
-https://evstarostin.github.io/yandex__shri/
+Сайт доступен по ссылке:
+http://www.evstar.ru/
 
 Сборка с использванием Webpack  
 `npm run build` - собрать проект  
