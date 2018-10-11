@@ -1,4 +1,5 @@
 import initVideo from '../initVideo';
+import createSoundAnalyzer from '../createSoundAnalyzer';
 
 export function setMaxHeightForTruncate() {
   setTimeout(() => {
@@ -77,42 +78,54 @@ export function initAllVideos() {
   );
 }
 
-export function openFullScreenVideo(e, modal) {
-  initVideo(
-    document.getElementById('video-modal'),
-    e.target.dataset.source
-  );
+export function openFullScreenVideo(block) {
+  const video = block.querySelector('.cameras__video');
 
-  const viewportCenter = {
-    x: document.documentElement.clientWidth / 2,
-    y: document.documentElement.clientHeight / 2
-  };
+  const modal = document.getElementById('modal');
+  modal.style.display = 'block';
+  modal.style.opacity = '1';
+  block.classList.add('cameras__item_fullscreen');
+
+  const { clientWidth: viewportWidth, clientHeight: viewportHeight } = document.documentElement;
+  const viewportCenter = { x: viewportWidth / 2, y: viewportHeight / 2 };
+
+  const { clientWidth: clickedElementWidth, clientHeight: clickedElementHeight } = block;
   const clickedElementCenter = {
-    x: e.target.getBoundingClientRect().left + e.target.clientWidth / 2,
-    y: e.target.getBoundingClientRect().top + e.target.clientHeight / 2
+    x: block.offsetLeft + clickedElementWidth / 2,
+    y: block.offsetTop + clickedElementHeight / 2
   };
-  const translation = {
-    x: clickedElementCenter.x - viewportCenter.x,
-    y: clickedElementCenter.y - viewportCenter.y
+  const transform = {
+    translate: {
+      x: viewportCenter.x - clickedElementCenter.x,
+      y: viewportCenter.y - clickedElementCenter.y,
+    },
+    scale: Math.min(viewportWidth / clickedElementWidth, viewportHeight / clickedElementHeight)
   };
 
-  modal.dataset.translateX = translation.x;
-  modal.dataset.translateY = translation.y;
+  block.style.transform = `
+    translate(${transform.translate.x}px, ${transform.translate.y}px) scale(${transform.scale})
+  `;
 
-  modal.style.transform = `translate(${translation.x}px, ${translation.y}px) scale(0)`;
-  modal.classList.add('modal_visible');
-  setTimeout(() => {
-    modal.style.transform = 'translate(0) scale(1)';
-  }, 10);
+  document.body.classList.add('body_fullscreen');
+  video.muted = false;
+
+  /* Нарисовать анализатор звука web audio api на Canvas */
+  createSoundAnalyzer(video);
 }
 
-export function closeFullScreenVideo(modal, modalVideo) {
-  const { translateX, translateY } = modal.dataset;
-  modal.style.transform = `translate(${translateX}px, ${translateY}px) scale(0)`;
+export function closeFullScreenVideo() {
+  const fullScreenVideoBlock = document.querySelector('.cameras__item_fullscreen');
+  const fullScreenVideo = document.querySelector('.cameras__item_fullscreen .cameras__video');
+  fullScreenVideoBlock.style.transform = 'translate(0) scale(1)';
+  document.body.classList.remove('body_fullscreen');
+  const modal = document.getElementById('modal');
+  modal.style.opacity = '0';
+  fullScreenVideo.style.filter = 'none';
+  fullScreenVideo.muted = true;
+  document.getElementById('brightness').value = '100';
+  document.getElementById('contrast').value = '100';
   setTimeout(() => {
-    modal.classList.remove('modal_visible');
-    modalVideo.style.filter = 'none';
-    document.getElementById('brightness').value = 100;
-    document.getElementById('contrast').value = 100;
+    modal.style.display = 'none';
+    fullScreenVideoBlock.classList.remove('cameras__item_fullscreen');
   }, 500);
 }

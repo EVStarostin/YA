@@ -1,5 +1,4 @@
 export default function initVideo(video, url) {
-  video.dataset.source = url;
   if (Hls.isSupported()) {
     var hls = new Hls();
     hls.loadSource(url);

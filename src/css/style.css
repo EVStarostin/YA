@@ -7,7 +7,7 @@ html, body, .layout {
 
 .layout {
   display: grid;
-  grid-template: 93px auto 63px / auto;
+  grid-template: minmax(max-content, 70px) minmax(max-content, calc(100% - 138px)) 60px / 1fr;
 }
 
 .layout .page-header {
@@ -494,7 +494,7 @@ body:not(.touch) .event__pic-reset-zoom-btn:hover {
 .footer-links {
   display: flex;
   list-style: none;
-  padding: 0;
+  padding: 12px 0;
 }
 
 .footer-links__item {
@@ -632,11 +632,6 @@ body:not(.touch) .footer-links__link:hover {
   .layout .page-header {
     border-bottom: none;
     padding: 20px 20px 0;
-  }
-
-  .layout {
-    display: grid;
-    grid-template: 1fr auto 63px / auto;
   }
 
   .page-footer {

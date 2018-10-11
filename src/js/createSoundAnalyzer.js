@@ -1,26 +1,49 @@
-export default function createSoundAnalyzer() {
-  // set up forked web audio context, for multiple browsers
-  // window. is needed otherwise Safari explodes
-  const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+let MEDIA_ELEMENT_NODES = {};
+MEDIA_ELEMENT_NODES['video-1'] = {};
+MEDIA_ELEMENT_NODES['video-2'] = {};
+MEDIA_ELEMENT_NODES['video-3'] = {};
+MEDIA_ELEMENT_NODES['video-4'] = {};
 
-  //set up the different audio nodes we will use for the app
-  const analyser = audioCtx.createAnalyser();
-  analyser.minDecibels = -90;
-  analyser.maxDecibels = -10;
-  analyser.smoothingTimeConstant = 0.85;
-
+export default function createSoundAnalyzer(video) {
   // set up canvas context for visualizer
   const canvas = document.getElementById('analyzer');
   const canvasCtx = canvas.getContext("2d");
 
+  // set up forked web audio context, for multiple browsers
+  // window. is needed otherwise Safari explodes
+  // const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+  //set up the different audio nodes we will use for the app
+  // const analyser = audioCtx.createAnalyser();
+  // analyser.minDecibels = -90;
+  // analyser.maxDecibels = -10;
+  // analyser.smoothingTimeConstant = 0.85;
+
+
   //main block for doing the audio recording
-  const video = document.getElementById('video-modal');
-  video.addEventListener('canplay', () => {
-    const source = audioCtx.createMediaElementSource(video);
+  // const video = document.querySelector('.cameras__item_fullscreen .cameras__video');
+  // const source = audioCtx.createMediaElementSource(video);
+  let audioCtx, analyser, source;
+  if (MEDIA_ELEMENT_NODES[video.id].audioCtx) {
+    audioCtx = MEDIA_ELEMENT_NODES[video.id].audioCtx;
+    analyser = MEDIA_ELEMENT_NODES[video.id].analyser;
+    source = MEDIA_ELEMENT_NODES[video.id].source;
     source.connect(analyser);
     source.connect(audioCtx.destination);
-    visualize();
-  });
+  } else {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    MEDIA_ELEMENT_NODES[video.id].audioCtx = audioCtx;
+    analyser = audioCtx.createAnalyser();
+    analyser.minDecibels = -90;
+    analyser.maxDecibels = -10;
+    analyser.smoothingTimeConstant = 0.85;
+    MEDIA_ELEMENT_NODES[video.id].analyser = analyser;
+    source = audioCtx.createMediaElementSource(video);
+    MEDIA_ELEMENT_NODES[video.id].source = source;
+    source.connect(analyser);
+    source.connect(audioCtx.destination);
+  }
+  visualize();
 
   function visualize() {
     const { width: WIDTH, height: HEIGHT } = canvas;
@@ -47,7 +70,7 @@ export default function createSoundAnalyzer() {
         barHeight = dataArrayAlt[i];
 
         canvasCtx.fillStyle = 'rgb(250,50,0)';
-        canvasCtx.fillRect(x, HEIGHT - barHeight / 2, barWidth, barHeight / 2);
+        canvasCtx.fillRect(x, HEIGHT - barHeight / 4, barWidth, barHeight / 4);
 
         x += barWidth + 1;
       }

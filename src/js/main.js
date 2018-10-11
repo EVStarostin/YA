@@ -1,7 +1,6 @@
-import './polyfill/pep';
+import 'pepjs';
 import generateContent from './generateContentFromTemplate';
 import handleGestures from './handleGestures';
-import createSoundAnalyzer from './createSoundAnalyzer';
 import {
   setMaxHeightForTruncate,
   isTouchDevice,
@@ -44,31 +43,31 @@ window.onload = async function () {
     /* Инициализировать все видео */
     initAllVideos();
 
-    const videos = camerasWrapper.querySelectorAll('.cameras__video');
-    const modal = document.querySelector('.modal');
-    const modalVideo = document.getElementById('video-modal');
+    const videosBlocks = camerasWrapper.querySelectorAll('.cameras__item');
 
-    videos.forEach((video) => {
-      video.addEventListener('click', (e) => {
+    videosBlocks.forEach((block) => {
+      block.addEventListener('click', (e) => {
         /* Показывать модальное окно по клику на видео */
-        openFullScreenVideo(e, modal);
+        openFullScreenVideo(block);
       });
     });
 
-    document.querySelector('.controls__hide-btn').addEventListener('click', (e) => {
+    document.querySelector('.controls__all-cameras').addEventListener('click', (e) => {
       /* Скрывать модальное окно по клику на кнопку все камеры */
-      closeFullScreenVideo(modal, modalVideo);
+      closeFullScreenVideo();
     })
 
+    let filter = { brightness: 100, contrast: 100 };
     document.getElementById('brightness').addEventListener('input', (e) => {
-      modalVideo.style.filter = `brightness(${e.target.value}%)`;
+      const fullScreenVideo = document.querySelector('.cameras__item_fullscreen .cameras__video');
+      filter.brightness = e.target.value;
+      fullScreenVideo.style.filter = `brightness(${filter.brightness}%) contrast(${filter.contrast}%)`;
     });
 
     document.getElementById('contrast').addEventListener('input', (e) => {
-      modalVideo.style.filter = `contrast(${e.target.value}%)`;
+      const fullScreenVideo = document.querySelector('.cameras__item_fullscreen .cameras__video');
+      filter.contrast = e.target.value;
+      fullScreenVideo.style.filter = `brightness(${filter.brightness}%) contrast(${filter.contrast}%)`;
     });
-
-    /* Нарисовать анализатор звука web audio api на Canvas */
-    createSoundAnalyzer();
   }
 }

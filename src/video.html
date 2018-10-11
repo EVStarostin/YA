@@ -28,13 +28,25 @@
       </button>
     </header>
     <main class="content">
-      <div class="content__wrapper">
+      <div class="content__wrapper content__wrapper_video">
         <ul class="cameras">
           <li class="cameras__item"><video id="video-1" class="cameras__video" muted autoplay></video></li>
           <li class="cameras__item"><video id="video-2" class="cameras__video" muted autoplay></video></li>
           <li class="cameras__item"><video id="video-3" class="cameras__video" muted autoplay></video></li>
           <li class="cameras__item"><video id="video-4" class="cameras__video" muted autoplay></video></li>
         </ul>
+        <div class="controls">
+          <button class="controls__all-cameras">Все камеры</button>
+          <label for="brightness" class="controls__brightness">Яркость
+            <input type="range" name="brightness" id="brightness" min="0" max="200">
+          </label>
+          <label for="contrast" class="controls__contrast">Контраст
+            <input type="range" name="contrast" id="contrast" min="0" max="200">
+          </label>
+          <div class="analyzer__wrapper">
+            <canvas class="analyzer" id="analyzer" width="200" height="50"></canvas>
+          </div>
+        </div>
       </div>
     </main>
     <footer class="page-footer">
@@ -50,8 +62,9 @@
       </ul>
       <p class="page-footer__rights">© 2001–2017 ООО «Яндекс»</p>
     </footer>
+    <div id="modal"></div>
   </div>
-  <div class="modal ">
+  <!-- <div class="modal ">
     <div class="modal__video-wrapper"><video id="video-modal" class="modal__video" controls muted autoplay></video></div>
     <div class="controls">
       <div class="controls__btns">
@@ -67,7 +80,7 @@
         <canvas class="analyzer" id="analyzer" width="200" height="100"></canvas>
       </div>
     </div>
-  </div>
+  </div> -->
 </body>
 
 </html>

@@ -8,7 +8,10 @@
   <title>Pointer Lock Api</title>
 
   <style>
-    body { margin: 0 }
+    body {
+      margin: 0
+    }
+
     #block {
       width: 100vw;
       height: 100vh;
@@ -27,7 +30,7 @@
     }
 
     document.addEventListener('pointerlockchange', lockStatusChange, false);
-    
+
     function lockStatusChange() {
       if (document.pointerLockElement === block) {
         document.addEventListener("mousemove", updateCirclePosition, false);
