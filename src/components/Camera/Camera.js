@@ -48,11 +48,15 @@ export function handleFullScreenVideo() {
     /* Фильтры яркости и контрастности */
     let filter = { brightness: 100, contrast: 100 };
     document.getElementById('brightness').addEventListener('input', (e) => {
+      const videoContainer = document.querySelector('.cameras__item_fullscreen');
+      const video = videoContainer.querySelector('.cameras__video');
       filter.brightness = e.target.value;
       video.style.filter = `brightness(${filter.brightness}%) contrast(${filter.contrast}%)`;
     });
-  
+
     document.getElementById('contrast').addEventListener('input', (e) => {
+      const videoContainer = document.querySelector('.cameras__item_fullscreen');
+      const video = videoContainer.querySelector('.cameras__video');
       filter.contrast = e.target.value;
       video.style.filter = `brightness(${filter.brightness}%) contrast(${filter.contrast}%)`;
     });
