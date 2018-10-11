@@ -322,7 +322,7 @@ body:not(.touch) .btn-group__btn-cancel:hover {
 .camera__img {
   width: 100%;
   padding-bottom: 50%;
-  background-image: url(images/Bitmap.png);
+  background-image: url(images/Bitmap.jpg);
   background-repeat: no-repeat;
   background-size: 200%;
   user-select: none;
@@ -334,7 +334,7 @@ body:not(.touch) .btn-group__btn-cancel:hover {
 (min-resolution: 2dppx),
 (min-resolution: 192dpi) {
   .camera__img {
-    background-image: url(images/Bitmap@2x.png);
+    background-image: url(images/Bitmap@2x.jpg);
   }
 }
 
@@ -343,7 +343,7 @@ body:not(.touch) .btn-group__btn-cancel:hover {
 (min-resolution: 3dppx),
 (min-resolution: 288dpi) {
   .camera__img {
-    background-image: url(images/Bitmap@3x.png);
+    background-image: url(images/Bitmap@3x.jpg);
   }
 }
 
