@@ -37,16 +37,19 @@
           <li class="cameras__item"><video id="video-4" class="cameras__video" muted autoplay></video></li>
         </ul>
         <div class="controls">
-          <button class="controls__all-cameras">Все&nbsp;камеры</button>
+          <div class="controls__sub-container">
+            <button class="controls__all-cameras">Все<br>камеры</button>
+            <div class="analyzer__wrapper">
+              <canvas class="analyzer" id="analyzer" width="200" height="50"></canvas>
+            </div>
+            <div id="room-light" class="controls__light-output">0%</div>
+          </div>
           <label for="brightness" class="controls__brightness">Яркость
             <input type="range" name="brightness" id="brightness" min="0" max="200">
           </label>
           <label for="contrast" class="controls__contrast">Контраст
             <input type="range" name="contrast" id="contrast" min="0" max="200">
           </label>
-          <div class="analyzer__wrapper">
-            <canvas class="analyzer" id="analyzer" width="200" height="50"></canvas>
-          </div>
         </div>
       </div>
     </main>

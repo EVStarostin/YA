@@ -57,7 +57,9 @@ export function handleFullScreenVideo() {
     });
 
     /* Нарисовать анализатор звука web audio api на Canvas */
-    createSoundAnalyzer(video);
+    loadSoundAnalyzer(video);
+    /* Вывести уровень освещенности */
+    loadLightDetector(video);
   }
 
   function closeFullScreen() {
@@ -104,8 +106,7 @@ export function handleFullScreenVideo() {
     'video-3': {},
     'video-4': {},
   };
-
-  function createSoundAnalyzer(video) {
+  function loadSoundAnalyzer(video) {
     const canvas = document.getElementById('analyzer');
     const canvasCtx = canvas.getContext('2d');
 
@@ -168,6 +169,42 @@ export function handleFullScreenVideo() {
       }
 
       drawAlt();
+    }
+  }
+
+  const lightOutput = document.getElementById('room-light');
+  function loadLightDetector(video) {
+    const canvas = document.createElement('canvas');
+    canvas.id = 'canvas-light';
+    const context = canvas.getContext('2d');
+
+    const canvasWidth = video.clientWidth;
+    const canvasHeight = video.clientHeight;
+    canvas.width = canvasWidth;
+    canvas.height = canvasHeight;
+    draw(video, context, canvasWidth, canvasHeight);
+
+    function draw(vid, canv, width, height) {
+      if (vid.paused || vid.ended) return false;
+      canv.drawImage(vid, 0, 0, width, height);
+
+      const { data } = canv.getImageData(0, 0, width, height);
+
+      let sum = 0;
+      let counter = 0;
+      for (let i = 0; i < data.length; i += 4) {
+        const r = data[i];
+        const g = data[i + 1];
+        const b = data[i + 2];
+        sum += (r + g + b) / 3;
+        counter++;
+        const brightness = (3 * r + 4 * g + b) >>> 3;
+        data[i] = brightness;
+        data[i + 1] = brightness;
+        data[i + 2] = brightness;
+      }
+      lightOutput.innerText = `${Math.round((sum / counter) * 100 / 255)}%`;
+      requestAnimationFrame(() => { draw(vid, canv, width, height); }, 0);
     }
   }
 }

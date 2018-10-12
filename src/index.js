@@ -10,7 +10,7 @@ import 'Components/PointerLock';
 import { initAllVideos } from 'Components/CamerasList';
 import { handleFullScreenVideo } from 'Components/Camera';
 
-(async () => {
+document.addEventListener('DOMContentLoaded', async () => {
   try {
     defineTouchDevice();
     handleToggleMenu();
@@ -22,4 +22,4 @@ import { handleFullScreenVideo } from 'Components/Camera';
   } catch (error) {
     console.error(error);
   }
-})();
+});
