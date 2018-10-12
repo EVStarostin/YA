@@ -1,4 +1,10 @@
 export function handleFullScreenVideo() {
+  const brightnessControl = document.getElementById('brightness');
+  const contrastControl = document.getElementById('contrast');
+  const allCamerasBtn = document.querySelector('.controls__all-cameras');
+  const modal = document.getElementById('modal');
+  let openedVideoContainer = null;
+
   if (!document.querySelector('.cameras')) return;
   const videoContainers = document.querySelectorAll('.cameras__item');
 
@@ -9,19 +15,70 @@ export function handleFullScreenVideo() {
     });
   });
 
-  document.querySelector('.controls__all-cameras').addEventListener('click', () => {
+  allCamerasBtn.addEventListener('click', () => {
     /* Скрывать модальное окно по клику на кнопку все камеры */
     closeFullScreen();
+  });
+
+  window.addEventListener('resize', () => {
+    const transform = calcTransformation(openedVideoContainer);
+    if (!transform) return;
+    openedVideoContainer.style.transform = `
+      translate(${transform.translate.x}px, ${transform.translate.y}px) scale(${transform.scale})
+    `;
   });
 
   function openFullScreen(videoContainer) {
     const video = videoContainer.querySelector('.cameras__video');
 
-    const modal = document.getElementById('modal');
     modal.style.display = 'block';
     modal.style.opacity = '1';
     videoContainer.classList.add('cameras__item_fullscreen');
+    openedVideoContainer = videoContainer;
 
+    const transform = calcTransformation(videoContainer);
+    videoContainer.style.transform = `
+      translate(${transform.translate.x}px, ${transform.translate.y}px) scale(${transform.scale})
+    `;
+
+    document.body.classList.add('body_fullscreen');
+    video.muted = false;
+
+    /* Фильтры яркости и контрастности */
+    const filter = { brightness: 100, contrast: 100 };
+    brightnessControl.addEventListener('input', (e) => {
+      filter.brightness = e.target.value;
+      openedVideoContainer.querySelector('.cameras__video').style.filter = `brightness(${filter.brightness}%) contrast(${filter.contrast}%)`;
+    });
+
+    contrastControl.addEventListener('input', (e) => {
+      filter.contrast = e.target.value;
+      openedVideoContainer.querySelector('.cameras__video').style.filter = `brightness(${filter.brightness}%) contrast(${filter.contrast}%)`;
+    });
+
+    /* Нарисовать анализатор звука web audio api на Canvas */
+    createSoundAnalyzer(video);
+  }
+
+  function closeFullScreen() {
+    const video = openedVideoContainer.querySelector('.cameras__video');
+
+    openedVideoContainer.style.transform = 'translate(0) scale(1)';
+    document.body.classList.remove('body_fullscreen');
+    modal.style.opacity = '0';
+    video.style.filter = 'none';
+    video.muted = true;
+    brightnessControl.value = '100';
+    contrastControl.value = '100';
+    setTimeout(() => {
+      modal.style.display = 'none';
+      openedVideoContainer.classList.remove('cameras__item_fullscreen');
+      openedVideoContainer = null;
+    }, 500);
+  }
+
+  function calcTransformation(videoContainer) {
+    if (!videoContainer) return null;
     const { clientWidth: viewportWidth, clientHeight: viewportHeight } = document.documentElement;
     const viewportCenter = { x: viewportWidth / 2, y: viewportHeight / 2 };
 
@@ -38,45 +95,7 @@ export function handleFullScreenVideo() {
       scale: Math.min(viewportWidth / clickedElementWidth, viewportHeight / clickedElementHeight),
     };
 
-    videoContainer.style.transform = `
-      translate(${transform.translate.x}px, ${transform.translate.y}px) scale(${transform.scale})
-    `;
-
-    document.body.classList.add('body_fullscreen');
-    video.muted = false;
-
-    /* Фильтры яркости и контрастности */
-    const filter = { brightness: 100, contrast: 100 };
-    document.getElementById('brightness').addEventListener('input', (e) => {
-      filter.brightness = e.target.value;
-      videoContainer.querySelector('.cameras__item_fullscreen .cameras__video').style.filter = `brightness(${filter.brightness}%) contrast(${filter.contrast}%)`;
-    });
-
-    document.getElementById('contrast').addEventListener('input', (e) => {
-      filter.contrast = e.target.value;
-      videoContainer.querySelector('.cameras__item_fullscreen .cameras__video').style.filter = `brightness(${filter.brightness}%) contrast(${filter.contrast}%)`;
-    });
-
-    /* Нарисовать анализатор звука web audio api на Canvas */
-    createSoundAnalyzer(video);
-  }
-
-  function closeFullScreen() {
-    const videoContainer = document.querySelector('.cameras__item_fullscreen');
-    const video = videoContainer.querySelector('.cameras__video');
-
-    videoContainer.style.transform = 'translate(0) scale(1)';
-    document.body.classList.remove('body_fullscreen');
-    const modal = document.getElementById('modal');
-    modal.style.opacity = '0';
-    video.style.filter = 'none';
-    video.muted = true;
-    document.getElementById('brightness').value = '100';
-    document.getElementById('contrast').value = '100';
-    setTimeout(() => {
-      modal.style.display = 'none';
-      videoContainer.classList.remove('cameras__item_fullscreen');
-    }, 500);
+    return transform;
   }
 
   const MEDIA_ELEMENT_NODES = {
