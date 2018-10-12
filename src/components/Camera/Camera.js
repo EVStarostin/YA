@@ -30,12 +30,12 @@ export function handleFullScreenVideo() {
   });
 
   function openFullScreen(videoContainer) {
+    openedVideoContainer = videoContainer;
     const video = videoContainer.querySelector('.cameras__video');
 
     modal.style.display = 'block';
     modal.style.opacity = '1';
     videoContainer.classList.add('cameras__item_fullscreen');
-    openedVideoContainer = videoContainer;
 
     const transform = calcTransformation(videoContainer);
     videoContainer.style.transform = `
