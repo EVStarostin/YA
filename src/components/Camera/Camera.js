@@ -175,7 +175,6 @@ export function handleFullScreenVideo() {
   const lightOutput = document.getElementById('room-light');
   function loadLightDetector(video) {
     const canvas = document.createElement('canvas');
-    canvas.id = 'canvas-light';
     const context = canvas.getContext('2d');
 
     const canvasWidth = video.clientWidth;
