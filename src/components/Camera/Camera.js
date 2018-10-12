@@ -3,6 +3,7 @@ export function handleFullScreenVideo() {
   const contrastControl = document.getElementById('contrast');
   const allCamerasBtn = document.querySelector('.controls__all-cameras');
   const modal = document.getElementById('modal');
+  let lightDetectionCanvas = null;
   let openedVideoContainer = null;
 
   if (!document.querySelector('.cameras')) return;
@@ -59,7 +60,8 @@ export function handleFullScreenVideo() {
     /* Нарисовать анализатор звука web audio api на Canvas */
     loadSoundAnalyzer(video);
     /* Вывести уровень освещенности */
-    loadLightDetector(video);
+    lightDetectionCanvas = document.createElement('canvas');
+    loadLightDetector(video, lightDetectionCanvas);
   }
 
   function closeFullScreen() {
@@ -77,6 +79,7 @@ export function handleFullScreenVideo() {
       openedVideoContainer.classList.remove('cameras__item_fullscreen');
       openedVideoContainer = null;
     }, 500);
+    lightDetectionCanvas = null;
   }
 
   function calcTransformation(videoContainer) {
@@ -173,8 +176,7 @@ export function handleFullScreenVideo() {
   }
 
   const lightOutput = document.getElementById('room-light');
-  function loadLightDetector(video) {
-    const canvas = document.createElement('canvas');
+  function loadLightDetector(video, canvas) {
     const context = canvas.getContext('2d');
 
     const canvasWidth = video.clientWidth;
@@ -197,10 +199,6 @@ export function handleFullScreenVideo() {
         const b = data[i + 2];
         sum += (r + g + b) / 3;
         counter++;
-        const brightness = (3 * r + 4 * g + b) >>> 3;
-        data[i] = brightness;
-        data[i + 1] = brightness;
-        data[i + 2] = brightness;
       }
       lightOutput.innerText = `${Math.round((sum / counter) * 100 / 255)}%`;
       requestAnimationFrame(() => { draw(vid, canv, width, height); }, 0);
