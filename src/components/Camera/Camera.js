@@ -3,8 +3,10 @@ export function handleFullScreenVideo() {
   const contrastControl = document.getElementById('contrast');
   const allCamerasBtn = document.querySelector('.controls__all-cameras');
   const modal = document.getElementById('modal');
-  let lightDetectionCanvas = null;
+  let lightAnalyzingCanvas = null;
   let openedVideoContainer = null;
+  let soundAnalyzerReqAnimFrame = null;
+  let lightAnalyzerReqAnimFrame = null;
 
   if (!document.querySelector('.cameras')) return;
   const videoContainers = document.querySelectorAll('.cameras__item');
@@ -60,8 +62,8 @@ export function handleFullScreenVideo() {
     /* Нарисовать анализатор звука web audio api на Canvas */
     loadSoundAnalyzer(video);
     /* Вывести уровень освещенности */
-    lightDetectionCanvas = document.createElement('canvas');
-    loadLightDetector(video, lightDetectionCanvas);
+    lightAnalyzingCanvas = document.createElement('canvas');
+    loadLightAnalyzer(video, lightAnalyzingCanvas);
   }
 
   function closeFullScreen() {
@@ -79,7 +81,9 @@ export function handleFullScreenVideo() {
       openedVideoContainer.classList.remove('cameras__item_fullscreen');
       openedVideoContainer = null;
     }, 500);
-    lightDetectionCanvas = null;
+    lightAnalyzingCanvas = null;
+    cancelAnimationFrame(soundAnalyzerReqAnimFrame);
+    cancelAnimationFrame(lightAnalyzerReqAnimFrame);
   }
 
   function calcTransformation(videoContainer) {
@@ -150,7 +154,7 @@ export function handleFullScreenVideo() {
       canvasCtx.clearRect(0, 0, WIDTH, HEIGHT);
 
       function drawAlt() {
-        requestAnimationFrame(drawAlt);
+        soundAnalyzerReqAnimFrame = requestAnimationFrame(drawAlt);
 
         analyser.getByteFrequencyData(dataArrayAlt);
 
@@ -176,7 +180,7 @@ export function handleFullScreenVideo() {
   }
 
   const lightOutput = document.getElementById('room-light');
-  function loadLightDetector(video, canvas) {
+  function loadLightAnalyzer(video, canvas) {
     const context = canvas.getContext('2d');
 
     const canvasWidth = video.clientWidth;
@@ -201,7 +205,9 @@ export function handleFullScreenVideo() {
         counter++;
       }
       lightOutput.innerText = `${Math.round((sum / counter) * 100 / 255)}%`;
-      requestAnimationFrame(() => { draw(vid, canv, width, height); }, 0);
+      lightAnalyzerReqAnimFrame = requestAnimationFrame(() => {
+        draw(vid, canv, width, height);
+      }, 0);
     }
   }
 }
