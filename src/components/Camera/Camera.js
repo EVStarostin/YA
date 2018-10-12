@@ -3,16 +3,16 @@ export function handleFullScreenVideo() {
   const videoContainers = document.querySelectorAll('.cameras__item');
 
   videoContainers.forEach((item) => {
-    item.addEventListener('click', (e) => {
+    item.addEventListener('click', () => {
       /* Показывать модальное окно по клику на видео */
       openFullScreen(item);
     });
   });
 
-  document.querySelector('.controls__all-cameras').addEventListener('click', (e) => {
+  document.querySelector('.controls__all-cameras').addEventListener('click', () => {
     /* Скрывать модальное окно по клику на кнопку все камеры */
     closeFullScreen();
-  })
+  });
 
   function openFullScreen(videoContainer) {
     const video = videoContainer.querySelector('.cameras__video');
@@ -28,14 +28,14 @@ export function handleFullScreenVideo() {
     const { clientWidth: clickedElementWidth, clientHeight: clickedElementHeight } = videoContainer;
     const clickedElementCenter = {
       x: videoContainer.offsetLeft + clickedElementWidth / 2,
-      y: videoContainer.offsetTop + clickedElementHeight / 2
+      y: videoContainer.offsetTop + clickedElementHeight / 2,
     };
     const transform = {
       translate: {
         x: viewportCenter.x - clickedElementCenter.x,
         y: viewportCenter.y - clickedElementCenter.y,
       },
-      scale: Math.min(viewportWidth / clickedElementWidth, viewportHeight / clickedElementHeight)
+      scale: Math.min(viewportWidth / clickedElementWidth, viewportHeight / clickedElementHeight),
     };
 
     videoContainer.style.transform = `
@@ -46,19 +46,15 @@ export function handleFullScreenVideo() {
     video.muted = false;
 
     /* Фильтры яркости и контрастности */
-    let filter = { brightness: 100, contrast: 100 };
+    const filter = { brightness: 100, contrast: 100 };
     document.getElementById('brightness').addEventListener('input', (e) => {
-      const videoContainer = document.querySelector('.cameras__item_fullscreen');
-      const video = videoContainer.querySelector('.cameras__video');
       filter.brightness = e.target.value;
-      video.style.filter = `brightness(${filter.brightness}%) contrast(${filter.contrast}%)`;
+      videoContainer.querySelector('.cameras__item_fullscreen .cameras__video').style.filter = `brightness(${filter.brightness}%) contrast(${filter.contrast}%)`;
     });
 
     document.getElementById('contrast').addEventListener('input', (e) => {
-      const videoContainer = document.querySelector('.cameras__item_fullscreen');
-      const video = videoContainer.querySelector('.cameras__video');
       filter.contrast = e.target.value;
-      video.style.filter = `brightness(${filter.brightness}%) contrast(${filter.contrast}%)`;
+      videoContainer.querySelector('.cameras__item_fullscreen .cameras__video').style.filter = `brightness(${filter.brightness}%) contrast(${filter.contrast}%)`;
     });
 
     /* Нарисовать анализатор звука web audio api на Canvas */
@@ -83,18 +79,19 @@ export function handleFullScreenVideo() {
     }, 500);
   }
 
-  let MEDIA_ELEMENT_NODES = {
-    ['video-1']: {},
-    ['video-2']: {},
-    ['video-3']: {},
-    ['video-4']: {}
+  const MEDIA_ELEMENT_NODES = {
+    'video-1': {},
+    'video-2': {},
+    'video-3': {},
+    'video-4': {},
   };
 
   function createSoundAnalyzer(video) {
     const canvas = document.getElementById('analyzer');
-    const canvasCtx = canvas.getContext("2d");
+    const canvasCtx = canvas.getContext('2d');
 
-    let audioCtx, analyser, source;
+    let audioCtx; let analyser; let
+      source;
     if (MEDIA_ELEMENT_NODES[video.id].audioCtx) {
       audioCtx = MEDIA_ELEMENT_NODES[video.id].audioCtx;
       analyser = MEDIA_ELEMENT_NODES[video.id].analyser;
@@ -129,7 +126,7 @@ export function handleFullScreenVideo() {
 
       canvasCtx.clearRect(0, 0, WIDTH, HEIGHT);
 
-      const drawAlt = function () {
+      function drawAlt() {
         requestAnimationFrame(drawAlt);
 
         analyser.getByteFrequencyData(dataArrayAlt);
@@ -149,9 +146,9 @@ export function handleFullScreenVideo() {
 
           x += barWidth + 1;
         }
-      };
+      }
 
       drawAlt();
     }
-  };
+  }
 }

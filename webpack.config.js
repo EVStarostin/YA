@@ -2,7 +2,7 @@ const path = require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
-  entry: './src/index.js',
+  entry: ['babel-polyfill', 'whatwg-fetch', './src/index.js'],
   output: {
     filename: 'script.js',
     path: path.resolve(__dirname, 'public')
@@ -32,14 +32,27 @@ module.exports = {
             }
           }
         ]
-      }
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: ['@babel/preset-env'],
+            }
+          },
+          'eslint-loader'
+        ]
+      },
     ]
   },
   devtool: 'source-map',
   devServer: {
     contentBase: path.join(__dirname, 'public'),
     compress: true,
-    host: '172.20.10.3',
+    // host: '172.20.10.3',
     port: 3000,
     open: true
   },

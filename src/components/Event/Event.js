@@ -4,7 +4,7 @@
  */
 export function truncateHeaders() {
   const truncatedStrings = document.querySelectorAll('.event__title');
-  truncatedStrings.forEach(item => {
+  truncatedStrings.forEach((item) => {
     const maxHeight = parseFloat(getComputedStyle(item).lineHeight) * 2;
     if (item.scrollHeight - maxHeight > 5) item.classList.add('event__title_truncated');
     item.style.maxHeight = `${maxHeight}px`;
@@ -17,26 +17,48 @@ export function truncateHeaders() {
  * Функция обрабатывает жесты scroll, pinch to zoom, rotate
  */
 export function handleGestures() {
-  const INITIAL_ZOOM = 200,
-        MAX_ZOOM = 1000,
-        MIN_ZOOM = 100,
-        ZOOM_SPEED = 30,
-        INITIAL_BRIGHTNESS = 100,
-        MIN_BRIGHTNESS = 0,
-        MAX_BRIGHTNESS = 500,
-        INITIAL_SCROLL = 0;
+  const INITIAL_ZOOM = 200;
 
-  const camera = document.getElementById('camera'),
-        scrollbar = document.getElementById('scrollbar'),
-        zoomIndicator = document.querySelector('.camera__zoom'),
-        brightnessIndicator = document.querySelector('.camera__brightness'),
-        resetZoom = document.getElementById('reset-zoom');
-  
+
+  const MAX_ZOOM = 1000;
+
+
+  const MIN_ZOOM = 100;
+
+
+  const ZOOM_SPEED = 1;
+
+
+  const INITIAL_BRIGHTNESS = 100;
+
+
+  const MIN_BRIGHTNESS = 0;
+
+
+  const MAX_BRIGHTNESS = 500;
+
+
+  const INITIAL_SCROLL = 0;
+
+  const camera = document.getElementById('camera');
+
+
+  const scrollbar = document.getElementById('scrollbar');
+
+
+  const zoomIndicator = document.querySelector('.camera__zoom');
+
+
+  const brightnessIndicator = document.querySelector('.camera__brightness');
+
+
+  const resetZoom = document.getElementById('reset-zoom');
+
   if (!camera) return;
 
   camera.addEventListener('dblclick', () => {
-    window.open("pointer-lock.html", "_blank");
-  })
+    window.open('pointer-lock.html', '_blank');
+  });
 
   const currentGestures = {
     events: [],
@@ -44,22 +66,22 @@ export function handleGestures() {
     prevDiff: null,
     prevAngle: null,
   };
-  
+
   /* Начальные значения сдвига, зума и яркости */
   const nodeState = {
     zoom: INITIAL_ZOOM,
     scroll: INITIAL_SCROLL,
-    brightness: INITIAL_BRIGHTNESS
+    brightness: INITIAL_BRIGHTNESS,
   };
 
-  resetZoom.onclick = (e) => {
+  resetZoom.onclick = () => {
     nodeState.zoom = MIN_ZOOM;
     setZoom(camera, nodeState.zoom);
     nodeState.scroll = 0;
     setScroll(camera, nodeState.scroll);
   };
 
-  camera.addEventListener('pointerdown', e => {
+  camera.addEventListener('pointerdown', (e) => {
     camera.setPointerCapture(e.pointerId);
 
     currentGestures.events.push(e);
@@ -72,7 +94,7 @@ export function handleGestures() {
   camera.addEventListener('pointerleave', pointerUpHandler);
 
   function pointerUpHandler(e) {
-    remove_event(e);
+    removeEvent(e);
     if (currentGestures.events.length < 2) currentGestures.prevDiff = null;
     if (currentGestures.events.length < 1) currentGestures.prevPos = null;
     if (currentGestures.events.length < 2) currentGestures.prevAngle = null;
@@ -80,15 +102,13 @@ export function handleGestures() {
 
   function pointerMoveHandler(e) {
     for (let i = 0; i < currentGestures.events.length; i++) {
-      if (e.pointerId == currentGestures.events[i].pointerId) {
+      if (e.pointerId === currentGestures.events[i].pointerId) {
         currentGestures.events[i] = e;
         break;
       }
     }
 
-    if (!currentGestures.events.length) {
-      return;
-    } else if (currentGestures.events.length === 2) {
+    if (currentGestures.events.length === 2) {
       handleTwoTouches(e);
     } else if (currentGestures.events.length === 1) {
       handleOneTouch(e);
@@ -114,8 +134,8 @@ export function handleGestures() {
   }
 
   function handleTwoTouches(e) {
-    const p1 = {x: currentGestures.events[0].clientX, y: currentGestures.events[0].clientY};
-    const p2 = {x: currentGestures.events[1].clientX, y: currentGestures.events[1].clientY};;
+    const p1 = { x: currentGestures.events[0].clientX, y: currentGestures.events[0].clientY };
+    const p2 = { x: currentGestures.events[1].clientX, y: currentGestures.events[1].clientY };
     const curDiff = getDistance(p1, p2);
     const curAngle = getAngle(p1, p2);
 
@@ -148,9 +168,9 @@ export function handleGestures() {
     currentGestures.prevAngle = curAngle;
   }
 
-  function remove_event(e) {
+  function removeEvent(e) {
     for (let i = 0; i < currentGestures.events.length; i++) {
-      if (currentGestures.events[i].pointerId == e.pointerId) {
+      if (currentGestures.events[i].pointerId === e.pointerId) {
         currentGestures.events.splice(i, 1);
         break;
       }
@@ -161,11 +181,11 @@ export function handleGestures() {
     el.style.backgroundPositionX = `${scroll}px`;
     scrollbar.style.left = `${(-scroll * 100) / maxScrollDistance}%`;
   }
-  
+
   function setZoom(el, zoom, maxScrollDistance) {
     el.style.backgroundSize = `${zoom}%`;
     zoomIndicator.innerText = `Приближение: ${Math.round(zoom)}%`;
-  
+
     if (zoom === MIN_ZOOM) {
       scrollbar.style.display = 'none';
     } else if (scrollbar.style.display === 'none') {
@@ -177,22 +197,21 @@ export function handleGestures() {
       el.style.backgroundPositionX = `${-maxScrollDistance}px`;
     }
   }
-  
+
   function setBrightness(el, brightness) {
     el.style.filter = `brightness(${brightness}%)`;
     brightnessIndicator.innerText = `Яркость: ${Math.round(brightness)}%`;
   }
-  
+
   function getAngle(p1, p2) {
     const rad = Math.atan2(p2.x - p1.x, p2.y - p1.y);
     const grad = rad * 180 / Math.PI;
     return grad;
   }
-  
+
   function getDistance(p1, p2) {
-    let pow1 = Math.abs(p2.x - p1.x) ** 2;
-    let pow2 = Math.abs(p2.y - p1.y) ** 2;
+    const pow1 = Math.abs(p2.x - p1.x) ** 2;
+    const pow2 = Math.abs(p2.y - p1.y) ** 2;
     return Math.sqrt(pow1 + pow2);
   }
 }
-

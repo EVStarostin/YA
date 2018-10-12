@@ -1,18 +1,17 @@
 export const PointerLock = () => {
   const block = document.querySelector('.PointerLock__block');
   if (!block) return;
-  block.onclick = function () {
+  block.onclick = () => {
     block.requestPointerLock();
-  }
+  };
 
   document.addEventListener('pointerlockchange', lockStatusChange, false);
 
   function lockStatusChange() {
     if (document.pointerLockElement === block) {
-      document.addEventListener("mousemove", updateCirclePosition, false);
-    }
-    else {
-      document.removeEventListener("mousemove", updateCirclePosition, false);
+      document.addEventListener('mousemove', updateCirclePosition, false);
+    } else {
+      document.removeEventListener('mousemove', updateCirclePosition, false);
     }
   }
 
@@ -21,4 +20,4 @@ export const PointerLock = () => {
     x += e.movementX;
     block.style.backgroundPositionX = `${x}px`;
   }
-}
+};

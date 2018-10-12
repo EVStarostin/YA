@@ -17,7 +17,7 @@ export async function generateContent() {
   if (!eventsNode || !eventsTemplate) return;
   const eventNode = eventsTemplate.content.querySelector('.event');
 
-  data.events.forEach(event => {
+  data.events.forEach((event) => {
     const eventClone = document.importNode(eventNode, true);
     eventClone.classList.add(`event_size_${event.size}`);
     if (event.type === 'critical') eventClone.classList.add('event_critical');
@@ -30,9 +30,9 @@ export async function generateContent() {
     eventClone.querySelector('.event__source').textContent = event.source;
     eventClone.querySelector('.event__time').textContent = event.time;
 
+    const eventDetails = document.createElement('div');
+    eventDetails.classList.add('event__details');
     if (event.description || event.data) {
-      var eventDetails = document.createElement('div');
-      eventDetails.classList.add('event__details');
       eventClone.appendChild(eventDetails);
     }
 

@@ -4,21 +4,31 @@
   "main": "index.js",
   "dependencies": {
     "normalize.css": "^8.0.0",
-    "pepjs": "^0.4.3",
-    "webpack": "^4.20.2",
-    "webpack-cli": "^3.1.2",
-    "webpack-dev-server": "^3.1.9"
+    "pepjs": "^0.4.3"
   },
   "devDependencies": {
+    "@babel/core": "^7.1.2",
+    "@babel/preset-env": "^7.1.0",
+    "babel-loader": "^8.0.4",
+    "babel-polyfill": "^6.26.0",
     "css-loader": "^1.0.0",
+    "eslint": "^5.6.1",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-loader": "^2.1.1",
+    "eslint-plugin-import": "^2.14.0",
     "file-loader": "^2.0.0",
     "mini-css-extract-plugin": "^0.4.3",
-    "style-loader": "^0.23.0"
+    "style-loader": "^0.23.0",
+    "webpack": "^4.20.2",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.9",
+    "whatwg-fetch": "^3.0.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack-dev-server --mode development",
-    "build": "webpack --mode production"
+    "build": "webpack --mode production",
+    "lint": "eslint src/**/*.js --fix"
   },
   "keywords": [],
   "author": "",
