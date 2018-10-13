@@ -21,6 +21,7 @@ https://yandex.ru/images/search?text=%D1%81%D1%82%D0%BE%D0%BB%D0%B1%D1%87%D0%B0%
 *html* для 3 задания написан в файле `./public/video.html`  
 *css* и *js* — `./src/components/CamerasList` и `./src/components/Camera`.  
 Выполненные пункты отмечены внизу в тексте задания галочками.  
+Тестировал на IPhone.  
 
 ### 3. ДЗ - «Мультимедиа»
 ## Пункты, которые нужно реализовать
