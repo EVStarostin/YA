@@ -207,7 +207,7 @@ export function handleFullScreenVideo() {
       lightOutput.innerText = `${Math.round((sum / counter) * 100 / 255)}%`;
       lightAnalyzerReqAnimFrame = requestAnimationFrame(() => {
         draw(vid, canv, width, height);
-      }, 0);
+      });
     }
   }
 }
