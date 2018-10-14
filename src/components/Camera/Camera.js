@@ -59,6 +59,14 @@ export function handleFullScreenVideo() {
       openedVideoContainer.querySelector('.cameras__video').style.filter = `brightness(${filter.brightness}%) contrast(${filter.contrast}%)`;
     });
 
+    /* Установить свойство "display: none" остальным видео, чтобы не перерисовывались */
+    setTimeout(() => {
+      const backVideos = document.querySelectorAll('.cameras__item:not(.cameras__item_fullscreen) .cameras__video');
+      backVideos.forEach((backVideo) => {
+        backVideo.style.display = 'none';
+      });
+    }, 300);
+
     /* Нарисовать анализатор звука web audio api на Canvas */
     loadSoundAnalyzer(video);
     /* Вывести уровень освещенности */
@@ -76,11 +84,17 @@ export function handleFullScreenVideo() {
     video.muted = true;
     brightnessControl.value = '100';
     contrastControl.value = '100';
+
+    const backVideos = document.querySelectorAll('.cameras__item:not(.cameras__item_fullscreen) .cameras__video');
+    backVideos.forEach((backVideo) => {
+      backVideo.style.display = 'block';
+    });
+
     setTimeout(() => {
       modal.style.display = 'none';
       openedVideoContainer.classList.remove('cameras__item_fullscreen');
       openedVideoContainer = null;
-    }, 500);
+    }, 300);
     lightAnalyzingCanvas = null;
     cancelAnimationFrame(soundAnalyzerReqAnimFrame);
     cancelAnimationFrame(lightAnalyzerReqAnimFrame);
