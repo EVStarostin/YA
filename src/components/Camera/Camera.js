@@ -197,8 +197,8 @@ export function handleFullScreenVideo() {
   function loadLightAnalyzer(video, canvas) {
     const context = canvas.getContext('2d');
 
-    const canvasWidth = video.clientWidth;
-    const canvasHeight = video.clientHeight;
+    const canvasWidth = 10;
+    const canvasHeight = 10;
     canvas.width = canvasWidth;
     canvas.height = canvasHeight;
     draw(video, context, canvasWidth, canvasHeight);
