@@ -2,7 +2,7 @@ const path = require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
-  entry: ['babel-polyfill', 'whatwg-fetch', './src/index.js'],
+  entry: ['babel-polyfill', 'whatwg-fetch', './src/index.ts'],
   output: {
     filename: 'script.js',
     path: path.resolve(__dirname, 'public')
@@ -46,6 +46,11 @@ module.exports = {
           'eslint-loader'
         ]
       },
+      {
+        test: /\.tsx?$/,
+        exclude: /node_modules/,
+        use: 'ts-loader'
+      }
     ]
   },
   devtool: 'source-map',
@@ -59,6 +64,8 @@ module.exports = {
   resolve: {
     alias: {
       Components: path.resolve(__dirname, 'src/components/'),
-    }
+      Models: path.resolve(__dirname, 'src/models/'),
+    },
+    extensions: [".ts", ".tsx", ".js"]
   }
 };

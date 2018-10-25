@@ -1,5 +1,5 @@
-export const PointerLock = () => {
-  const block = document.querySelector('.PointerLock__block');
+export const PointerLock = (): void => {
+  const block: HTMLDivElement | null = document.querySelector('.PointerLock__block');
   if (!block) return;
   block.onclick = () => {
     block.requestPointerLock();
@@ -7,7 +7,7 @@ export const PointerLock = () => {
 
   document.addEventListener('pointerlockchange', lockStatusChange, false);
 
-  function lockStatusChange() {
+  function lockStatusChange(): void {
     if (document.pointerLockElement === block) {
       document.addEventListener('mousemove', updateCirclePosition, false);
     } else {
@@ -16,8 +16,8 @@ export const PointerLock = () => {
   }
 
   let x = 0;
-  function updateCirclePosition(e) {
+  function updateCirclePosition(e: MouseEvent): void {
     x += e.movementX;
-    block.style.backgroundPositionX = `${x}px`;
+    block && (block.style.backgroundPositionX = `${x}px`);
   }
 };
