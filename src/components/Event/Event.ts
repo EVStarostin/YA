@@ -1,4 +1,4 @@
-import { ICurrentGestures, IPoint, INodeState } from 'Models/index';
+import { ICurrentGestures, IPoint, INodeState } from '../../models';
 
 /**
  * Функция обрезает заголовки, которые не умещаются в 2 строки

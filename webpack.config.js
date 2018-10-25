@@ -62,10 +62,6 @@ module.exports = {
     open: true
   },
   resolve: {
-    alias: {
-      Components: path.resolve(__dirname, 'src/components/'),
-      Models: path.resolve(__dirname, 'src/models/'),
-    },
     extensions: [".ts", ".tsx", ".js"]
   }
 };

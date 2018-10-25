@@ -1,4 +1,4 @@
-import { IFilter, ITransform, IClickedElementCenter, IMEDIA_ELEMENT_NODES, IMEDIA_ELEMENT_NODE } from 'Models/index';
+import { IFilter, ITransform, IClickedElementCenter, IMEDIA_ELEMENT_NODES, IMEDIA_ELEMENT_NODE } from '../../models';
 
 export function handleFullScreenVideo(): void {
   const brightnessControl: HTMLInputElement | null = document.querySelector('#brightness');

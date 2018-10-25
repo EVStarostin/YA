@@ -1,4 +1,4 @@
-import { IData, IEvent } from 'Models/index';
+import { IData, IEvent } from '../../models';
 
 export async function generateContent(): Promise<void> {
   const DATA_URL: string = 'http://194.87.239.193:8000/api/events';
