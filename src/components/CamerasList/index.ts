@@ -1,3 +1,3 @@
-import './CamerasList.css';
+import "./CamerasList.css";
 
-export { initAllVideos } from './CamerasList';
+export { initAllVideos } from "./CamerasList";

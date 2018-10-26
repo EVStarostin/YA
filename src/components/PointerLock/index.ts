@@ -1,4 +1,4 @@
-import './PointerLock.css';
-import { PointerLock } from './PointerLock';
+import { PointerLock } from "./PointerLock";
+import "./PointerLock.css";
 
 PointerLock();

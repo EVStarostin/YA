@@ -1,20 +1,20 @@
-import { ICurrentGestures, IPoint, INodeState } from '../../models';
+import { ICurrentGestures, INodeState, IPoint } from "../../models";
 
 /**
  * Функция обрезает заголовки, которые не умещаются в 2 строки
  * (в Google Chrome используется css свойство -webkit-line-clamp)
  */
 export function truncateHeaders(): void {
-  const truncatedStrings: NodeListOf<HTMLHeadingElement> = document.querySelectorAll('.event__title');
+  const truncatedStrings: NodeListOf<HTMLHeadingElement> = document.querySelectorAll(".event__title");
   truncatedStrings.forEach((item) => {
     const lineHeight: string | null = getComputedStyle(item).lineHeight;
-    if (!lineHeight) return;
+    if (!lineHeight) { return; }
     const maxHeight: number = parseFloat(lineHeight) * 2;
-    if (item.scrollHeight - maxHeight > 5) item.classList.add('event__title_truncated');
+    if (item.scrollHeight - maxHeight > 5) { item.classList.add("event__title_truncated"); }
     item.style.maxHeight = `${maxHeight}px`;
   });
 
-  window.addEventListener('resize', truncateHeaders);
+  window.addEventListener("resize", truncateHeaders);
 }
 
 /**
@@ -30,16 +30,16 @@ export function handleGestures(): void {
   const MAX_BRIGHTNESS: number = 500;
   const INITIAL_SCROLL: number = 0;
 
-  const camera: HTMLDivElement | null = document.querySelector('#camera');
-  const scrollbar: HTMLDivElement | null = document.querySelector('#scrollbar');
-  const zoomIndicator: HTMLParagraphElement | null = document.querySelector('.camera__zoom');
-  const brightnessIndicator: HTMLParagraphElement | null = document.querySelector('.camera__brightness');
-  const resetZoom: HTMLButtonElement | null = document.querySelector('#reset-zoom');
+  const camera: HTMLDivElement | null = document.querySelector("#camera");
+  const scrollbar: HTMLDivElement | null = document.querySelector("#scrollbar");
+  const zoomIndicator: HTMLParagraphElement | null = document.querySelector(".camera__zoom");
+  const brightnessIndicator: HTMLParagraphElement | null = document.querySelector(".camera__brightness");
+  const resetZoom: HTMLButtonElement | null = document.querySelector("#reset-zoom");
 
-  if (!camera) return;
+  if (!camera) { return; }
 
-  camera.addEventListener('dblclick', () => {
-    window.open('pointer-lock.html', '_blank');
+  camera.addEventListener("dblclick", () => {
+    window.open("pointer-lock.html", "_blank");
   });
 
   const currentGestures: ICurrentGestures = {
@@ -56,30 +56,32 @@ export function handleGestures(): void {
     brightness: INITIAL_BRIGHTNESS,
   };
 
-  resetZoom && (resetZoom.onclick = () => {
-    nodeState.zoom = MIN_ZOOM;
-    setZoom(camera, nodeState.zoom);
-    nodeState.scroll = 0;
-    setScroll(camera, nodeState.scroll);
-  });
+  if (resetZoom) {
+    resetZoom.onclick = () => {
+      nodeState.zoom = MIN_ZOOM;
+      setZoom(camera, nodeState.zoom);
+      nodeState.scroll = 0;
+      setScroll(camera, nodeState.scroll);
+    };
+  }
 
-  camera.addEventListener('pointerdown', (e: PointerEvent) => {
+  camera.addEventListener("pointerdown", (e: PointerEvent) => {
     camera.setPointerCapture(e.pointerId);
 
     currentGestures.events.push(e);
-    camera.addEventListener('pointermove', pointerMoveHandler);
+    camera.addEventListener("pointermove", pointerMoveHandler);
   });
 
-  camera.addEventListener('pointerup', pointerUpHandler);
-  camera.addEventListener('pointercancel', pointerUpHandler);
-  camera.addEventListener('pointerout', pointerUpHandler);
-  camera.addEventListener('pointerleave', pointerUpHandler);
+  camera.addEventListener("pointerup", pointerUpHandler);
+  camera.addEventListener("pointercancel", pointerUpHandler);
+  camera.addEventListener("pointerout", pointerUpHandler);
+  camera.addEventListener("pointerleave", pointerUpHandler);
 
   function pointerUpHandler(e: PointerEvent): void {
     removeEvent(e);
-    if (currentGestures.events.length < 2) currentGestures.prevDiff = null;
-    if (currentGestures.events.length < 1) currentGestures.prevPos = null;
-    if (currentGestures.events.length < 2) currentGestures.prevAngle = null;
+    if (currentGestures.events.length < 2) { currentGestures.prevDiff = null; }
+    if (currentGestures.events.length < 1) { currentGestures.prevPos = null; }
+    if (currentGestures.events.length < 2) { currentGestures.prevAngle = null; }
   }
 
   function pointerMoveHandler(e: PointerEvent): void {
@@ -100,8 +102,8 @@ export function handleGestures(): void {
   function handleOneTouch(e: PointerEvent): void {
     if (currentGestures.prevPos && camera) {
       const target: EventTarget | null = e.target;
-      if (!target) return;
-      const maxScrollDistance = camera.clientWidth * nodeState.zoom / 100 - (<HTMLDivElement>target).clientWidth;
+      if (!target) { return; }
+      const maxScrollDistance = camera.clientWidth * nodeState.zoom / 100 - (target as HTMLDivElement).clientWidth;
 
       nodeState.scroll += e.x - currentGestures.prevPos;
 
@@ -111,20 +113,20 @@ export function handleGestures(): void {
         nodeState.scroll = -maxScrollDistance;
       }
 
-      e.target && setScroll(e.target, nodeState.scroll, maxScrollDistance);
+      if (e.target) { setScroll(e.target, nodeState.scroll, maxScrollDistance); }
     }
 
     currentGestures.prevPos = e.x;
   }
 
   function handleTwoTouches(e: PointerEvent) {
-    if (!camera) return;
+    if (!camera) { return; }
     const p1 = { x: currentGestures.events[0].clientX, y: currentGestures.events[0].clientY };
     const p2 = { x: currentGestures.events[1].clientX, y: currentGestures.events[1].clientY };
     const curDiff = getDistance(p1, p2);
     const curAngle = getAngle(p1, p2);
 
-    const target = <HTMLDivElement>e.target;
+    const target = e.target as HTMLDivElement;
     if (currentGestures.prevDiff) {
       nodeState.zoom += (curDiff - currentGestures.prevDiff) * ZOOM_SPEED;
 
@@ -164,7 +166,7 @@ export function handleGestures(): void {
   }
 
   function setScroll(el: EventTarget, scroll: number, maxScrollDistance: number | null = null): void {
-    const target = <HTMLDivElement>el;
+    const target = el as HTMLDivElement;
     target.style.backgroundPositionX = `${scroll}px`;
     if (scrollbar && maxScrollDistance) {
       scrollbar.style.left = `${(-scroll * 100) / maxScrollDistance}%`;
@@ -172,14 +174,14 @@ export function handleGestures(): void {
   }
 
   function setZoom(el: EventTarget, zoom: number, maxScrollDistance: number | null = null): void {
-    const target = <HTMLDivElement>el;
+    const target = el as HTMLDivElement;
     target.style.backgroundSize = `${zoom}%`;
-    zoomIndicator && (zoomIndicator.innerText = `Приближение: ${Math.round(zoom)}%`);
+    if (zoomIndicator) { zoomIndicator.innerText = `Приближение: ${Math.round(zoom)}%`; }
 
     if (zoom === MIN_ZOOM && scrollbar) {
-      scrollbar.style.display = 'none';
-    } else if (scrollbar && scrollbar.style.display === 'none') {
-      scrollbar.style.display = 'block';
+      scrollbar.style.display = "none";
+    } else if (scrollbar && scrollbar.style.display === "none") {
+      scrollbar.style.display = "block";
     }
     /* При уменьшении размера, если картинка смещена вправо — свдигаем,
     чтобы картинка не выходила за пределы поля видимости. */
@@ -191,7 +193,7 @@ export function handleGestures(): void {
 
   function setBrightness(el: HTMLDivElement, brightness: number): void {
     el.style.filter = `brightness(${brightness}%)`;
-    brightnessIndicator && (brightnessIndicator.innerText = `Яркость: ${Math.round(brightness)}%`);
+    if (brightnessIndicator) { brightnessIndicator.innerText = `Яркость: ${Math.round(brightness)}%`; }
   }
 
   function getAngle(p1: IPoint, p2: IPoint): number {

@@ -1,3 +1,3 @@
-import './Event.css';
+import "./Event.css";
 
-export { truncateHeaders, handleGestures } from './Event';
+export { truncateHeaders, handleGestures } from "./Event";

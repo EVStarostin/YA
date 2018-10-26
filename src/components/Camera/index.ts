@@ -1,3 +1,3 @@
-import './Camera.css';
+import "./Camera.css";
 
-export { handleFullScreenVideo } from './Camera';
+export { handleFullScreenVideo } from "./Camera";

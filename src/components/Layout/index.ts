@@ -1,3 +1,3 @@
-import './Layout.css';
+import "./Layout.css";
 
-export { defineTouchDevice } from './Layout';
+export { defineTouchDevice } from "./Layout";

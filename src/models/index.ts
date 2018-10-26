@@ -17,32 +17,32 @@ export interface IPoint {
 }
 
 export interface IFilter {
-  brightness: number,
-  contrast: number,
+  brightness: number;
+  contrast: number;
 }
 
 export interface ITransform {
   translate: {
     x: number,
     y: number,
-  },
-  scale: number,
+  };
+  scale: number;
 }
 
 export interface IClickedElementCenter {
-  x: number,
-  y: number,
-};
+  x: number;
+  y: number;
+}
 
-export interface IMEDIA_ELEMENT_NODES {
-  [videoId:string]: IMEDIA_ELEMENT_NODE;
-};
+export interface IMediaElementNodes {
+  [videoId: string]: IMediaElementNode;
+}
 
-export interface IMEDIA_ELEMENT_NODE {
+export interface IMediaElementNode {
   audioCtx: AudioContext | null;
   analyser: AnalyserNode | null;
   source: MediaElementAudioSourceNode | null;
-};
+}
 
 export interface IData {
   events: IEvent[];
@@ -66,9 +66,9 @@ interface IGraphData {
 }
 
 interface IGraphValues {
-  electricity: (number | string)[];
-  water: (number | string)[];
-  gas: (number | string)[];
+  electricity: Array<number | string>;
+  water: Array<number | string>;
+  gas: Array<number | string>;
 }
 
 interface IButtonsData {
@@ -93,4 +93,3 @@ interface IMusicData {
   };
   volume: number;
 }
-

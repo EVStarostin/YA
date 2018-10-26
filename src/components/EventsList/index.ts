@@ -1,3 +1,3 @@
-import './EventsList.css';
+import "./EventsList.css";
 
-export { generateContent } from './EventsList';
+export { generateContent } from "./EventsList";
