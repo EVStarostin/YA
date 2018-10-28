@@ -1,4 +1,4 @@
-import { ICurrentGestures, INodeState, IPoint } from "../../models";
+import { ICurrentGestures, INodeState, IPoint } from "Models/Event";
 
 /**
  * Функция обрезает заголовки, которые не умещаются в 2 строки
@@ -136,7 +136,7 @@ export function handleGestures(): void {
         nodeState.zoom = MIN_ZOOM;
       }
 
-      const maxScrollDistance = camera.clientWidth * nodeState.zoom / 100 - target.clientWidth;
+      const maxScrollDistance: number = camera.clientWidth * nodeState.zoom / 100 - target.clientWidth;
       setZoom(target, nodeState.zoom, maxScrollDistance);
     }
 
@@ -165,7 +165,7 @@ export function handleGestures(): void {
     }
   }
 
-  function setScroll(el: EventTarget, scroll: number, maxScrollDistance: number | null = null): void {
+  function setScroll(el: EventTarget, scroll: number, maxScrollDistance?: number): void {
     const target = el as HTMLDivElement;
     target.style.backgroundPositionX = `${scroll}px`;
     if (scrollbar && maxScrollDistance) {
@@ -173,7 +173,7 @@ export function handleGestures(): void {
     }
   }
 
-  function setZoom(el: EventTarget, zoom: number, maxScrollDistance: number | null = null): void {
+  function setZoom(el: EventTarget, zoom: number, maxScrollDistance?: number): void {
     const target = el as HTMLDivElement;
     target.style.backgroundSize = `${zoom}%`;
     if (zoomIndicator) { zoomIndicator.innerText = `Приближение: ${Math.round(zoom)}%`; }

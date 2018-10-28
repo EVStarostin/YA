@@ -1,14 +1,14 @@
 import "normalize.css";
 import "pepjs";
 
-import { generateContent } from "../src/components//EventsList";
-import { handleFullScreenVideo } from "../src/components/Camera";
-import { initAllVideos } from "../src/components/CamerasList";
-import { handleGestures, truncateHeaders } from "../src/components/Event";
-import "../src/components/Footer";
-import { handleToggleMenu } from "../src/components/Header";
-import { defineTouchDevice } from "../src/components/Layout";
-import "../src/components/PointerLock";
+import { generateContent } from "Components//EventsList";
+import { handleFullScreenVideo } from "Components/Camera";
+import { initAllVideos } from "Components/CamerasList";
+import { handleGestures, truncateHeaders } from "Components/Event";
+import "Components/Footer";
+import { handleToggleMenu } from "Components/Header";
+import { defineTouchDevice } from "Components/Layout";
+import "Components/PointerLock";
 
 document.addEventListener("DOMContentLoaded", async () => {
   try {

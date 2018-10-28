@@ -1,4 +1,4 @@
-import { IClickedElementCenter, IFilter, IMediaElementNode, IMediaElementNodes, ITransform } from "../../models";
+import { IClickedElementCenter, IFilter, IMediaElementNode, IMediaElementNodes, ITransform } from "Models/Camera";
 
 export function handleFullScreenVideo(): void {
   const camerasContainer: HTMLUListElement | null = document.querySelector(".cameras");
@@ -175,7 +175,7 @@ export function handleFullScreenVideo(): void {
         source.connect(audioCtx.destination);
       }
     } else {
-      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      audioCtx = new (AudioContext || webkitAudioContext)();
       node.audioCtx = audioCtx;
       analyser = audioCtx.createAnalyser();
       analyser.minDecibels = -90;

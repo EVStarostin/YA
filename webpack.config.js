@@ -2,7 +2,7 @@ const path = require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
-  entry: ['babel-polyfill', 'whatwg-fetch', './src/index.ts'],
+  entry: ['promise-polyfill/src/polyfill', 'whatwg-fetch', './src/index.ts'],
   output: {
     filename: 'script.js',
     path: path.resolve(__dirname, 'public')
@@ -62,6 +62,10 @@ module.exports = {
     open: true
   },
   resolve: {
-    extensions: [".ts", ".tsx", ".js"]
+    extensions: [".ts", ".tsx", ".js"],
+    alias: {
+      Components: path.resolve(__dirname, 'src/components/'),
+      Models: path.resolve(__dirname, 'src/models/')
+    }
   }
 };

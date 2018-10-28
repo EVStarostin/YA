@@ -1,3 +1,5 @@
+import Hls from "hls.js";
+
 export function initAllVideos(): void {
   const URL: string = "http://194.87.239.193";
   if (!document.querySelector(".cameras")) { return; }
@@ -22,11 +24,11 @@ export function initAllVideos(): void {
 
 function initVideo(video: HTMLVideoElement | null, url: string): void {
   if (!video) { return; }
-  if (window.Hls.isSupported()) {
-    const hls = new window.Hls();
+  if (Hls.isSupported()) {
+    const hls = new Hls();
     hls.loadSource(url);
     hls.attachMedia(video);
-    hls.on(window.Hls.Events.MANIFEST_PARSED, () => {
+    hls.on(Hls.Events.MANIFEST_PARSED, () => {
       video.play();
     });
   } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
