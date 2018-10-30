@@ -84,7 +84,7 @@ export function handleGestures(): void {
     if (currentGestures.events.length < 2) { currentGestures.prevAngle = null; }
   }
 
-  function pointerMoveHandler(e: PointerEvent): void {
+  function pointerMoveHandler(this: HTMLDivElement, e: PointerEvent): void {
     for (let i = 0; i < currentGestures.events.length; i++) {
       if (e.pointerId === currentGestures.events[i].pointerId) {
         currentGestures.events[i] = e;
@@ -93,17 +93,15 @@ export function handleGestures(): void {
     }
 
     if (currentGestures.events.length === 2) {
-      handleTwoTouches(e);
+      handleTwoTouches(this, e);
     } else if (currentGestures.events.length === 1) {
-      handleOneTouch(e);
+      handleOneTouch(this, e);
     }
   }
 
-  function handleOneTouch(e: PointerEvent): void {
+  function handleOneTouch(that: HTMLDivElement, e: PointerEvent): void {
     if (currentGestures.prevPos && camera) {
-      const target: EventTarget | null = e.target;
-      if (!target) { return; }
-      const maxScrollDistance = camera.clientWidth * nodeState.zoom / 100 - (target as HTMLDivElement).clientWidth;
+      const maxScrollDistance = camera.clientWidth * nodeState.zoom / 100 - that.clientWidth;
 
       nodeState.scroll += e.x - currentGestures.prevPos;
 
@@ -113,20 +111,19 @@ export function handleGestures(): void {
         nodeState.scroll = -maxScrollDistance;
       }
 
-      if (e.target) { setScroll(e.target, nodeState.scroll, maxScrollDistance); }
+      setScroll(that, nodeState.scroll, maxScrollDistance);
     }
 
     currentGestures.prevPos = e.x;
   }
 
-  function handleTwoTouches(e: PointerEvent) {
+  function handleTwoTouches(that: HTMLDivElement, e: PointerEvent) {
     if (!camera) { return; }
     const p1 = { x: currentGestures.events[0].clientX, y: currentGestures.events[0].clientY };
     const p2 = { x: currentGestures.events[1].clientX, y: currentGestures.events[1].clientY };
     const curDiff = getDistance(p1, p2);
     const curAngle = getAngle(p1, p2);
 
-    const target = e.target as HTMLDivElement;
     if (currentGestures.prevDiff) {
       nodeState.zoom += (curDiff - currentGestures.prevDiff) * ZOOM_SPEED;
 
@@ -136,8 +133,8 @@ export function handleGestures(): void {
         nodeState.zoom = MIN_ZOOM;
       }
 
-      const maxScrollDistance: number = camera.clientWidth * nodeState.zoom / 100 - target.clientWidth;
-      setZoom(target, nodeState.zoom, maxScrollDistance);
+      const maxScrollDistance: number = camera.clientWidth * nodeState.zoom / 100 - that.clientWidth;
+      setZoom(that, nodeState.zoom, maxScrollDistance);
     }
 
     if (currentGestures.prevAngle && Math.abs(curAngle - currentGestures.prevAngle) < 100) {
@@ -149,7 +146,7 @@ export function handleGestures(): void {
         nodeState.brightness = MIN_BRIGHTNESS;
       }
 
-      setBrightness(target, nodeState.brightness);
+      setBrightness(that, nodeState.brightness);
     }
 
     currentGestures.prevDiff = curDiff;
@@ -165,17 +162,15 @@ export function handleGestures(): void {
     }
   }
 
-  function setScroll(el: EventTarget, scroll: number, maxScrollDistance?: number): void {
-    const target = el as HTMLDivElement;
-    target.style.backgroundPositionX = `${scroll}px`;
+  function setScroll(el: HTMLDivElement, scroll: number, maxScrollDistance?: number): void {
+    el.style.backgroundPositionX = `${scroll}px`;
     if (scrollbar && maxScrollDistance) {
       scrollbar.style.left = `${(-scroll * 100) / maxScrollDistance}%`;
     }
   }
 
-  function setZoom(el: EventTarget, zoom: number, maxScrollDistance?: number): void {
-    const target = el as HTMLDivElement;
-    target.style.backgroundSize = `${zoom}%`;
+  function setZoom(el: HTMLDivElement, zoom: number, maxScrollDistance?: number): void {
+    el.style.backgroundSize = `${zoom}%`;
     if (zoomIndicator) { zoomIndicator.innerText = `Приближение: ${Math.round(zoom)}%`; }
 
     if (zoom === MIN_ZOOM && scrollbar) {
@@ -185,9 +180,9 @@ export function handleGestures(): void {
     }
     /* При уменьшении размера, если картинка смещена вправо — свдигаем,
     чтобы картинка не выходила за пределы поля видимости. */
-    const BgPosition: string | null = target.style.backgroundPositionX;
+    const BgPosition: string | null = el.style.backgroundPositionX;
     if (BgPosition && maxScrollDistance && -parseFloat(BgPosition) > maxScrollDistance) {
-      target.style.backgroundPositionX = `${-maxScrollDistance}px`;
+      el.style.backgroundPositionX = `${-maxScrollDistance}px`;
     }
   }
 

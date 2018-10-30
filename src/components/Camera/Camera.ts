@@ -17,9 +17,9 @@ export function handleFullScreenVideo(): void {
   const videoContainers: NodeListOf<HTMLLIElement> = document.querySelectorAll(".cameras__item");
 
   videoContainers.forEach((item: HTMLLIElement) => {
-    item.addEventListener("click", () => {
+    item.addEventListener("click", function() {
       /* Показывать модальное окно по клику на видео */
-      openFullScreen(item);
+      openFullScreen(this);
     });
   });
 
@@ -59,8 +59,8 @@ export function handleFullScreenVideo(): void {
 
     /* Фильтры яркости и контрастности */
     const filter: IFilter = { brightness: 100, contrast: 100 };
-    if (brightnessControl) { brightnessControl.addEventListener("input", (e: Event) => {
-      filter.brightness = +(e.target as HTMLInputElement).value;
+    if (brightnessControl) { brightnessControl.addEventListener("input", function(e: Event) {
+      filter.brightness = +this.value;
       if (openedVideoContainer) {
         const modalVideo: HTMLVideoElement | null = openedVideoContainer.querySelector(".cameras__video");
         if (modalVideo) {
@@ -70,8 +70,8 @@ export function handleFullScreenVideo(): void {
     });
     }
 
-    if (contrastControl) { contrastControl.addEventListener("input", (e: Event) => {
-      filter.contrast = +(e.target as HTMLInputElement).value;
+    if (contrastControl) { contrastControl.addEventListener("input", function(e: Event) {
+      filter.contrast = +this.value;
       if (openedVideoContainer) {
         const modalVideo: HTMLVideoElement | null = openedVideoContainer.querySelector(".cameras__video");
         if (modalVideo) {
