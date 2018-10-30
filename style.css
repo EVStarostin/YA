@@ -463,6 +463,10 @@ template {
   .analyzer__wrapper {
     display: none;
   }
+
+  .controls__light-output {
+    display: none;
+  }
 }
 
 .content__wrapper_video {
