@@ -1,14 +1,14 @@
-import { IEvent } from "./Event";
+import { Event } from "./Event";
 
-export interface IAction {
-  type: string,
+export interface Action {
+  type: string;
   payload?: any;
-};
+}
 
-export interface IState {
-  events?: IEvent[];
+export interface State {
+  events?: Event[];
   isFetching?: boolean;
-  errors?: object[];
+  errors?: Error[];
 }
 
 export const actionTypes = {

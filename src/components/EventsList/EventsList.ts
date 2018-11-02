@@ -3,9 +3,9 @@ import { fetchEvents } from "Store/actions";
 import { store } from "Store/index";
 
 function renderEventsList(events: Event[], content: HTMLDivElement) {
-  const heading = document.createElement('h1');
-  heading.classList.add('content__main-heading');
-  heading.innerText = 'Лента событий';
+  const heading = document.createElement("h1");
+  heading.classList.add("content__main-heading");
+  heading.innerText = "Лента событий";
   content.appendChild(heading);
 
   const eventsTemplate = document.querySelector<HTMLTemplateElement>("#events-template");
@@ -13,8 +13,8 @@ function renderEventsList(events: Event[], content: HTMLDivElement) {
   if (!eventsTemplate) { return; }
   const eventNode = eventsTemplate.content.querySelector<HTMLLIElement>(".event");
 
-  const eventsList = document.createElement('ul');
-  eventsList.classList.add('events-list');
+  const eventsList = document.createElement("ul");
+  eventsList.classList.add("events-list");
   content.appendChild(eventsList);
 
   events.forEach((event: Event) => {

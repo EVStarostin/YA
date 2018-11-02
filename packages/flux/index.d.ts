@@ -4,6 +4,6 @@ export function createStore<S, A>(
 ): {
     getState: () => S;
     dispatch: (action: A) => A;
-    subscribe: (newListener: Function) => void;
-    unsubscribe: (oldListener: Function) => void;
+    subscribe: (newListener: () => void) => void;
+    unsubscribe: (oldListener: () => void) => void;
   };

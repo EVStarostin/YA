@@ -14,19 +14,15 @@ function handleFullScreenVideo() {
   let lightAnalyzerReqAnimFrame: number;
 
   const videoContainers = document.querySelectorAll<HTMLLIElement>(".cameras__item");
-
   videoContainers.forEach((item) => {
-    item.addEventListener("click", () => {
-      /* Показывать модальное окно по клику на видео */
-      openFullScreen(item);
-    });
+    item.addEventListener("click", function() { openFullScreen(this); });
   });
 
   if (allCamerasBtn) {
-    allCamerasBtn.addEventListener("click", () => { closeFullScreen() });
+    allCamerasBtn.addEventListener("click", () => { closeFullScreen(); });
   }
 
-  window.addEventListener('keydown', (e) => {
+  window.addEventListener("keydown", (e) => {
     if (e.keyCode === 27) {
       closeFullScreen();
     }
@@ -119,7 +115,7 @@ function handleFullScreenVideo() {
 
     openedVideoContainer.style.transform = "translate(0) scale(1)";
     document.body.classList.remove("body_fullscreen");
-    if (modal) modal.style.opacity = "0";
+    if (modal) { modal.style.opacity = "0"; }
     video.style.filter = "none";
     video.muted = true;
     if (brightnessControl) { brightnessControl.value = "100"; }
@@ -133,7 +129,7 @@ function handleFullScreenVideo() {
 
     setTimeout(() => {
       if (openedVideoContainer) {
-        if (modal) modal.style.display = "none";
+        if (modal) { modal.style.display = "none"; }
         openedVideoContainer.classList.remove("cameras__item_fullscreen");
         openedVideoContainer = null;
       }

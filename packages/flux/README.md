@@ -1,5 +1,7 @@
-## API
+Библиотека написана на *TypeScript* (папка ./src).  
+Скомпилирована в ES6 (index.js), покрыта тестами (index.test.js), добавлен файл index.d.ts.  
 
+## API
 ```javascript
 const { createStore } = require('flux');
 

@@ -3,23 +3,28 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "test": "mocha packages/flux/**/*.test.js",
     "start": "webpack-dev-server --mode development",
     "build": "webpack --mode production",
     "lint": "tslint src/**/*.ts --fix"
   },
   "dependencies": {
-    "@types/node": "^10.12.2",
     "flux": "file:./packages/flux",
     "hls.js": "^0.11.0",
     "normalize.css": "^8.0.0",
     "pepjs": "^0.4.3"
   },
   "devDependencies": {
+    "@types/chai": "^4.1.7",
     "@types/hls.js": "^0.10.2",
+    "@types/mocha": "^5.2.5",
+    "@types/node": "^10.12.2",
     "@types/webaudioapi": "0.0.27",
+    "chai": "^4.2.0",
     "css-loader": "^1.0.0",
     "file-loader": "^2.0.0",
     "mini-css-extract-plugin": "^0.4.3",
+    "mocha": "^5.2.0",
     "promise-polyfill": "^8.1.0",
     "style-loader": "^0.23.0",
     "ts-loader": "^5.2.2",

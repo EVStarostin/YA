@@ -5,15 +5,16 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha **/*.test.js",
-    "lint": "eslint **/*.js --fix"
+    "lint": "tslint src/**/*.ts --fix"
   },
   "author": "Evgenii Starostin",
   "license": "ISC",
   "devDependencies": {
+    "@types/chai": "^4.1.7",
+    "@types/mocha": "^5.2.5",
     "chai": "^4.2.0",
-    "eslint": "^5.8.0",
-    "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-plugin-import": "^2.14.0",
-    "mocha": "^5.2.0"
+    "mocha": "^5.2.0",
+    "tslint": "^5.11.0",
+    "typescript": "^3.1.6"
   }
 }

@@ -5,29 +5,29 @@ const videoURLs = [
   `${URL}:9191/master?url=${URL}:3102/streams/sosed/master.m3u8`,
   `${URL}:9191/master?url=${URL}:3102/streams/cat/master.m3u8`,
   `${URL}:9191/master?url=${URL}:3102/streams/dog/master.m3u8`,
-  `${URL}:9191/master?url=${URL}:3102/streams/hall/master.m3u8`
+  `${URL}:9191/master?url=${URL}:3102/streams/hall/master.m3u8`,
 ];
-const contentWrapper = document.querySelector<HTMLDivElement>('.content__wrapper');
+const contentWrapper = document.querySelector<HTMLDivElement>(".content__wrapper");
 
 export function renderCamerasList(urls: string[], content: HTMLDivElement) {
-  content.classList.add('content__wrapper_video');
+  content.classList.add("content__wrapper_video");
 
   const camerasTemplate = document.querySelector<HTMLTemplateElement>("#cameras-template");
 
   if (!camerasTemplate) { return; }
   const cameraNode = camerasTemplate.content.querySelector<HTMLLIElement>(".cameras__item");
-  if (!cameraNode) return;
+  if (!cameraNode) { return; }
 
-  const camerasList = document.createElement('ul');
-  camerasList.classList.add('cameras');
+  const camerasList = document.createElement("ul");
+  camerasList.classList.add("cameras");
   content.appendChild(camerasList);
 
   urls.forEach((url: string, idx: number) => {
-    let cameraClone = document.importNode(cameraNode, true);
-    const vid = cameraClone.querySelector<HTMLVideoElement>('.cameras__video');
+    const cameraClone = document.importNode(cameraNode, true);
+    const vid = cameraClone.querySelector<HTMLVideoElement>(".cameras__video");
     if (vid) {
-      vid.id = 'video-' + (idx + 1);
-      initVideo(vid, url)
+      vid.id = "video-" + (idx + 1);
+      initVideo(vid, url);
     }
 
     camerasList.appendChild(cameraClone);

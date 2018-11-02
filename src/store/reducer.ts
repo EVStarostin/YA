@@ -1,8 +1,8 @@
-import { IAction, IState } from "Models/Store";
+import { Action, State } from "Models/Store";
 
-const initialState: IState = {};
+const initialState: State = {};
 
-export default function reducer(state: IState = initialState, action: IAction) {
+export default function reducer(state: State = initialState, action: Action) {
   switch (action.type) {
     case "FETCH_EVENTS_BEGIN":
       return {
