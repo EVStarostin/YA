@@ -8,7 +8,6 @@ function handleFullScreenVideo() {
   const contrastControl = document.querySelector<HTMLInputElement>("#contrast");
   const allCamerasBtn = document.querySelector<HTMLButtonElement>(".controls__all-cameras");
   const modal = document.querySelector<HTMLDivElement>("#modal");
-  if (!brightnessControl || !contrastControl || !allCamerasBtn || !modal) { return; }
   let lightAnalyzingCanvas: HTMLCanvasElement | null;
   let openedVideoContainer: HTMLLIElement | null;
   let soundAnalyzerReqAnimFrame: number;
@@ -23,9 +22,14 @@ function handleFullScreenVideo() {
     });
   });
 
-  allCamerasBtn.addEventListener("click", () => {
-    /* Скрывать модальное окно по клику на кнопку все камеры */
-    closeFullScreen();
+  if (allCamerasBtn) {
+    allCamerasBtn.addEventListener("click", () => { closeFullScreen() });
+  }
+
+  window.addEventListener('keydown', (e) => {
+    if (e.keyCode === 27) {
+      closeFullScreen();
+    }
   });
 
   window.addEventListener("resize", () => {
@@ -41,10 +45,13 @@ function handleFullScreenVideo() {
   function openFullScreen(videoContainer: HTMLLIElement) {
     openedVideoContainer = videoContainer;
     const video = videoContainer.querySelector<HTMLVideoElement>(".cameras__video");
-    if (!video || !modal) { return; }
+    if (!video) { return; }
 
-    modal.style.display = "block";
-    modal.style.opacity = "1";
+    if (modal) {
+      modal.style.display = "block";
+      modal.style.opacity = "1";
+    }
+
     videoContainer.classList.add("cameras__item_fullscreen");
 
     const transform = calcTransformation(videoContainer);
@@ -108,11 +115,11 @@ function handleFullScreenVideo() {
   function closeFullScreen() {
     if (!openedVideoContainer) { return; }
     const video = openedVideoContainer.querySelector<HTMLVideoElement>(".cameras__video");
-    if (!video || !modal) { return; }
+    if (!video) { return; }
 
     openedVideoContainer.style.transform = "translate(0) scale(1)";
     document.body.classList.remove("body_fullscreen");
-    modal.style.opacity = "0";
+    if (modal) modal.style.opacity = "0";
     video.style.filter = "none";
     video.muted = true;
     if (brightnessControl) { brightnessControl.value = "100"; }
@@ -126,7 +133,7 @@ function handleFullScreenVideo() {
 
     setTimeout(() => {
       if (openedVideoContainer) {
-        modal.style.display = "none";
+        if (modal) modal.style.display = "none";
         openedVideoContainer.classList.remove("cameras__item_fullscreen");
         openedVideoContainer = null;
       }
@@ -268,4 +275,6 @@ function handleFullScreenVideo() {
   }
 }
 
-handleFullScreenVideo();
+setTimeout(() => {
+  handleFullScreenVideo();
+}, 1000);

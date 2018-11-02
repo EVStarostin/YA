@@ -2,11 +2,20 @@ import { Event } from "Models/Event";
 import { fetchEvents } from "Store/actions";
 import { store } from "Store/index";
 
-function renderEventsList(events: Event[], eventsNode: HTMLUListElement) {
+function renderEventsList(events: Event[], content: HTMLDivElement) {
+  const heading = document.createElement('h1');
+  heading.classList.add('content__main-heading');
+  heading.innerText = 'Лента событий';
+  content.appendChild(heading);
+
   const eventsTemplate = document.querySelector<HTMLTemplateElement>("#events-template");
 
   if (!eventsTemplate) { return; }
   const eventNode = eventsTemplate.content.querySelector<HTMLLIElement>(".event");
+
+  const eventsList = document.createElement('ul');
+  eventsList.classList.add('events-list');
+  content.appendChild(eventsList);
 
   events.forEach((event: Event) => {
     let eventClone: HTMLLIElement | null = null;
@@ -103,29 +112,29 @@ function renderEventsList(events: Event[], eventsNode: HTMLUListElement) {
       }
     }
 
-    eventsNode.appendChild(eventClone);
+    eventsList.appendChild(eventClone);
   });
 }
 
 function handleStateChange() {
-  const eventsNode: HTMLUListElement | null = document.querySelector("#events");
-  if (!eventsNode) { return; }
-  eventsNode.innerHTML = "";
+  const contentNode: HTMLDivElement | null = document.querySelector(".content__wrapper");
+  if (!contentNode) { return; }
+  contentNode.innerHTML = "";
 
   const state = store.getState();
 
   if (state.isFetching) {
-    eventsNode.innerText = "content is loading ...";
+    contentNode.innerText = "content is loading ...";
     return;
   }
 
   if (state.errors && state.errors.length) {
-    eventsNode.innerText = state.errors.join("\n");
+    contentNode.innerText = state.errors.join("\n");
     return;
   }
 
   if (state.events) {
-    renderEventsList(state.events, eventsNode);
+    renderEventsList(state.events, contentNode);
   }
 }
 
