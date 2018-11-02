@@ -1,27 +1,27 @@
-export interface ICurrentGestures {
+export interface CurrentGestures {
   events: PointerEvent[];
   prevPos: number | null;
   prevDiff: number | null;
   prevAngle: number | null;
 }
 
-export interface INodeState {
+export interface NodeState {
   zoom: number;
   scroll: number;
   brightness: number;
 }
 
-export interface IPoint {
+export interface Point {
   x: number;
   y: number;
 }
 
-export interface IData {
-  events: IEvent[];
+export interface EventsData {
+  events: Event[];
   total: number;
 }
 
-export interface IEvent {
+export interface Event {
   type: string;
   title: string;
   source: string;
@@ -29,39 +29,23 @@ export interface IEvent {
   description: string;
   icon: string;
   size: string;
-  data: IGraphData & IButtonsData & IImageData & ITemperatureData & IMusicData;
-}
-
-interface IGraphData {
-  type: string;
-  values: IGraphValues[];
-}
-
-interface IGraphValues {
-  electricity: Array<number | string>;
-  water: Array<number | string>;
-  gas: Array<number | string>;
-}
-
-interface IButtonsData {
-  buttons: string[];
-}
-
-interface IImageData {
-  image: string;
-}
-
-interface ITemperatureData {
-  temperature: number;
-  humidity: string;
-}
-
-interface IMusicData {
-  albumcover: string;
-  artist: string;
-  track: {
-    name: string;
-    length: string;
+  data?: {
+    type?: string;
+    values?: {
+      electricity: Array<number | string>;
+      water: Array<number | string>;
+      gas: Array<number | string>;
+    };
+    buttons?: string[];
+    image?: string;
+    temperature?: number;
+    humidity?: string;
+    albumcover?: string;
+    artist?: string;
+    track?: {
+      name: string;
+      length: string;
+    };
+    volume?: number;
   };
-  volume: number;
 }

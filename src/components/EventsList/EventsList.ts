@@ -1,13 +1,14 @@
-import { IData, IEvent } from "Models/Event";
+import { Event, EventsData } from "Models/Event";
 
 export async function generateContent(): Promise<void> {
   const DATA_URL: string = "http://194.87.239.193:8000/api/events";
 
-  let data: IData | null = null;
+  let data: EventsData | null = null;
   try {
     const response: Response = await fetch(DATA_URL);
     data = await response.json();
   } catch (error) {
+    /* tslint:disable-next-line:no-console */
     console.error(error);
   }
 
@@ -19,7 +20,7 @@ export async function generateContent(): Promise<void> {
   if (!eventsNode || !eventsTemplate) { return; }
   const eventNode: HTMLLIElement | null = eventsTemplate.content.querySelector(".event");
 
-  data.events.forEach((event: IEvent) => {
+  data.events.forEach((event: Event) => {
     let eventClone: HTMLLIElement | null = null;
     if (eventNode) {
       eventClone = document.importNode(eventNode, true);
@@ -83,7 +84,7 @@ export async function generateContent(): Promise<void> {
       if (trackNode) {
         const trackClone: HTMLDivElement = document.importNode(trackNode, true);
         const trackCover: HTMLImageElement | null = trackClone.querySelector(".track__cover");
-        if (trackCover) { trackCover.setAttribute("src", event.data.albumcover); }
+        if (trackCover && event.data.albumcover) { trackCover.setAttribute("src", event.data.albumcover); }
         const trackName: HTMLParagraphElement | null = trackClone.querySelector(".track__name");
         if (trackName) { trackName.textContent = `${event.data.artist} - ${event.data.track.name}`; }
         const trackTime: HTMLOutputElement | null = trackClone.querySelector(".track__time");

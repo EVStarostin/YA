@@ -1,4 +1,4 @@
-import { ICurrentGestures, INodeState, IPoint } from "Models/Event";
+import { CurrentGestures, NodeState, Point } from "Models/Event";
 
 /**
  * Функция обрезает заголовки, которые не умещаются в 2 строки
@@ -42,7 +42,7 @@ export function handleGestures(): void {
     window.open("pointer-lock.html", "_blank");
   });
 
-  const currentGestures: ICurrentGestures = {
+  const currentGestures: CurrentGestures = {
     events: [],
     prevPos: null,
     prevDiff: null,
@@ -50,7 +50,7 @@ export function handleGestures(): void {
   };
 
   /* Начальные значения сдвига, зума и яркости */
-  const nodeState: INodeState = {
+  const nodeState: NodeState = {
     zoom: INITIAL_ZOOM,
     scroll: INITIAL_SCROLL,
     brightness: INITIAL_BRIGHTNESS,
@@ -191,13 +191,13 @@ export function handleGestures(): void {
     if (brightnessIndicator) { brightnessIndicator.innerText = `Яркость: ${Math.round(brightness)}%`; }
   }
 
-  function getAngle(p1: IPoint, p2: IPoint): number {
+  function getAngle(p1: Point, p2: Point): number {
     const rad = Math.atan2(p2.x - p1.x, p2.y - p1.y);
     const grad: number = rad * 180 / Math.PI;
     return grad;
   }
 
-  function getDistance(p1: IPoint, p2: IPoint): number {
+  function getDistance(p1: Point, p2: Point): number {
     const pow1: number = Math.abs(p2.x - p1.x) ** 2;
     const pow2: number = Math.abs(p2.y - p1.y) ** 2;
     return Math.sqrt(pow1 + pow2);

@@ -1,4 +1,4 @@
-import { IClickedElementCenter, IFilter, IMediaElementNode, IMediaElementNodes, ITransform } from "Models/Camera";
+import { ClickedElementCenter, Filter, MediaElementNode, MediaElementNodes, Transform } from "Models/Camera";
 
 export function handleFullScreenVideo(): void {
   const camerasContainer: HTMLUListElement | null = document.querySelector(".cameras");
@@ -30,7 +30,7 @@ export function handleFullScreenVideo(): void {
 
   window.addEventListener("resize", () => {
     if (openedVideoContainer) {
-      const transform: ITransform | null = calcTransformation(openedVideoContainer);
+      const transform: Transform | null = calcTransformation(openedVideoContainer);
       if (!transform) { return; }
       openedVideoContainer.style.transform = `
         translate(${transform.translate.x}px, ${transform.translate.y}px) scale(${transform.scale})
@@ -47,7 +47,7 @@ export function handleFullScreenVideo(): void {
     modal.style.opacity = "1";
     videoContainer.classList.add("cameras__item_fullscreen");
 
-    const transform: ITransform | null = calcTransformation(videoContainer);
+    const transform: Transform | null = calcTransformation(videoContainer);
     if (transform) {
       videoContainer.style.transform = `
         translate(${transform.translate.x}px, ${transform.translate.y}px) scale(${transform.scale})
@@ -58,7 +58,7 @@ export function handleFullScreenVideo(): void {
     video.muted = false;
 
     /* Фильтры яркости и контрастности */
-    const filter: IFilter = { brightness: 100, contrast: 100 };
+    const filter: Filter = { brightness: 100, contrast: 100 };
     if (brightnessControl) { brightnessControl.addEventListener("input", function(e: Event) {
       filter.brightness = +this.value;
       if (openedVideoContainer) {
@@ -128,7 +128,7 @@ export function handleFullScreenVideo(): void {
     cancelAnimationFrame(lightAnalyzerReqAnimFrame);
   }
 
-  function calcTransformation(videoContainer: HTMLLIElement): ITransform | null {
+  function calcTransformation(videoContainer: HTMLLIElement): Transform | null {
     if (!videoContainer) { return null; }
     const doc: HTMLElement | null = document.documentElement;
     if (!doc) { return null; }
@@ -136,11 +136,11 @@ export function handleFullScreenVideo(): void {
     const viewportCenter = { x: viewportWidth / 2, y: viewportHeight / 2 };
 
     const { clientWidth: clickedElementWidth, clientHeight: clickedElementHeight } = videoContainer;
-    const clickedElementCenter: IClickedElementCenter = {
+    const clickedElementCenter: ClickedElementCenter = {
       x: videoContainer.offsetLeft + clickedElementWidth / 2,
       y: videoContainer.offsetTop + clickedElementHeight / 2,
     };
-    const transform: ITransform = {
+    const transform: Transform = {
       translate: {
         x: viewportCenter.x - clickedElementCenter.x,
         y: viewportCenter.y - clickedElementCenter.y,
@@ -151,7 +151,7 @@ export function handleFullScreenVideo(): void {
     return transform;
   }
 
-  const mediaElementNodes: IMediaElementNodes = {
+  const mediaElementNodes: MediaElementNodes = {
     "video-1": { audioCtx: null, analyser: null, source: null },
     "video-2": { audioCtx: null, analyser: null, source: null },
     "video-3": { audioCtx: null, analyser: null, source: null },
@@ -165,7 +165,7 @@ export function handleFullScreenVideo(): void {
     let audioCtx: AudioContext | null;
     let analyser: AnalyserNode | null;
     let source: MediaElementAudioSourceNode | null;
-    const node: IMediaElementNode | null = mediaElementNodes[video.id];
+    const node: MediaElementNode | null = mediaElementNodes[video.id];
     if (node && node.audioCtx) {
       audioCtx = node.audioCtx;
       analyser = node.analyser;

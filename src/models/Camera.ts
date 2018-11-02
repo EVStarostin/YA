@@ -1,9 +1,9 @@
-export interface IFilter {
+export interface Filter {
   brightness: number;
   contrast: number;
 }
 
-export interface ITransform {
+export interface Transform {
   translate: {
     x: number,
     y: number,
@@ -11,16 +11,16 @@ export interface ITransform {
   scale: number;
 }
 
-export interface IClickedElementCenter {
+export interface ClickedElementCenter {
   x: number;
   y: number;
 }
 
-export interface IMediaElementNodes {
-  [videoId: string]: IMediaElementNode;
+export interface MediaElementNodes {
+  [videoId: string]: MediaElementNode;
 }
 
-export interface IMediaElementNode {
+export interface MediaElementNode {
   audioCtx: AudioContext | null;
   analyser: AnalyserNode | null;
   source: MediaElementAudioSourceNode | null;

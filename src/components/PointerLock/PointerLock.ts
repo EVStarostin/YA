@@ -1,15 +1,15 @@
 declare global {
-  interface IHTMLDivElement extends HTMLDivElement {
+  interface HTMLDivElement {
     requestPointerLock: () => void;
   }
 
-  interface IDocument extends Document {
+  interface Document {
     pointerLockElement: HTMLElement;
   }
 }
 
 export const PointerLock = (): void => {
-  const block: IHTMLDivElement | null = document.querySelector(".PointerLock__block");
+  const block: HTMLDivElement | null = document.querySelector(".PointerLock__block");
   if (!block) { return; }
   block.onclick = () => {
     block.requestPointerLock();
@@ -18,7 +18,7 @@ export const PointerLock = (): void => {
   document.addEventListener("pointerlockchange", lockStatusChange, false);
 
   function lockStatusChange(): void {
-    if ((document as IDocument).pointerLockElement === block) {
+    if (document.pointerLockElement === block) {
       document.addEventListener("mousemove", updateCirclePosition, false);
     } else {
       document.removeEventListener("mousemove", updateCirclePosition, false);
