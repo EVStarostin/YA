@@ -1,6 +1,6 @@
 import { ClickedElementCenter, Filter, MediaElementNode, MediaElementNodes, Transform } from "Models/Camera";
 
-export function handleFullScreenVideo() {
+function handleFullScreenVideo() {
   const camerasContainer = document.querySelector<HTMLUListElement>(".cameras");
   if (!camerasContainer) { return; }
 
@@ -267,3 +267,5 @@ export function handleFullScreenVideo() {
     }
   }
 }
+
+handleFullScreenVideo();

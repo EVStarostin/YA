@@ -34,19 +34,6 @@ module.exports = {
         ]
       },
       {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use: [
-          {
-            loader: 'babel-loader',
-            options: {
-              presets: ['@babel/preset-env'],
-            }
-          },
-          'eslint-loader'
-        ]
-      },
-      {
         test: /\.tsx?$/,
         exclude: /node_modules/,
         use: 'ts-loader'
@@ -65,7 +52,8 @@ module.exports = {
     extensions: [".ts", ".tsx", ".js"],
     alias: {
       Components: path.resolve(__dirname, 'src/components/'),
-      Models: path.resolve(__dirname, 'src/models/')
+      Models: path.resolve(__dirname, 'src/models/'),
+      Store: path.resolve(__dirname, 'src/store/')
     }
   }
 };

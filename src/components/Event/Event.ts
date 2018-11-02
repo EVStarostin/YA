@@ -1,10 +1,11 @@
 import { CurrentGestures, NodeState, Point } from "Models/Event";
+import { store } from "Store/index";
 
 /**
  * Функция обрезает заголовки, которые не умещаются в 2 строки
  * (в Google Chrome используется css свойство -webkit-line-clamp)
  */
-export function truncateHeaders() {
+function truncateHeaders() {
   const truncatedStrings = document.querySelectorAll<HTMLHeadingElement>(".event__title");
   truncatedStrings.forEach((item) => {
     const lineHeight = getComputedStyle(item).lineHeight;
@@ -199,3 +200,12 @@ export function handleGestures() {
     return Math.sqrt(pow1 + pow2);
   }
 }
+
+store.subscribe(() => {
+  const state = store.getState();
+
+  if (state.events) {
+    truncateHeaders();
+    handleGestures();
+  }
+});

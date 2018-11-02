@@ -1,3 +1,2 @@
+import "./Header";
 import "./Header.css";
-
-export { handleToggleMenu } from "./Header";

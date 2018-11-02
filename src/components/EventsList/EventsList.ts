@@ -1,26 +1,14 @@
-import { EventsData, Event } from "Models/Event";
+import { Event } from "Models/Event";
+import { fetchEvents } from "Store/actions";
+import { store } from "Store/index";
 
-export async function generateContent() {
-  const DATA_URL = "http://194.87.239.193:8000/api/events";
-
-  let data: EventsData | null = null;
-  try {
-    const response = await fetch(DATA_URL);
-    data = await response.json();
-  } catch (error) {
-    /* tslint:disable-next-line:no-console */
-    console.error(error);
-  }
-
-  if (!data) { return; }
-
-  const eventsNode = document.querySelector<HTMLUListElement>("#events");
+function renderEventsList(events: Event[], eventsNode: HTMLUListElement) {
   const eventsTemplate = document.querySelector<HTMLTemplateElement>("#events-template");
 
-  if (!eventsNode || !eventsTemplate) { return; }
+  if (!eventsTemplate) { return; }
   const eventNode = eventsTemplate.content.querySelector<HTMLLIElement>(".event");
 
-  data.events.forEach((event) => {
+  events.forEach((event: Event) => {
     let eventClone: HTMLLIElement | null = null;
     if (eventNode) {
       eventClone = document.importNode(eventNode, true);
@@ -118,3 +106,28 @@ export async function generateContent() {
     eventsNode.appendChild(eventClone);
   });
 }
+
+function handleStateChange() {
+  const eventsNode: HTMLUListElement | null = document.querySelector("#events");
+  if (!eventsNode) { return; }
+  eventsNode.innerHTML = "";
+
+  const state = store.getState();
+
+  if (state.isFetching) {
+    eventsNode.innerText = "content is loading ...";
+    return;
+  }
+
+  if (state.errors && state.errors.length) {
+    eventsNode.innerText = state.errors.join("\n");
+    return;
+  }
+
+  if (state.events) {
+    renderEventsList(state.events, eventsNode);
+  }
+}
+
+store.subscribe(handleStateChange);
+fetchEvents();

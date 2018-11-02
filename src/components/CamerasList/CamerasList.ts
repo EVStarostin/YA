@@ -38,3 +38,5 @@ function initVideo(video: HTMLVideoElement | null, url: string): void {
     });
   }
 }
+
+initAllVideos();

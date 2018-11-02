@@ -16,11 +16,6 @@ export interface Point {
   y: number;
 }
 
-export interface EventsData {
-  events: Event[];
-  total: number;
-}
-
 export interface Event {
   type: string;
   title: string;
