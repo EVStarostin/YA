@@ -1,4 +1,4 @@
-import { Event, EventsData } from "Models/Event";
+import { EventsData, Event } from "Models/Event";
 
 export async function generateContent() {
   const DATA_URL = "http://194.87.239.193:8000/api/events";
