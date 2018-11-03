@@ -5,16 +5,15 @@ import { expect } from "chai";
 import { createStore } from "./index";
 
 describe("createStore", () => {
-  it("getState возвращает undefined при отсутствии второго параметра при инициализации store", () => {
-    const reducer = () => {};
-    const store = createStore(reducer);
+  it("у объекта, возвращаемого функцией createStore, есть методы getState, dispatch, subscribe и unsubscribe", () => {
+    const initialState = {};
+    const reducer = () => ({});
+    const store = createStore(reducer, initialState);
 
-    const res = store.getState();
-
-    expect(res).to.be.undefined;
+    expect(store).to.have.all.keys("getState", "dispatch", "subscribe", "unsubscribe");
   });
 
-  it("getState корректно возвращает начальное значение, переданное вторым параметром при инициализации store", () => {
+  it("getState корректно возвращает начальное значение, переданное вторым параметром при вызове createStore", () => {
     const initialState = { testState: 1 };
     const reducer = () => ({ testState: 1 });
     const store = createStore(reducer, initialState);
@@ -24,9 +23,10 @@ describe("createStore", () => {
     expect(res).to.eql(initialState);
   });
 
-  it("после выполнения функции dispatch в store кладутся данные, возвращаемые редюсером", () => {
+  it("после вызова dispatch в store кладутся данные, возвращаемые редюсером", () => {
+    const initialState = {};
     const reducer = () => ({ testState: 2 });
-    const store = createStore(reducer);
+    const store = createStore(reducer, initialState);
     const action = {};
 
     store.dispatch(action);
@@ -35,16 +35,26 @@ describe("createStore", () => {
     expect(res).to.eql({ testState: 2 });
   });
 
-  it("при изменение store срабатывает колбэк функция, переданная в качестве параметра в функцию subscribe", () => {
-    const reducer = () => {};
-    const store = createStore(reducer);
+  it("коллбэк-функция, переданная в параметрах метода subscribe, исполняется при вызове dispatch", (done) => {
+    const initialState = {};
+    const reducer = () => ({});
+    const store = createStore(reducer, initialState);
     const action = {};
-    let counter = 0;
-    const increaseCounter = () => { counter += 1; };
+    const callback = () => { done(); };
 
-    store.subscribe(increaseCounter);
+    store.subscribe(callback);
     store.dispatch(action);
+  });
 
-    expect(counter).to.equal(1);
+  it("коллбэк-функция, переданная в параметрах метода unsubscribe, перестает исполняться при вызове dispatch", () => {
+    const initialState = {};
+    const reducer = () => ({});
+    const store = createStore(reducer, initialState);
+    const action = {};
+    const callback = () => { expect.fail(); };
+
+    store.subscribe(callback);
+    store.unsubscribe(callback);
+    store.dispatch(action);
   });
 });

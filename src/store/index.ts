@@ -3,4 +3,5 @@ import { Action, State } from "Models/Store";
 
 import reducer from "./reducer";
 
-export const store = createStore<State, Action>(reducer);
+const initialState = { page: "events", errors: [] };
+export const store = createStore<State, Action>(reducer, initialState);

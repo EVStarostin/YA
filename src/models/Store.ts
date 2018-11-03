@@ -7,12 +7,6 @@ export interface Action {
 
 export interface State {
   events?: Event[];
-  isFetching?: boolean;
   errors?: Error[];
+  page?: string;
 }
-
-export const actionTypes = {
-  FETCH_EVENTS_BEGIN: "FETCH_EVENTS_BEGIN",
-  FETCH_EVENTS_SUCCESS: "FETCH_EVENTS_SUCCESS",
-  FETCH_EVENTS_FAIL: "FETCH_EVENTS_FAIL",
-};

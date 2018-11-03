@@ -1,2 +1,2 @@
-import "./CamerasList";
 import "./CamerasList.css";
+export { renderCamerasPage } from "./CamerasList";

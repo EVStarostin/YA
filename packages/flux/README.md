@@ -1,13 +1,19 @@
 Библиотека написана на *TypeScript* (папка ./src).  
-Скомпилирована в ES6 (index.js), покрыта тестами (index.test.js), добавлен файл index.d.ts.  
+Скомпилирована в ES6 (index.js), покрыта тестами (index.test.js), сгенерирован файл index.d.ts.  
 
 ## API
 ```javascript
-const { createStore } = require('flux');
+import { createStore } from "flux";
+
+// Создание Store, хранящего состояние приложения
+// Его API { subscribe, dispatch, getState }.
+const store = createStore(reducer, initialState);
+store.subscribe(() => console.log(store.getState()))
+store.dispatch({ type: 'INCREMENT' })
 
 // Reducer - чистая функция, которая описывает, как Action превращает текущее состояние в новое.
 // State изменять нельзя, Reducer должен возвращать новое состояние
-function reducer(state = 0, action) {
+function reducer(state, action) {
   switch (action.type) {
     case 'INCREMENT':
       return state + 1
@@ -15,10 +21,4 @@ function reducer(state = 0, action) {
       return state
   }
 }
-
-// Создание Store, хранящего состояние приложения
-// Его API { subscribe, dispatch, getState }.
-const store = createStore(reducer);
-store.subscribe(() => console.log(store.getState()))
-store.dispatch({ type: 'INCREMENT' })
 ```

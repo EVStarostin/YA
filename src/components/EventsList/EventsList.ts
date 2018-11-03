@@ -1,6 +1,9 @@
+import { handleGestures, truncateHeaders } from "Components/Event";
 import { Event } from "Models/Event";
 import { fetchEvents } from "Store/actions";
 import { store } from "Store/index";
+
+const contentNode: HTMLDivElement | null = document.querySelector(".content__wrapper");
 
 function renderEventsList(events: Event[], content: HTMLDivElement) {
   const heading = document.createElement("h1");
@@ -17,7 +20,7 @@ function renderEventsList(events: Event[], content: HTMLDivElement) {
   eventsList.classList.add("events-list");
   content.appendChild(eventsList);
 
-  events.forEach((event: Event) => {
+  events.forEach((event) => {
     let eventClone: HTMLLIElement | null = null;
     if (eventNode) {
       eventClone = document.importNode(eventNode, true);
@@ -117,26 +120,24 @@ function renderEventsList(events: Event[], content: HTMLDivElement) {
 }
 
 function handleStateChange() {
-  const contentNode: HTMLDivElement | null = document.querySelector(".content__wrapper");
-  if (!contentNode) { return; }
-  contentNode.innerHTML = "";
-
   const state = store.getState();
-
-  if (state.isFetching) {
-    contentNode.innerText = "content is loading ...";
-    return;
-  }
+  if (!contentNode || state.page !== "events") { return; }
 
   if (state.errors && state.errors.length) {
+    contentNode.innerHTML = "";
     contentNode.innerText = state.errors.join("\n");
     return;
   }
 
   if (state.events) {
+    contentNode.innerHTML = "";
     renderEventsList(state.events, contentNode);
+    truncateHeaders();
+    handleGestures();
   }
 }
 
-store.subscribe(handleStateChange);
-fetchEvents();
+export function renderEventsPage() {
+  fetchEvents();
+  store.subscribe(handleStateChange);
+}

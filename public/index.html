@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta name="robots" content="noindex">
-  <title>Умный дом — Главная</title>
+  <title>Умный дом</title>
   <link rel="shortcut icon" href="favicon.ico">
   <link rel="stylesheet" href="style.css">
   <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
@@ -15,16 +15,8 @@
 <body>
   <div class="layout">
     <header class="header">
-      <a href="#"><img src="images/Logo.svg" alt="Логотип Яндекса" class="header__logo"></a>
-      <nav class="header__nav">
-        <ul class="menu" id="menu">
-          <li class="menu__item"><a href="#" class="menu__link menu__link_active">События</a></li>
-          <li class="menu__item"><a href="#" class="menu__link">Сводка</a></li>
-          <li class="menu__item"><a href="#" class="menu__link">Устройства</a></li>
-          <li class="menu__item"><a href="#" class="menu__link">Сценарии</a></li>
-          <li class="menu__item"><a href="video.html" class="menu__link">Видеонаблюдение</a></li>
-        </ul>
-      </nav>
+      <a href="#" class="header__logo"><img src="images/Logo.svg" alt="Логотип Яндекса"></a>
+      <nav class="header__nav"></nav>
       <button class="header__toggle-menu" id="toggle-menu">
         <img src="images/icon_list_m@1x.svg" alt="бургерное меню">
       </button>
@@ -124,9 +116,9 @@
         <input type="range" name="contrast" id="contrast" min="0" max="200">
       </label>
     </div>
-    <div id="modal"></div>
   </template>
 
+  <div id="modal"></div>
   <script src="script.js"></script>
 </body>
 

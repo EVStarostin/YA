@@ -1,6 +1,6 @@
 import { ClickedElementCenter, Filter, MediaElementNode, MediaElementNodes, Transform } from "Models/Camera";
 
-function handleFullScreenVideo() {
+export function handleFullScreenVideo() {
   const camerasContainer = document.querySelector<HTMLUListElement>(".cameras");
   if (!camerasContainer) { return; }
 
@@ -15,7 +15,7 @@ function handleFullScreenVideo() {
 
   const videoContainers = document.querySelectorAll<HTMLLIElement>(".cameras__item");
   videoContainers.forEach((item) => {
-    item.addEventListener("click", function() { openFullScreen(this); });
+    item.addEventListener("click", () => { openFullScreen(item); });
   });
 
   if (allCamerasBtn) {
@@ -270,7 +270,3 @@ function handleFullScreenVideo() {
     }
   }
 }
-
-setTimeout(() => {
-  handleFullScreenVideo();
-}, 1000);

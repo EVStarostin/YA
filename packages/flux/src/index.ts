@@ -4,12 +4,12 @@
  * @param initialState - Начальное состояние store
  * @returns Объект с тремя методами: getState(), dispatch(), subscribe()
  */
-export function createStore<S, A>(reducer: (state: S | undefined, action: A) => S, initialState?: S) {
+export function createStore<S, A>(reducer: (state: S, action: A) => S, initialState: S) {
   const currentReducer = reducer;
   let currentState = initialState;
   let listeners: Array<() => void> = [];
   return {
-    getState(): S | undefined {
+    getState(): S {
       return currentState;
     },
     dispatch(action: A): A {
@@ -18,7 +18,9 @@ export function createStore<S, A>(reducer: (state: S | undefined, action: A) => 
       return action;
     },
     subscribe(newListener: () => void): void {
-      listeners = [...listeners, newListener];
+      if (typeof newListener === "function") {
+        listeners = [...listeners, newListener];
+      }
     },
     unsubscribe(oldListener: () => void): void {
       listeners = listeners.filter((listener) => listener !== oldListener);
