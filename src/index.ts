@@ -8,7 +8,6 @@ import { handleGestures, truncateHeaders } from "Components/Event";
 import "Components/Footer";
 import { handleToggleMenu } from "Components/Header";
 import { defineTouchDevice } from "Components/Layout";
-import "Components/PointerLock";
 
 document.addEventListener("DOMContentLoaded", async () => {
   try {

@@ -1,11 +1,11 @@
 import { Event, EventsData } from "Models/Event";
 
-export async function generateContent(): Promise<void> {
-  const DATA_URL: string = "http://194.87.239.193:8000/api/events";
+export async function generateContent() {
+  const DATA_URL = "http://194.87.239.193:8000/api/events";
 
   let data: EventsData | null = null;
   try {
-    const response: Response = await fetch(DATA_URL);
+    const response = await fetch(DATA_URL);
     data = await response.json();
   } catch (error) {
     /* tslint:disable-next-line:no-console */
@@ -14,13 +14,13 @@ export async function generateContent(): Promise<void> {
 
   if (!data) { return; }
 
-  const eventsNode: HTMLUListElement | null = document.querySelector("#events");
-  const eventsTemplate: HTMLTemplateElement | null = document.querySelector("#events-template");
+  const eventsNode = document.querySelector<HTMLUListElement>("#events");
+  const eventsTemplate = document.querySelector<HTMLTemplateElement>("#events-template");
 
   if (!eventsNode || !eventsTemplate) { return; }
-  const eventNode: HTMLLIElement | null = eventsTemplate.content.querySelector(".event");
+  const eventNode = eventsTemplate.content.querySelector<HTMLLIElement>(".event");
 
-  data.events.forEach((event: Event) => {
+  data.events.forEach((event) => {
     let eventClone: HTMLLIElement | null = null;
     if (eventNode) {
       eventClone = document.importNode(eventNode, true);
@@ -30,87 +30,87 @@ export async function generateContent(): Promise<void> {
 
     if (eventClone === null) { return; }
 
-    const eventIcon: HTMLImageElement | null = eventClone.querySelector(".event__icon");
+    const eventIcon = eventClone.querySelector<HTMLImageElement>(".event__icon");
 
     if (eventIcon) {
       eventIcon.setAttribute("src", `images/${event.icon}${event.type === "critical" ? "-white" : ""}.svg`);
       eventIcon.setAttribute("alt", event.source);
     }
 
-    const title: HTMLHeadingElement | null = eventClone.querySelector(".event__title");
+    const title = eventClone.querySelector<HTMLHeadingElement>(".event__title");
     if (title) { title.textContent = event.title; }
-    const source: HTMLHeadingElement | null = eventClone.querySelector(".event__source");
+    const source = eventClone.querySelector<HTMLHeadingElement>(".event__source");
     if (source) { source.textContent = event.source; }
-    const time: HTMLHeadingElement | null = eventClone.querySelector(".event__time");
+    const time = eventClone.querySelector<HTMLHeadingElement>(".event__time");
     if (time) { time.textContent = event.time; }
 
-    const eventDetails: HTMLDivElement = document.createElement("div");
+    const eventDetails = document.createElement("div");
     eventDetails.classList.add("event__details");
     if (event.description || event.data) {
       eventClone.appendChild(eventDetails);
     }
 
     if (event.description) {
-      const descriptionNode: HTMLParagraphElement | null = eventsTemplate.content.querySelector(".event__description");
+      const descriptionNode = eventsTemplate.content.querySelector<HTMLParagraphElement>(".event__description");
       if (descriptionNode) {
-        const descriptionClone: HTMLParagraphElement = document.importNode(descriptionNode, true);
+        const descriptionClone = document.importNode(descriptionNode, true);
         descriptionClone.textContent = event.description;
         eventDetails.appendChild(descriptionClone);
       }
     }
 
     if (event.data && event.data.type === "graph") {
-      const graphNode: HTMLImageElement | null = eventsTemplate.content.querySelector(".graph");
+      const graphNode = eventsTemplate.content.querySelector<HTMLImageElement>(".graph");
       if (graphNode) {
-        const graphClone: HTMLImageElement = document.importNode(graphNode, true);
+        const graphClone = document.importNode(graphNode, true);
         eventDetails.appendChild(graphClone);
       }
     }
 
     if (event.data && event.data.temperature) {
-      const tempNode: HTMLDivElement | null = eventsTemplate.content.querySelector(".weather");
+      const tempNode = eventsTemplate.content.querySelector<HTMLDivElement>(".weather");
       if (tempNode) {
-        const tempClone: HTMLDivElement = document.importNode(tempNode, true);
-        const temp: HTMLParagraphElement | null = tempClone.querySelector("#temp");
+        const tempClone = document.importNode(tempNode, true);
+        const temp = tempClone.querySelector<HTMLParagraphElement>("#temp");
         if (temp) { temp.textContent = String(event.data.temperature); }
-        const hum: HTMLParagraphElement | null = tempClone.querySelector("#hum");
+        const hum = tempClone.querySelector<HTMLParagraphElement>("#hum");
         if (hum) { hum.textContent = String(event.data.humidity); }
         eventDetails.appendChild(tempClone);
       }
     }
 
     if (event.data && event.data.track) {
-      const trackNode: HTMLDivElement | null = eventsTemplate.content.querySelector(".track");
+      const trackNode = eventsTemplate.content.querySelector<HTMLDivElement>(".track");
       if (trackNode) {
-        const trackClone: HTMLDivElement = document.importNode(trackNode, true);
-        const trackCover: HTMLImageElement | null = trackClone.querySelector(".track__cover");
+        const trackClone = document.importNode(trackNode, true);
+        const trackCover = trackClone.querySelector<HTMLImageElement>(".track__cover");
         if (trackCover && event.data.albumcover) { trackCover.setAttribute("src", event.data.albumcover); }
-        const trackName: HTMLParagraphElement | null = trackClone.querySelector(".track__name");
+        const trackName = trackClone.querySelector<HTMLParagraphElement>(".track__name");
         if (trackName) { trackName.textContent = `${event.data.artist} - ${event.data.track.name}`; }
-        const trackTime: HTMLOutputElement | null = trackClone.querySelector(".track__time");
+        const trackTime = trackClone.querySelector<HTMLOutputElement>(".track__time");
         if (trackTime) { trackTime.textContent = event.data.track.length; }
-        const trackVolume: HTMLOutputElement | null = trackClone.querySelector(".track__vol");
+        const trackVolume = trackClone.querySelector<HTMLOutputElement>(".track__vol");
         if (trackVolume) { trackVolume.textContent = String(event.data.volume); }
         eventDetails.appendChild(trackClone);
       }
     }
 
     if (event.data && event.data.buttons) {
-      const btnGroupNode: HTMLDivElement | null = eventsTemplate.content.querySelector(".btn-group");
+      const btnGroupNode = eventsTemplate.content.querySelector<HTMLDivElement>(".btn-group");
       if (btnGroupNode) {
-        const btnGroupClone: HTMLDivElement = document.importNode(btnGroupNode, true);
-        const confirm: HTMLButtonElement | null = btnGroupClone.querySelector(".btn-group__btn-confirm");
+        const btnGroupClone = document.importNode(btnGroupNode, true);
+        const confirm = btnGroupClone.querySelector<HTMLButtonElement>(".btn-group__btn-confirm");
         if (confirm) { confirm.textContent = event.data.buttons[0]; }
-        const cancel: HTMLButtonElement | null = btnGroupClone.querySelector(".btn-group__btn-cancel");
+        const cancel = btnGroupClone.querySelector<HTMLButtonElement>(".btn-group__btn-cancel");
         if (cancel) { cancel.textContent = event.data.buttons[1]; }
         eventDetails.appendChild(btnGroupClone);
       }
     }
 
     if (event.data && event.data.image) {
-      const imageNode: HTMLDivElement | null = eventsTemplate.content.querySelector(".camera");
+      const imageNode = eventsTemplate.content.querySelector<HTMLDivElement>(".camera");
       if (imageNode) {
-        const imageClone: HTMLDivElement = document.importNode(imageNode, true);
+        const imageClone = document.importNode(imageNode, true);
         eventDetails.appendChild(imageClone);
       }
     }

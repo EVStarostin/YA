@@ -1,8 +1,8 @@
-export function handleToggleMenu(): void {
-  const toggleMenu: HTMLButtonElement | null = document.querySelector("#toggle-menu");
+export function handleToggleMenu() {
+  const toggleMenu = document.querySelector<HTMLButtonElement>("#toggle-menu");
   if (toggleMenu) {
     toggleMenu.addEventListener("click", () => {
-      const menu: HTMLUListElement | null = document.querySelector("#menu");
+      const menu = document.querySelector<HTMLUListElement>("#menu");
       if (menu) { menu.classList.toggle("menu_visible"); }
     });
   }

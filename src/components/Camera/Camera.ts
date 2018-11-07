@@ -1,25 +1,25 @@
 import { ClickedElementCenter, Filter, MediaElementNode, MediaElementNodes, Transform } from "Models/Camera";
 
-export function handleFullScreenVideo(): void {
-  const camerasContainer: HTMLUListElement | null = document.querySelector(".cameras");
+export function handleFullScreenVideo() {
+  const camerasContainer = document.querySelector<HTMLUListElement>(".cameras");
   if (!camerasContainer) { return; }
 
-  const brightnessControl: HTMLInputElement | null = document.querySelector("#brightness");
-  const contrastControl: HTMLInputElement | null = document.querySelector("#contrast");
-  const allCamerasBtn: HTMLButtonElement | null = document.querySelector(".controls__all-cameras");
-  const modal: HTMLDivElement | null = document.querySelector("#modal");
+  const brightnessControl = document.querySelector<HTMLInputElement>("#brightness");
+  const contrastControl = document.querySelector<HTMLInputElement>("#contrast");
+  const allCamerasBtn = document.querySelector<HTMLButtonElement>(".controls__all-cameras");
+  const modal = document.querySelector<HTMLDivElement>("#modal");
   if (!brightnessControl || !contrastControl || !allCamerasBtn || !modal) { return; }
   let lightAnalyzingCanvas: HTMLCanvasElement | null;
   let openedVideoContainer: HTMLLIElement | null;
   let soundAnalyzerReqAnimFrame: number;
   let lightAnalyzerReqAnimFrame: number;
 
-  const videoContainers: NodeListOf<HTMLLIElement> = document.querySelectorAll(".cameras__item");
+  const videoContainers = document.querySelectorAll<HTMLLIElement>(".cameras__item");
 
-  videoContainers.forEach((item: HTMLLIElement) => {
-    item.addEventListener("click", function() {
+  videoContainers.forEach((item) => {
+    item.addEventListener("click", () => {
       /* Показывать модальное окно по клику на видео */
-      openFullScreen(this);
+      openFullScreen(item);
     });
   });
 
@@ -30,7 +30,7 @@ export function handleFullScreenVideo(): void {
 
   window.addEventListener("resize", () => {
     if (openedVideoContainer) {
-      const transform: Transform | null = calcTransformation(openedVideoContainer);
+      const transform = calcTransformation(openedVideoContainer);
       if (!transform) { return; }
       openedVideoContainer.style.transform = `
         translate(${transform.translate.x}px, ${transform.translate.y}px) scale(${transform.scale})
@@ -38,16 +38,16 @@ export function handleFullScreenVideo(): void {
     }
   });
 
-  function openFullScreen(videoContainer: HTMLLIElement): void {
+  function openFullScreen(videoContainer: HTMLLIElement) {
     openedVideoContainer = videoContainer;
-    const video: HTMLVideoElement | null = videoContainer.querySelector(".cameras__video");
+    const video = videoContainer.querySelector<HTMLVideoElement>(".cameras__video");
     if (!video || !modal) { return; }
 
     modal.style.display = "block";
     modal.style.opacity = "1";
     videoContainer.classList.add("cameras__item_fullscreen");
 
-    const transform: Transform | null = calcTransformation(videoContainer);
+    const transform = calcTransformation(videoContainer);
     if (transform) {
       videoContainer.style.transform = `
         translate(${transform.translate.x}px, ${transform.translate.y}px) scale(${transform.scale})
@@ -59,10 +59,14 @@ export function handleFullScreenVideo(): void {
 
     /* Фильтры яркости и контрастности */
     const filter: Filter = { brightness: 100, contrast: 100 };
-    if (brightnessControl) { brightnessControl.addEventListener("input", function(e: Event) {
-      filter.brightness = +this.value;
+    if (brightnessControl) { brightnessControl.addEventListener("input", (e: Event) => {
+      if (e.target) {
+        const value = (e.target as HTMLInputElement).value;
+        filter.brightness = +value;
+      }
+
       if (openedVideoContainer) {
-        const modalVideo: HTMLVideoElement | null = openedVideoContainer.querySelector(".cameras__video");
+        const modalVideo = openedVideoContainer.querySelector<HTMLVideoElement>(".cameras__video");
         if (modalVideo) {
           modalVideo.style.filter = `brightness(${filter.brightness}%) contrast(${filter.contrast}%)`;
         }
@@ -70,10 +74,14 @@ export function handleFullScreenVideo(): void {
     });
     }
 
-    if (contrastControl) { contrastControl.addEventListener("input", function(e: Event) {
-      filter.contrast = +this.value;
+    if (contrastControl) { contrastControl.addEventListener("input", (e: Event) => {
+      if (e.target) {
+        const value = (e.target as HTMLInputElement).value;
+        filter.contrast = +value;
+      }
+
       if (openedVideoContainer) {
-        const modalVideo: HTMLVideoElement | null = openedVideoContainer.querySelector(".cameras__video");
+        const modalVideo = openedVideoContainer.querySelector<HTMLVideoElement>(".cameras__video");
         if (modalVideo) {
           modalVideo.style.filter = `brightness(${filter.brightness}%) contrast(${filter.contrast}%)`;
         }
@@ -83,9 +91,9 @@ export function handleFullScreenVideo(): void {
 
     /* Установить свойство "display: none" остальным видео, чтобы не перерисовывались */
     setTimeout(() => {
-      const selector: string = ".cameras__item:not(.cameras__item_fullscreen) .cameras__video";
-      const backVideos: NodeListOf<HTMLVideoElement> = document.querySelectorAll(selector);
-      backVideos.forEach((backVideo: HTMLVideoElement) => {
+      const selector = ".cameras__item:not(.cameras__item_fullscreen) .cameras__video";
+      const backVideos = document.querySelectorAll<HTMLVideoElement>(selector);
+      backVideos.forEach((backVideo) => {
         backVideo.style.display = "none";
       });
     }, 300);
@@ -97,9 +105,9 @@ export function handleFullScreenVideo(): void {
     loadLightAnalyzer(video, lightAnalyzingCanvas);
   }
 
-  function closeFullScreen(): void {
+  function closeFullScreen() {
     if (!openedVideoContainer) { return; }
-    const video: HTMLVideoElement | null = openedVideoContainer.querySelector(".cameras__video");
+    const video = openedVideoContainer.querySelector<HTMLVideoElement>(".cameras__video");
     if (!video || !modal) { return; }
 
     openedVideoContainer.style.transform = "translate(0) scale(1)";
@@ -110,9 +118,9 @@ export function handleFullScreenVideo(): void {
     if (brightnessControl) { brightnessControl.value = "100"; }
     if (contrastControl) { contrastControl.value = "100"; }
 
-    const selector: string = ".cameras__item:not(.cameras__item_fullscreen) .cameras__video";
-    const backVideos: NodeListOf<HTMLVideoElement> = document.querySelectorAll(selector);
-    backVideos.forEach((backVideo: HTMLVideoElement) => {
+    const selector = ".cameras__item:not(.cameras__item_fullscreen) .cameras__video";
+    const backVideos = document.querySelectorAll<HTMLVideoElement>(selector);
+    backVideos.forEach((backVideo) => {
       backVideo.style.display = "block";
     });
 
@@ -129,10 +137,8 @@ export function handleFullScreenVideo(): void {
   }
 
   function calcTransformation(videoContainer: HTMLLIElement): Transform | null {
-    if (!videoContainer) { return null; }
-    const doc: HTMLElement | null = document.documentElement;
-    if (!doc) { return null; }
-    const { clientWidth: viewportWidth, clientHeight: viewportHeight } = doc;
+    if (!videoContainer || !document.documentElement) { return null; }
+    const { clientWidth: viewportWidth, clientHeight: viewportHeight } = document.documentElement;
     const viewportCenter = { x: viewportWidth / 2, y: viewportHeight / 2 };
 
     const { clientWidth: clickedElementWidth, clientHeight: clickedElementHeight } = videoContainer;
@@ -157,15 +163,15 @@ export function handleFullScreenVideo(): void {
     "video-3": { audioCtx: null, analyser: null, source: null },
     "video-4": { audioCtx: null, analyser: null, source: null },
   };
-  function loadSoundAnalyzer(video: HTMLVideoElement): void {
-    const canvas: HTMLCanvasElement | null = document.querySelector("#analyzer");
+  function loadSoundAnalyzer(video: HTMLVideoElement) {
+    const canvas = document.querySelector<HTMLCanvasElement>("#analyzer");
     if (!canvas) { return; }
-    const canvasCtx: CanvasRenderingContext2D | null = canvas.getContext("2d");
+    const canvasCtx = canvas.getContext("2d");
 
     let audioCtx: AudioContext | null;
     let analyser: AnalyserNode | null;
     let source: MediaElementAudioSourceNode | null;
-    const node: MediaElementNode | null = mediaElementNodes[video.id];
+    const node = mediaElementNodes[video.id];
     if (node && node.audioCtx) {
       audioCtx = node.audioCtx;
       analyser = node.analyser;
@@ -191,17 +197,17 @@ export function handleFullScreenVideo(): void {
     }
     visualize();
 
-    function visualize(): void {
+    function visualize() {
       if (!canvas || !analyser || !canvasCtx) { return; }
       const { width: WIDTH, height: HEIGHT } = canvas;
 
       analyser.fftSize = 256;
-      const bufferLengthAlt: number = analyser.frequencyBinCount;
-      const dataArrayAlt: Uint8Array = new Uint8Array(bufferLengthAlt);
+      const bufferLengthAlt = analyser.frequencyBinCount;
+      const dataArrayAlt = new Uint8Array(bufferLengthAlt);
 
       canvasCtx.clearRect(0, 0, WIDTH, HEIGHT);
 
-      function drawAlt(): void {
+      function drawAlt() {
         if (!analyser || !canvasCtx) { return; }
 
         soundAnalyzerReqAnimFrame = requestAnimationFrame(drawAlt);
@@ -211,9 +217,9 @@ export function handleFullScreenVideo(): void {
         canvasCtx.fillStyle = "rgb(250, 220, 0)";
         canvasCtx.fillRect(0, 0, WIDTH, HEIGHT);
 
-        const barWidth: number = (WIDTH / bufferLengthAlt) * 2.5;
+        const barWidth = (WIDTH / bufferLengthAlt) * 2.5;
         let barHeight: number;
-        let x: number = 0;
+        let x = 0;
 
         for (let i = 0; i < bufferLengthAlt; i++) {
           barHeight = dataArrayAlt[i];
@@ -229,28 +235,28 @@ export function handleFullScreenVideo(): void {
     }
   }
 
-  const lightOutput: HTMLDivElement | null = document.querySelector("#room-light");
-  function loadLightAnalyzer(video: HTMLVideoElement, canvas: HTMLCanvasElement): void {
-    const context: CanvasRenderingContext2D | null = canvas.getContext("2d");
+  const lightOutput = document.querySelector<HTMLDivElement>("#room-light");
+  function loadLightAnalyzer(video: HTMLVideoElement, canvas: HTMLCanvasElement) {
+    const context = canvas.getContext("2d");
 
-    const canvasWidth: number = 10;
-    const canvasHeight: number = 10;
+    const canvasWidth = 10;
+    const canvasHeight = 10;
     canvas.width = canvasWidth;
     canvas.height = canvasHeight;
     draw(video, context, canvasWidth, canvasHeight);
 
-    function draw(vid: HTMLVideoElement, canv: CanvasRenderingContext2D | null, width: number, height: number): void {
+    function draw(vid: HTMLVideoElement, canv: CanvasRenderingContext2D | null, width: number, height: number) {
       if (vid.paused || vid.ended || !canv || !lightOutput) { return; }
       canv.drawImage(vid, 0, 0, width, height);
 
       const { data } = canv.getImageData(0, 0, width, height);
 
-      let sum: number = 0;
-      let counter: number = 0;
+      let sum = 0;
+      let counter = 0;
       for (let i = 0; i < data.length; i += 4) {
-        const r: number = data[i];
-        const g: number = data[i + 1];
-        const b: number = data[i + 2];
+        const r = data[i];
+        const g = data[i + 1];
+        const b = data[i + 2];
         sum += (r + g + b) / 3;
         counter++;
       }

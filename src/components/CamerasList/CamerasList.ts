@@ -1,7 +1,7 @@
 import Hls from "hls.js";
 
-export function initAllVideos(): void {
-  const URL: string = "http://194.87.239.193";
+export function initAllVideos() {
+  const URL = "http://194.87.239.193";
   if (!document.querySelector(".cameras")) { return; }
 
   initVideo(
