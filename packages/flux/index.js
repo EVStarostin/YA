@@ -20,9 +20,7 @@ function createStore(reducer, initialState) {
             return action;
         },
         subscribe(newListener) {
-            if (typeof newListener === "function") {
-                listeners = [...listeners, newListener];
-            }
+            listeners = [...listeners, newListener];
         },
         unsubscribe(oldListener) {
             listeners = listeners.filter((listener) => listener !== oldListener);

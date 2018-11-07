@@ -17,12 +17,10 @@ export function createStore<S, A>(reducer: (state: S, action: A) => S, initialSt
       listeners.forEach((listener) => listener());
       return action;
     },
-    subscribe(newListener: () => void): void {
-      if (typeof newListener === "function") {
-        listeners = [...listeners, newListener];
-      }
+    subscribe(newListener: () => void) {
+      listeners = [...listeners, newListener];
     },
-    unsubscribe(oldListener: () => void): void {
+    unsubscribe(oldListener: () => void) {
       listeners = listeners.filter((listener) => listener !== oldListener);
     },
   };
