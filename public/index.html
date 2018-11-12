@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta name="robots" content="noindex">
-  <title>Умный дом — Главная</title>
+  <title>Умный дом</title>
   <link rel="shortcut icon" href="favicon.ico">
   <link rel="stylesheet" href="style.css">
   <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
@@ -15,25 +15,14 @@
 <body>
   <div class="layout">
     <header class="header">
-      <a href="#"><img src="images/Logo.svg" alt="Логотип Яндекса" class="header__logo"></a>
-      <nav class="header__nav">
-        <ul class="menu" id="menu">
-          <li class="menu__item"><a href="#" class="menu__link menu__link_active">События</a></li>
-          <li class="menu__item"><a href="#" class="menu__link">Сводка</a></li>
-          <li class="menu__item"><a href="#" class="menu__link">Устройства</a></li>
-          <li class="menu__item"><a href="#" class="menu__link">Сценарии</a></li>
-          <li class="menu__item"><a href="video.html" class="menu__link">Видеонаблюдение</a></li>
-        </ul>
-      </nav>
+      <a href="#" class="header__logo"><img src="images/Logo.svg" alt="Логотип Яндекса"></a>
+      <nav class="header__nav"></nav>
       <button class="header__toggle-menu" id="toggle-menu">
         <img src="images/icon_list_m@1x.svg" alt="бургерное меню">
       </button>
     </header>
     <main class="content">
-      <div class="content__wrapper">
-        <h1 class="content__main-heading">Лента событий</h1>
-        <ul class="events-list" id="events"></ul>
-      </div>
+      <div class="content__wrapper"></div>
     </main>
     <footer class="footer">
       <ul class="footer-links">
@@ -107,6 +96,29 @@
       </div>
     </div>
   </template>
+
+  <template id="cameras-template">
+    <li class="cameras__item">
+      <video id="video-1" class="cameras__video" muted autoplay playsinline></video>
+    </li>
+    <div class="controls">
+      <div class="controls__sub-container">
+        <button class="controls__all-cameras">Все<br>камеры</button>
+        <div class="analyzer__wrapper">
+          <canvas class="analyzer" id="analyzer" width="200" height="50"></canvas>
+        </div>
+        <div id="room-light" class="controls__light-output">0%</div>
+      </div>
+      <label for="brightness" class="controls__brightness">Яркость
+        <input type="range" name="brightness" id="brightness" min="0" max="200">
+      </label>
+      <label for="contrast" class="controls__contrast">Контраст
+        <input type="range" name="contrast" id="contrast" min="0" max="200">
+      </label>
+    </div>
+  </template>
+
+  <div id="modal"></div>
   <script src="script.js"></script>
 </body>
 

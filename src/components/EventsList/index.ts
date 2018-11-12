@@ -1,3 +1,2 @@
 import "./EventsList.css";
-
-export { generateContent } from "./EventsList";
+export { renderEventsPage } from "./EventsList";

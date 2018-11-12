@@ -1,26 +1,26 @@
-import { Event, EventsData } from "Models/Event";
+import { handleGestures, truncateHeaders } from "Components/Event";
+import { Event } from "Models/Event";
+import { fetchEvents } from "Store/actions";
+import { store } from "Store/index";
 
-export async function generateContent() {
-  const DATA_URL = "http://194.87.239.193:8000/api/events";
+const contentNode: HTMLDivElement | null = document.querySelector(".content__wrapper");
 
-  let data: EventsData | null = null;
-  try {
-    const response = await fetch(DATA_URL);
-    data = await response.json();
-  } catch (error) {
-    /* tslint:disable-next-line:no-console */
-    console.error(error);
-  }
+function renderEventsList(events: Event[], content: HTMLDivElement) {
+  const heading = document.createElement("h1");
+  heading.classList.add("content__main-heading");
+  heading.innerText = "Лента событий";
+  content.appendChild(heading);
 
-  if (!data) { return; }
-
-  const eventsNode = document.querySelector<HTMLUListElement>("#events");
   const eventsTemplate = document.querySelector<HTMLTemplateElement>("#events-template");
 
-  if (!eventsNode || !eventsTemplate) { return; }
+  if (!eventsTemplate) { return; }
   const eventNode = eventsTemplate.content.querySelector<HTMLLIElement>(".event");
 
-  data.events.forEach((event) => {
+  const eventsList = document.createElement("ul");
+  eventsList.classList.add("events-list");
+  content.appendChild(eventsList);
+
+  events.forEach((event) => {
     let eventClone: HTMLLIElement | null = null;
     if (eventNode) {
       eventClone = document.importNode(eventNode, true);
@@ -115,6 +115,29 @@ export async function generateContent() {
       }
     }
 
-    eventsNode.appendChild(eventClone);
+    eventsList.appendChild(eventClone);
   });
+}
+
+function handleStateChange() {
+  const state = store.getState();
+  if (!contentNode || state.page !== "events") { return; }
+
+  if (state.errors && state.errors.length) {
+    contentNode.innerHTML = "";
+    contentNode.innerText = state.errors.join("\n");
+    return;
+  }
+
+  if (state.events) {
+    contentNode.innerHTML = "";
+    renderEventsList(state.events, contentNode);
+    truncateHeaders();
+    handleGestures();
+  }
+}
+
+export function renderEventsPage() {
+  fetchEvents();
+  store.subscribe(handleStateChange);
 }

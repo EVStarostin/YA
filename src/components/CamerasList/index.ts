@@ -1,3 +1,2 @@
 import "./CamerasList.css";
-
-export { initAllVideos } from "./CamerasList";
+export { renderCamerasPage } from "./CamerasList";

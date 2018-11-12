@@ -1,0 +1,21 @@
+{
+  "name": "flux",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "nyc mocha **/*.test.js",
+    "lint": "tslint src/**/*.ts --fix"
+  },
+  "author": "Evgenii Starostin",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/chai": "^4.1.7",
+    "@types/mocha": "^5.2.5",
+    "chai": "^4.2.0",
+    "mocha": "^5.2.0",
+    "nyc": "^13.1.0",
+    "tslint": "^5.11.0",
+    "typescript": "^3.1.6"
+  }
+}

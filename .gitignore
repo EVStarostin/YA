@@ -1,4 +1,5 @@
 node_modules/
+.nyc_output/
 public/style.css
 public/style.css.map
 public/script.js
